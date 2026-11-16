@@ -105,21 +105,40 @@
     .modal-header { padding: 16px 20px; font-weight: 700; font-size: 18px; color: #fff; text-align: center; }
     .modal-header.correct { background: #16a34a; }
     .modal-header.wrong { background: #e11d48; }
+
     .video-wrap {
-      background: #000;
+      background: #0d0d0f;
       width: 100%;
-      height: 270px;
+      height: 290px;
       overflow: hidden;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    video {
+    .video-wrap.bee-mode {
+      background: radial-gradient(circle at center, #3b3014 0%, #14120c 100%);
+    }
+    .video-wrap.bee-mode video {
+      width: auto;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.75);
+    }
+    .video-wrap.cat-mode {
+      background: #000;
+    }
+    .video-wrap.cat-mode video {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      object-position: center center;
     }
+
     .explanation-box { padding: 16px 20px; text-align: left; font-size: 14px; line-height: 1.55; color: #d4d4d8; }
     .correct-ans-note { color: #4ade80; font-weight: 600; margin-bottom: 8px; }
+    .wrong-ans-note { color: #fda4af; font-weight: 600; margin-bottom: 8px; }
     .explain-title { color: #facc15; font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px; }
     .modal-footer { padding: 0 20px 20px; }
     .btn-next {
@@ -161,12 +180,12 @@
   <div id="feedback-modal" class="modal-overlay hidden">
     <div class="modal-box">
       <div id="modal-header" class="modal-header"></div>
-      <div class="video-wrap">
+      <div id="video-wrap" class="video-wrap">
         <video id="feedback-video" playsinline></video>
       </div>
       <div class="explanation-box">
-        <div id="correct-ans-note" class="correct-ans-note"></div>
-        <div class="explain-title">📖 Giải thích theo vở ghi:</div>
+        <div id="ans-note" class="correct-ans-note"></div>
+        <div id="explain-title" class="explain-title"></div>
         <div id="explanation-text"></div>
       </div>
       <div class="modal-footer">
@@ -186,6 +205,7 @@
           "Sản xuất nguyên vật liệu thô"
         ],
         answer: 0,
+        hint: "Gợi ý: Phân phối giúp vận chuyển và đưa sản phẩm từ nơi sản xuất đến tay người mua.",
         explain: "Vai trò của việc phân phối trong Marketing là đưa sản phẩm tới thị trường mục tiêu, đưa sản phẩm từ nhà sản xuất tới người tiêu dùng cuối cùng."
       },
       {
@@ -197,18 +217,20 @@
           "Kênh phân phối quốc tế"
         ],
         answer: 1,
+        hint: "Gợi ý: Không qua trung gian, đi thẳng từ nhà sản xuất tới người tiêu dùng.",
         explain: "Hàng hóa lưu thông trực tiếp từ nhà sản xuất tới người tiêu dùng cuối cùng hoặc khách hàng doanh nghiệp gọi là kênh phân phối trực tiếp."
       },
       {
-        q: "Đâu là thành viên thuộc 'Nhóm thành viên chính' trong kênh phân phối?",
+        q: "Trong kênh phân phối, đối tượng nào trực tiếp sản xuất ra hàng hóa để cung cấp cho thị trường?",
         options: [
           "Ngân hàng thương mại",
           "Kho công cộng",
-          "Nhà bán buôn và nhà bán lẻ",
-          "Công ty bảo hiểm"
+          "Nhà sản xuất",
+          "Hãng vận tải"
         ],
         answer: 2,
-        explain: "Nhóm thành viên chính gồm: Nhà sản xuất, nhà bán buôn, nhà bán lẻ và đại lý. Ngân hàng hay kho công cộng thuộc nhóm đơn vị hỗ trợ."
+        hint: "Gợi ý: Là bên tạo ra sản phẩm ban đầu trong kênh phân phối.",
+        explain: "Nhà sản xuất (NSX) là thành viên chính tạo ra sản phẩm và cung cấp hàng hóa vào kênh phân phối."
       },
       {
         q: "Cơ sở nào tham gia bán hàng hóa trực tiếp cho người tiêu dùng cá nhân hoặc hộ gia đình?",
@@ -219,6 +241,7 @@
           "Hãng vận tải"
         ],
         answer: 0,
+        hint: "Gợi ý: Các cửa hàng, siêu thị bán trực tiếp từng món cho khách hàng cá nhân.",
         explain: "Nhà bán lẻ gồm tất cả các cơ sở tham gia bán hàng hóa cho người tiêu dùng cá nhân hoặc hộ gia đình."
       },
       {
@@ -230,6 +253,7 @@
           "Nhà bán buôn"
         ],
         answer: 1,
+        hint: "Gợi ý: Các đơn vị chuyên giao hàng, chuyển phát nhanh.",
         explain: "Hãng vận tải thực hiện dịch vụ vận chuyển, lưu thông hàng hóa trong kênh phân phối (Ví dụ: DHL, FedEx, TNT, UPS...)."
       },
       {
@@ -241,6 +265,7 @@
           "5 hình thức"
         ],
         answer: 1,
+        hint: "Gợi ý: Gồm hình thức công ty, hệ thống quản lý và theo hợp đồng.",
         explain: "Có 3 hình thức Marketing dọc: Hình thức công ty, Hệ thống quản lý, và Theo hợp đồng."
       },
       {
@@ -252,23 +277,28 @@
           "5 loại"
         ],
         answer: 1,
+        hint: "Gợi ý: Gồm mâu thuẫn theo chiều dọc, chiều ngang và đa kênh.",
         explain: "Bài học nêu rõ có 3 loại mâu thuẫn: Mâu thuẫn theo chiều dọc, mâu thuẫn theo chiều ngang, và mâu thuẫn đa kênh."
       }
     ];
 
     let currentIdx = 0;
     let score = 0;
+    let isLastAnswerCorrect = false;
+    let hasAttemptedCurrent = false;
     const letters = ["A", "B", "C", "D"];
 
     const startScreen = document.getElementById("start-screen");
     const quizScreen = document.getElementById("quiz-screen");
     const resultScreen = document.getElementById("result-screen");
     const modal = document.getElementById("feedback-modal");
+    const videoWrap = document.getElementById("video-wrap");
     const videoEl = document.getElementById("feedback-video");
 
     function startGame() {
       currentIdx = 0;
       score = 0;
+      hasAttemptedCurrent = false;
       startScreen.classList.add("hidden");
       resultScreen.classList.add("hidden");
       quizScreen.classList.remove("hidden");
@@ -296,39 +326,62 @@
 
     function checkAnswer(selectedIdx) {
       const qObj = questions[currentIdx];
-      const isCorrect = selectedIdx === qObj.answer;
+      isLastAnswerCorrect = selectedIdx === qObj.answer;
 
       const header = document.getElementById("modal-header");
-      const note = document.getElementById("correct-ans-note");
+      const note = document.getElementById("ans-note");
+      const explainTitle = document.getElementById("explain-title");
+      const explainText = document.getElementById("explanation-text");
       const nextBtn = document.getElementById("btn-next");
 
-      if (isCorrect) {
-        score += 10;
+      if (isLastAnswerCorrect) {
+        if (!hasAttemptedCurrent) {
+          score += 10;
+        } else {
+          score += 5;
+        }
         document.getElementById("score-display").textContent = score;
         header.className = "modal-header correct";
-        header.textContent = "🎉 Chính Xác! Ong Vàng Nháy Mắt (+10 điểm)";
+        header.textContent = !hasAttemptedCurrent
+          ? "🎉 Chính Xác! Ong Vàng Nháy Mắt (+10 điểm)"
+          : "🎉 Chính Xác Rồi! Ong Vàng Nháy Mắt (+5 điểm)";
+        note.className = "correct-ans-note";
         note.textContent = `✔ Đáp án đúng là ${letters[qObj.answer]}: ${qObj.options[qObj.answer]}`;
+        explainTitle.textContent = "📖 Giải thích theo vở ghi:";
+        explainText.textContent = qObj.explain;
         nextBtn.className = "btn-next correct";
+        nextBtn.textContent = currentIdx === questions.length - 1 ? "Xem Kết Quả →" : "Câu tiếp theo →";
+        videoWrap.className = "video-wrap bee-mode";
         videoEl.src = "video_1.mp4";
       } else {
+        hasAttemptedCurrent = true;
         header.className = "modal-header wrong";
         header.textContent = "😼 Sai Rồi! Mèo Vàng Đang Lườm Kìa!";
-        note.textContent = `✔ Đáp án đúng là ${letters[qObj.answer]}: ${qObj.options[qObj.answer]}`;
+        note.className = "wrong-ans-note";
+        note.textContent = `✖ Bạn chọn ${letters[selectedIdx]} chưa chính xác. Hãy thử chọn lại nhé!`;
+        explainTitle.textContent = "💡 Gợi ý cho bạn:";
+        explainText.textContent = qObj.hint;
         nextBtn.className = "btn-next wrong";
+        nextBtn.textContent = "↻ Làm lại câu này";
+        videoWrap.className = "video-wrap cat-mode";
         videoEl.src = "video_2.mp4";
       }
-
-      document.getElementById("explanation-text").textContent = qObj.explain;
-      nextBtn.textContent = currentIdx === questions.length - 1 ? "Xem Kết Quả →" : "Câu tiếp theo →";
 
       modal.classList.remove("hidden");
       videoEl.currentTime = 0;
       videoEl.play().catch(() => {});
     }
 
-    function nextQuestion() {
+    function handleModalAction() {
       videoEl.pause();
       modal.classList.add("hidden");
+
+      if (!isLastAnswerCorrect) {
+        // Giữ nguyên câu hiện tại để người chơi chọn lại
+        return;
+      }
+
+      hasAttemptedCurrent = false;
       currentIdx++;
       if (currentIdx < questions.length) {
         renderQuestion();
@@ -347,13 +400,13 @@
       } else if (score >= 40) {
         comment.textContent = "Khá tốt! Ôn lại thêm một chút phần phân loại kênh và xử lý mâu thuẫn là chuẩn bài.";
       } else {
-        comment.textContent = "Mèo vàng vẫn đang lườm đấy, đọc lại vở ghi Bài 7 rồi chơi lại nhé!";
+        comment.textContent = "Hoàn thành thử thách! Chơi lại một lượt nữa để đạt điểm tối đa nhé!";
       }
     }
 
     document.getElementById("btn-start").addEventListener("click", startGame);
     document.getElementById("btn-restart").addEventListener("click", startGame);
-    document.getElementById("btn-next").addEventListener("click", nextQuestion);
+    document.getElementById("btn-next").addEventListener("click", handleModalAction);
   </script>
 </body>
 </html>
