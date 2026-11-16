@@ -1,629 +1,238 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Game: Chiến Lược Phân Phối (Bài 7)</title>
-    <!-- Tải Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font chữ Be Vietnam Pro / Inter thân thiện, rõ nét tiếng Việt -->
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome cho biểu tượng -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 40%, #E0E7FF 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Game: Chiến Lược Phân Phối (Bài 7)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body {
+      background: radial-gradient(circle at top, #2a2414, #121212);
+      color: #f3f4f6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .card {
+      background: #1c1c1e;
+      border: 1px solid #333;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 680px;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      background: #2c2c30;
+      color: #facc15;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 32px; margin-bottom: 12px; color: #fff; }
+    .subtitle { color: #a1a1aa; font-size: 15px; line-height: 1.5; margin-bottom: 28px; }
+    .subtitle span { color: #facc15; font-weight: 600; }
+    .btn-primary {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35); }
+    .hidden { display: none !important; }
 
-        /* Hiệu ứng chuyển động mềm mại */
-        @keyframes popIn {
-            0% { transform: scale(0.85); opacity: 0; }
-            70% { transform: scale(1.03); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+    /* Quiz screen */
+    .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 14px; color: #a1a1aa; }
+    .score-pill { background: #27272a; color: #facc15; padding: 4px 12px; border-radius: 999px; font-weight: 700; }
+    .progress-bar { height: 6px; background: #27272a; border-radius: 999px; overflow: hidden; margin-bottom: 24px; }
+    .progress-fill { height: 100%; background: #f59e0b; width: 0%; transition: width 0.3s; }
+    .question-text { font-size: 20px; font-weight: 700; text-align: left; line-height: 1.45; margin-bottom: 20px; color: #fff; }
+    .options { display: flex; flex-direction: column; gap: 12px; }
+    .option-btn {
+      background: #27272a;
+      border: 1.5px solid #3f3f46;
+      color: #f4f4f5;
+      padding: 14px 18px;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s;
+    }
+    .option-btn:hover { border-color: #f59e0b; background: #2e2a20; }
+    .option-letter {
+      background: #3f3f46;
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
+    /* Modal Video Feedback */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px; z-index: 50;
+    }
+    .modal-box {
+      background: #1c1c1e;
+      border-radius: 20px;
+      width: 100%; max-width: 460px;
+      overflow: hidden;
+      border: 1px solid #333;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    }
+    .modal-header { padding: 16px 20px; font-weight: 700; font-size: 18px; color: #fff; text-align: center; }
+    .modal-header.correct { background: #16a34a; }
+    .modal-header.wrong { background: #e11d48; }
+    .video-wrap { background: #000; display: flex; justify-content: center; padding: 12px 0; }
+    video { max-height: 260px; max-width: 100%; border-radius: 10px; }
+    .explanation-box { padding: 16px 20px; text-align: left; font-size: 14px; line-height: 1.55; color: #d4d4d8; }
+    .correct-ans-note { color: #4ade80; font-weight: 600; margin-bottom: 8px; }
+    .explain-title { color: #facc15; font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px; }
+    .modal-footer { padding: 0 20px 20px; }
+    .btn-next {
+      width: 100%; padding: 13px; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 700; color: #fff; cursor: pointer;
+    }
+    .btn-next.correct { background: #16a34a; }
+    .btn-next.wrong { background: #e11d48; }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
-        }
-
-        .animate-pop {
-            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-shake {
-            animation: shake 0.4s ease-in-out;
-        }
-
-        /* Tùy chỉnh thanh cuộn */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.4);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #F59E0B;
-            border-radius: 9999px;
-        }
-
-        /* Hiệu ứng nút bấm nổi */
-        .btn-3d {
-            transition: all 0.15s ease;
-            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
-        }
-        .btn-3d:active:not(:disabled) {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
-        }
-
-        /* Khung video phản hồi */
-        .video-wrapper {
-            aspect-ratio: 9 / 16;
-            max-height: 290px;
-            width: auto;
-            margin: 0 auto;
-        }
-        @media (min-width: 640px) {
-            .video-wrapper {
-                max-height: 320px;
-            }
-        }
-    </style>
+    /* Result screen */
+    .result-score { font-size: 48px; font-weight: 800; color: #facc15; margin: 12px 0; }
+  </style>
 </head>
-<body class="flex items-center justify-center p-3 sm:p-6 text-slate-800">
+<body>
 
-    <!-- Container chính của Mini Game -->
-    <div class="w-full max-w-2xl bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-2 border-amber-200 overflow-hidden relative">
-        
-        <!-- Header luôn hiển thị khi chơi -->
-        <div id="game-header" class="hidden bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 px-5 py-4 text-slate-900 shadow-sm">
-            <div class="flex items-center justify-between gap-2 mb-2.5">
-                <div class="flex items-center gap-2 bg-white/90 px-3.5 py-1.5 rounded-full shadow-sm font-bold text-sm sm:text-base text-amber-800">
-                    <i class="fa-solid fa-list-check text-amber-500"></i>
-                    <span id="question-counter">Câu 1 / 7</span>
-                </div>
+  <!-- MÀN HÌNH BẮT ĐẦU (Đã xóa ong & 2 ô đỏ/xanh) -->
+  <div id="start-screen" class="card">
+    <div class="badge">ÔN TẬP MARKETING CĂN BẢN</div>
+    <h1>Bài 7: Chiến Lược Phân Phối</h1>
+    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> được tổng hợp từ vở ghi của bạn!</p>
+    <button class="btn-primary" onclick="startGame()">▶ Bắt Đầu Chơi Ngay</button>
+  </div>
 
-                <!-- Nút bật/tắt âm thanh video -->
-                <button id="mute-toggle-btn" onclick="toggleGlobalMute()" title="Bật/Tắt tiếng video" class="bg-white/90 hover:bg-white text-slate-700 px-3 py-1.5 rounded-full shadow-sm text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition cursor-pointer">
-                    <i id="mute-icon" class="fa-solid fa-volume-high text-amber-600"></i>
-                    <span id="mute-text" class="hidden sm:inline">Có tiếng</span>
-                </button>
-
-                <div class="flex items-center gap-2 bg-white/90 px-3.5 py-1.5 rounded-full shadow-sm font-bold text-sm sm:text-base text-emerald-700">
-                    <i class="fa-solid fa-star text-yellow-500"></i>
-                    <span>Điểm: <span id="score-display">0</span></span>
-                </div>
-            </div>
-
-            <!-- Thanh tiến độ -->
-            <div class="w-full bg-amber-900/20 h-3 rounded-full overflow-hidden p-0.5">
-                <div id="progress-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-500 ease-out" style="width: 14.28%"></div>
-            </div>
-        </div>
-
-        <!-- MÀN HÌNH 1: BẮT ĐẦU (START SCREEN) -->
-        <div id="start-screen" class="p-6 sm:p-10 text-center animate-pop">
-            <span class="inline-block bg-indigo-100 text-indigo-700 text-xs sm:text-sm font-bold px-3.5 py-1 rounded-full mb-4 uppercase tracking-wider">
-                Ôn Tập Marketing Căn Bản
-            </span>
-            <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 leading-tight">
-                Bài 7: Chiến Lược Phân Phối
-            </h1>
-            <p class="text-slate-600 text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
-                Thử thách kiến thức qua <strong class="text-amber-600">7 câu hỏi trắc nghiệm</strong> được tổng hợp từ vở ghi của bạn!
-            </p>
-
-            <button onclick="startGame()" class="btn-3d w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-lg rounded-2xl shadow-lg flex items-center justify-center gap-3 mx-auto cursor-pointer">
-                <i class="fa-solid fa-play"></i>
-                <span>Bắt Đầu Chơi Ngay</span>
-            </button>
-        </div>
-
-        <!-- MÀN HÌNH 2: CÂU HỎI (QUIZ SCREEN) -->
-        <div id="quiz-screen" class="hidden p-5 sm:p-8">
-            <div class="mb-6">
-                <span id="question-topic" class="inline-block bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full mb-2.5">
-                    Chủ đề
-                </span>
-                <h2 id="question-text" class="text-lg sm:text-xl font-bold text-slate-800 leading-snug">
-                    Nội dung câu hỏi sẽ hiển thị ở đây?
-                </h2>
-            </div>
-
-            <!-- Danh sách 4 đáp án A, B, C, D -->
-            <div id="options-container" class="space-y-3">
-                <!-- Các nút đáp án sẽ được tạo bằng JS -->
-            </div>
-        </div>
-
-        <!-- MÀN HÌNH 3: TỔNG KẾT (RESULT SCREEN) -->
-        <div id="result-screen" class="hidden p-6 sm:p-10 text-center animate-pop">
-            <div id="result-badge" class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-yellow-100 border-4 border-yellow-400 mb-4 text-5xl shadow-md animate-float">
-                🏆
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
-                Hoàn Thành Thử Thách!
-            </h2>
-            <p id="result-message" class="text-slate-600 text-sm sm:text-base mb-6">
-                Bạn đã nắm vững kiến thức Chiến lược phân phối!
-            </p>
-
-            <!-- Bảng thống kê kết quả -->
-            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 max-w-md mx-auto mb-7 grid grid-cols-3 gap-2">
-                <div class="p-2">
-                    <p class="text-xs text-slate-500 font-semibold uppercase">Tổng điểm</p>
-                    <p id="final-score" class="text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1">70</p>
-                </div>
-                <div class="p-2 border-x border-slate-200">
-                    <p class="text-xs text-slate-500 font-semibold uppercase">Số câu đúng</p>
-                    <p id="final-correct" class="text-2xl sm:text-3xl font-extrabold text-emerald-600 mt-1">7/7</p>
-                </div>
-                <div class="p-2">
-                    <p class="text-xs text-slate-500 font-semibold uppercase">Đánh giá</p>
-                    <p id="final-rank" class="text-lg sm:text-xl font-extrabold text-indigo-600 mt-1.5">Xuất sắc</p>
-                </div>
-            </div>
-
-            <!-- Xem lại tóm tắt nhanh các câu đã làm -->
-            <div class="text-left max-w-lg mx-auto mb-7">
-                <h3 class="text-sm font-bold text-slate-700 mb-2 flex items-center gap-1.5">
-                    <i class="fa-solid fa-clipboard-check text-amber-500"></i>
-                    Kết quả từng câu:
-                </h3>
-                <div id="review-list" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs sm:text-sm">
-                    <!-- Danh sách kết quả chi tiết -->
-                </div>
-            </div>
-
-            <button onclick="restartGame()" class="btn-3d w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-base sm:text-lg rounded-2xl shadow-lg flex items-center justify-center gap-2.5 mx-auto cursor-pointer">
-                <i class="fa-solid fa-rotate-right"></i>
-                <span>Chơi Lại Từ Đầu</span>
-            </button>
-        </div>
+  <!-- MÀN HÌNH CÂU HỎI -->
+  <div id="quiz-screen" class="card hidden">
+    <div class="quiz-header">
+      <span id="question-counter">Câu 1 / 7</span>
+      <span class="score-pill">Điểm: <span id="score-display">0</span></span>
     </div>
+    <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+    <div id="question-text" class="question-text"></div>
+    <div id="options-container" class="options"></div>
+  </div>
 
-    <!-- MODAL VIDEO PHẢN HỒI KHI CHỌN ĐÁP ÁN -->
-    <div id="feedback-modal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5">
-        <div id="feedback-card" class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 animate-pop">
-            
-            <!-- Tiêu đề trạng thái Đúng / Sai -->
-            <div id="feedback-banner" class="px-5 py-3.5 text-center font-extrabold text-lg sm:text-xl flex items-center justify-center gap-2">
-                <span id="feedback-icon">🎉</span>
-                <span id="feedback-title">Chính xác!</span>
-            </div>
+  <!-- MÀN HÌNH KẾT QUẢ -->
+  <div id="result-screen" class="card hidden">
+    <div class="badge">HOÀN THÀNH THỬ THÁCH</div>
+    <h1>Tổng Kết Điểm Số</h1>
+    <div class="result-score"><span id="final-score">0</span> / 70</div>
+    <p id="result-comment" class="subtitle"></p>
+    <button class="btn-primary" onclick="startGame()">↻ Chơi Lại Từ Đầu</button>
+  </div>
 
-            <!-- Khu vực phát Video phản hồi -->
-            <div class="p-4 sm:p-5 bg-slate-50">
-                <div class="video-wrapper rounded-2xl overflow-hidden bg-black shadow-lg relative border-2 border-slate-200 flex items-center justify-center">
-                    <!-- Thẻ video sử dụng đúng video_2.mp4 (đúng) và video_1.mp4 (sai) -->
-                    <video 
-                        id="reaction-video" 
-                        class="w-full h-full object-contain"
-                        autoplay 
-                        playsinline 
-                        controls
-                        loop>
-                        Trình duyệt của bạn không hỗ trợ phát video.
-                    </video>
-                </div>
-
-                <!-- Thông báo nhắc nhở & Giải thích bài học -->
-                <div id="explanation-box" class="mt-4 p-3.5 rounded-2xl border text-left">
-                    <p id="correct-answer-hint" class="hidden text-xs sm:text-sm font-bold text-rose-700 mb-1.5">
-                        <!-- Hiển thị đáp án đúng nếu người chơi chọn sai -->
-                    </p>
-                    <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
-                        <i class="fa-solid fa-book-open text-amber-500"></i> Giải thích theo vở ghi:
-                    </p>
-                    <p id="explanation-text" class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                        Nội dung giải thích chi tiết.
-                    </p>
-                </div>
-
-                <!-- Nút Câu tiếp theo -->
-                <button id="next-question-btn" onclick="nextQuestion()" class="btn-3d mt-4 w-full py-3.5 px-6 rounded-2xl font-extrabold text-white text-base sm:text-lg flex items-center justify-center gap-2 cursor-pointer">
-                    <span id="next-btn-text">Câu tiếp theo</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
+  <!-- POPUP VIDEO PHẢN HỒI -->
+  <div id="feedback-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div id="modal-header" class="modal-header"></div>
+      <div class="video-wrap">
+        <video id="feedback-video" playsinline></video>
+      </div>
+      <div class="explanation-box">
+        <div id="correct-ans-note" class="correct-ans-note"></div>
+        <div class="explain-title">📖 Giải thích theo vở ghi:</div>
+        <div id="explanation-text"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-next" class="btn-next" onclick="nextQuestion()">Câu tiếp theo →</button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Bộ 7 câu hỏi trắc nghiệm bám sát 100% nội dung "Bài 7: Chiến lược phân phối" trong 3 trang vở ghi
-        const quizData = [
-            {
-                topic: "Tổng quan & Phân loại kênh phân phối",
-                question: "Theo bài học, điểm khác biệt cơ bản giữa kênh phân phối trực tiếp và kênh phân phối gián tiếp là gì?",
-                options: [
-                    "Kênh trực tiếp chỉ bán cho doanh nghiệp, còn kênh gián tiếp chỉ bán cho cá nhân.",
-                    "Kênh gián tiếp có sự tham gia của các trung gian (đại lý cấp 1, nhà bán buôn, nhà bán lẻ), còn kênh trực tiếp lưu thông thẳng từ nhà sản xuất đến người tiêu dùng/khách hàng doanh nghiệp.",
-                    "Kênh trực tiếp bắt buộc phải thuê kho công cộng, còn kênh gián tiếp thì không.",
-                    "Kênh gián tiếp không đảm bảo lưu thông hàng hóa tới thị trường mục tiêu."
-                ],
-                correctIndex: 1,
-                explanation: "Trong kênh trực tiếp, hàng hóa lưu thông thẳng từ nhà sản xuất (NSX) tới người tiêu dùng cuối cùng hoặc KH doanh nghiệp. Trong kênh gián tiếp, hàng hóa được vận chuyển qua trung gian như đại lý cấp 1, nhà bán buôn, nhà bán lẻ."
-            },
-            {
-                topic: "Các thành viên của kênh phân phối",
-                question: "Sự khác nhau giữa 'Bán buôn có quyền sở hữu hàng hóa' và 'Đại lý của nhà sản xuất' là gì?",
-                options: [
-                    "Đại lý không sở hữu hàng hóa, chỉ thay mặt NSX tìm kiếm và thương lượng khách hàng để hưởng % hoa hồng.",
-                    "Đại lý chỉ bán hàng cho hộ gia đình, còn nhà bán buôn chỉ bán cho ngân hàng.",
-                    "Nhà bán buôn không bao giờ sở hữu hàng hóa và chỉ nhận lương cố định.",
-                    "Đại lý của nhà sản xuất thuộc nhóm đơn vị hỗ trợ chứ không thuộc nhóm thành viên chính."
-                ],
-                correctIndex: 0,
-                explanation: "Nhà bán buôn chia thành 2 loại: bán buôn có quyền sở hữu hàng hóa và đại lý của NSX (người thay mặt NSX tìm kiếm, thương lượng với khách hàng để tạo thuận lợi cho mua bán và hưởng % hoa hồng)."
-            },
-            {
-                topic: "Nhóm đơn vị hỗ trợ trong kênh",
-                question: "Đơn vị hỗ trợ nào giúp doanh nghiệp tiết kiệm chi phí đầu tư xây dựng kho bãi riêng bằng cách cho thuê không gian lưu trữ hàng tồn kho?",
-                options: [
-                    "Các tổ chức tài chính (ngân hàng thương mại, tổ chức tín dụng)",
-                    "Các hãng vận tải (DHL, FedEx, TNT, UPS...)",
-                    "Các kho công cộng",
-                    "Nhà bán lẻ"
-                ],
-                correctIndex: 2,
-                explanation: "Các kho công cộng cung cấp dịch vụ cho thuê không gian lưu trữ hàng tồn kho, giúp doanh nghiệp tiết kiệm chi phí và không cần tự đầu tư xây dựng kho bãi riêng."
-            },
-            {
-                topic: "Hệ thống Marketing dọc (VMS)",
-                question: "So với kênh Marketing thông thường, đặc điểm nổi bật của hệ thống Marketing dọc (VMS) là gì?",
-                options: [
-                    "Các thành viên hoạt động độc lập, rời rạc và mỗi bên tự tối đa hóa lợi nhuận riêng.",
-                    "Không có thành viên nào nắm quyền kiểm soát toàn bộ kênh nên rất dễ xảy ra mâu thuẫn.",
-                    "Các thành viên liên kết chặt chẽ như một thể thống nhất, hướng tới mục tiêu chung và có 1 thành viên chủ đạo điều phối/sở hữu/ràng buộc.",
-                    "Chỉ áp dụng cho các doanh nghiệp không sử dụng hãng vận tải."
-                ],
-                correctIndex: 2,
-                explanation: "Trong MKT dọc (VMS), các thành viên liên kết chặt chẽ như một thể thống nhất, tối ưu hóa hoạt động của toàn hệ thống nhờ có 1 thành viên chủ đạo điều phối, sở hữu hoặc ràng buộc nên hạn chế tối đa xung đột."
-            },
-            {
-                topic: "Các hình thức Marketing dọc & Thiết kế kênh",
-                question: "Có mấy hình thức hệ thống Marketing dọc (VMS) và quá trình thiết kế kênh phân phối gồm mấy bước?",
-                options: [
-                    "2 hình thức MKT dọc và 3 bước thiết kế kênh",
-                    "3 hình thức MKT dọc (công ty, hệ thống quản lý, theo hợp đồng) và 4 bước thiết kế kênh",
-                    "4 hình thức MKT dọc và 4 bước thiết kế kênh",
-                    "3 hình thức MKT dọc và 5 bước thiết kế kênh"
-                ],
-                correctIndex: 1,
-                explanation: "Có 3 hình thức MKT dọc: hình thức công ty, hệ thống quản lý, và theo hợp đồng. Quá trình thiết kế kênh phân phối gồm 4 bước."
-            },
-            {
-                topic: "Mâu thuẫn trong kênh phân phối",
-                question: "Theo bài học, đâu KHÔNG phải là nguyên nhân gây ra mâu thuẫn trong kênh phân phối?",
-                options: [
-                    "Do xung khắc về mục đích giữa các bên",
-                    "Vai trò của các thành viên không được xác định rõ ràng",
-                    "Sự khác biệt về nhận thức về thị trường",
-                    "Do doanh nghiệp sử dụng dịch vụ thanh toán của ngân hàng thương mại"
-                ],
-                correctIndex: 3,
-                explanation: "3 nguyên nhân chính gây mâu thuẫn trong kênh là: xung khắc về mục đích; vai trò của các thành viên không được xác định rõ ràng; và sự khác biệt về nhận thức về thị trường."
-            },
-            {
-                topic: "Xử lý mâu thuẫn trong kênh",
-                question: "Để giảm tối đa mâu thuẫn trong kênh phân phối, nhà sản xuất cần thực hiện những biện pháp nào?",
-                options: [
-                    "Đối thoại, thành lập hội đồng các đại lý, phân xử và hòa giải",
-                    "Cắt đứt hoàn toàn quan hệ với tất cả nhà bán buôn và nhà bán lẻ",
-                    "Tăng giá bán lẻ và giảm phần trăm hoa hồng của đại lý",
-                    "Chuyển toàn bộ hàng tồn kho sang kho công cộng"
-                ],
-                correctIndex: 0,
-                explanation: "Để xử lý và giảm tối đa mâu thuẫn, nhà sản xuất cần thực hiện các biện pháp: Đối thoại, Hội đồng các đại lý, Phân xử và hòa giải."
-            }
-        ];
-
-        // Trạng thái trò chơi
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let userAnswers = [];
-        let isMuted = false;
-
-        // Các phần tử DOM
-        const startScreen = document.getElementById('start-screen');
-        const quizScreen = document.getElementById('quiz-screen');
-        const resultScreen = document.getElementById('result-screen');
-        const gameHeader = document.getElementById('game-header');
-        
-        const questionCounter = document.getElementById('question-counter');
-        const scoreDisplay = document.getElementById('score-display');
-        const progressBar = document.getElementById('progress-bar');
-        const questionTopic = document.getElementById('question-topic');
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-
-        const feedbackModal = document.getElementById('feedback-modal');
-        const feedbackCard = document.getElementById('feedback-card');
-        const feedbackBanner = document.getElementById('feedback-banner');
-        const feedbackIcon = document.getElementById('feedback-icon');
-        const feedbackTitle = document.getElementById('feedback-title');
-        const reactionVideo = document.getElementById('reaction-video');
-        const explanationBox = document.getElementById('explanation-box');
-        const correctAnswerHint = document.getElementById('correct-answer-hint');
-        const explanationText = document.getElementById('explanation-text');
-        const nextQuestionBtn = document.getElementById('next-question-btn');
-        const nextBtnText = document.getElementById('next-btn-text');
-
-        // Bắt đầu chơi
-        function startGame() {
-            currentQuestionIndex = 0;
-            score = 0;
-            userAnswers = [];
-            scoreDisplay.textContent = score;
-
-            startScreen.classList.add('hidden');
-            resultScreen.classList.add('hidden');
-            gameHeader.classList.remove('hidden');
-            quizScreen.classList.remove('hidden');
-
-            renderQuestion();
-        }
-
-        // Chơi lại từ đầu
-        function restartGame() {
-            stopVideo();
-            feedbackModal.classList.add('hidden');
-            startGame();
-        }
-
-        // Bật / Tắt tiếng toàn cục cho video
-        function toggleGlobalMute() {
-            isMuted = !isMuted;
-            reactionVideo.muted = isMuted;
-            const icon = document.getElementById('mute-icon');
-            const text = document.getElementById('mute-text');
-            if (isMuted) {
-                icon.className = 'fa-solid fa-volume-xmark text-rose-500';
-                text.textContent = 'Tắt tiếng';
-            } else {
-                icon.className = 'fa-solid fa-volume-high text-amber-600';
-                text.textContent = 'Có tiếng';
-            }
-        }
-
-        // Hiển thị câu hỏi hiện tại
-        function renderQuestion() {
-            const currentQ = quizData[currentQuestionIndex];
-            const totalQ = quizData.length;
-
-            // Cập nhật thanh tiến độ & bộ đếm
-            questionCounter.textContent = `Câu ${currentQuestionIndex + 1} / ${totalQ}`;
-            const progressPercent = ((currentQuestionIndex + 1) / totalQ) * 100;
-            progressBar.style.width = `${progressPercent}%`;
-
-            // Cập nhật nội dung câu hỏi
-            questionTopic.textContent = `📌 ${currentQ.topic}`;
-            questionText.textContent = currentQ.question;
-
-            // Render 4 lựa chọn A, B, C, D
-            const labels = ['A', 'B', 'C', 'D'];
-            optionsContainer.innerHTML = '';
-
-            currentQ.options.forEach((optionText, index) => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'option-btn w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-amber-400 hover:bg-amber-50/70 transition-all duration-200 flex items-start gap-3.5 shadow-sm cursor-pointer group';
-                btn.onclick = () => handleSelectAnswer(index, btn);
-
-                btn.innerHTML = `
-                    <span class="flex-shrink-0 w-8 h-8 rounded-xl bg-amber-100 text-amber-800 group-hover:bg-amber-500 group-hover:text-white font-extrabold text-sm flex items-center justify-center transition-colors">
-                        ${labels[index]}
-                    </span>
-                    <span class="text-sm sm:text-base font-medium text-slate-700 group-hover:text-slate-900 pt-0.5 leading-snug">
-                        ${optionText}
-                    </span>
-                `;
-
-                optionsContainer.appendChild(btn);
-            });
-
-            // Hiệu ứng xuất hiện nhẹ cho khung câu hỏi
-            quizScreen.classList.remove('animate-pop');
-            void quizScreen.offsetWidth; // trigger reflow
-            quizScreen.classList.add('animate-pop');
-        }
-
-        // Xử lý khi người chơi chọn đáp án
-        function handleSelectAnswer(selectedIndex, clickedBtn) {
-            const currentQ = quizData[currentQuestionIndex];
-            const isCorrect = selectedIndex === currentQ.correctIndex;
-            const labels = ['A', 'B', 'C', 'D'];
-
-            // Khóa tất cả các nút đáp án để tránh bấm nhiều lần
-            const allButtons = optionsContainer.querySelectorAll('button');
-            allButtons.forEach((btn, idx) => {
-                btn.disabled = true;
-                btn.classList.remove('hover:border-amber-400', 'hover:bg-amber-50/70', 'cursor-pointer');
-                
-                if (idx === currentQ.correctIndex) {
-                    btn.classList.remove('border-slate-200', 'bg-white');
-                    btn.classList.add('border-emerald-500', 'bg-emerald-50');
-                    btn.querySelector('span:first-child').className = 'flex-shrink-0 w-8 h-8 rounded-xl bg-emerald-500 text-white font-extrabold text-sm flex items-center justify-center';
-                } else if (idx === selectedIndex && !isCorrect) {
-                    btn.classList.remove('border-slate-200', 'bg-white');
-                    btn.classList.add('border-rose-500', 'bg-rose-50', 'animate-shake');
-                    btn.querySelector('span:first-child').className = 'flex-shrink-0 w-8 h-8 rounded-xl bg-rose-500 text-white font-extrabold text-sm flex items-center justify-center';
-                } else {
-                    btn.classList.add('opacity-60');
-                }
-            });
-
-            // Cập nhật điểm và lịch sử
-            if (isCorrect) {
-                score += 10;
-                scoreDisplay.textContent = score;
-            }
-
-            userAnswers.push({
-                question: currentQ.question,
-                isCorrect: isCorrect,
-                selectedLabel: labels[selectedIndex],
-                correctLabel: labels[currentQ.correctIndex],
-                correctText: currentQ.options[currentQ.correctIndex]
-            });
-
-            // Hiển thị modal video phản hồi ngay sau 350ms để người chơi kịp nhìn thấy màu nút vừa chọn
-            setTimeout(() => {
-                showFeedbackModal(isCorrect, currentQ);
-            }, 350);
-        }
-
-        // Hiển thị Modal Video Ong vàng (Đúng) hoặc Mèo lườm (Sai)
-        function showFeedbackModal(isCorrect, questionObj) {
-            const labels = ['A', 'B', 'C', 'D'];
-
-            if (isCorrect) {
-                // ĐÚNG -> Video ong vàng nháy mắt (video_2.mp4)
-                feedbackCard.className = 'bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 border-emerald-400 animate-pop';
-                feedbackBanner.className = 'px-5 py-3.5 text-center font-extrabold text-lg sm:text-xl flex items-center justify-center gap-2 bg-emerald-500 text-white';
-                feedbackIcon.textContent = '🐝🎉';
-                feedbackTitle.textContent = 'Chính Xác! Ong Vàng Thả Tim!';
-                
-                explanationBox.className = 'mt-4 p-3.5 rounded-2xl border border-emerald-200 bg-emerald-50/70 text-left';
-                correctAnswerHint.classList.add('hidden');
-                
-                nextQuestionBtn.className = 'btn-3d mt-4 w-full py-3.5 px-6 rounded-2xl font-extrabold text-white text-base sm:text-lg flex items-center justify-center gap-2 cursor-pointer bg-emerald-500 hover:bg-emerald-600';
-
-                playReactionVideo('video_2.mp4');
-            } else {
-                // SAI -> Video mèo lườm (video_1.mp4)
-                feedbackCard.className = 'bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 border-rose-400 animate-pop';
-                feedbackBanner.className = 'px-5 py-3.5 text-center font-extrabold text-lg sm:text-xl flex items-center justify-center gap-2 bg-rose-500 text-white';
-                feedbackIcon.textContent = '😾👀';
-                feedbackTitle.textContent = 'Sai Rồi! Mèo Vàng Đang Lườm Kìa!';
-                
-                explanationBox.className = 'mt-4 p-3.5 rounded-2xl border border-rose-200 bg-rose-50/70 text-left';
-                correctAnswerHint.classList.remove('hidden');
-                correctAnswerHint.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Đáp án đúng là <strong>${labels[questionObj.correctIndex]}</strong>: ${questionObj.options[questionObj.correctIndex]}`;
-                
-                nextQuestionBtn.className = 'btn-3d mt-4 w-full py-3.5 px-6 rounded-2xl font-extrabold text-white text-base sm:text-lg flex items-center justify-center gap-2 cursor-pointer bg-rose-500 hover:bg-rose-600';
-
-                playReactionVideo('video_1.mp4');
-            }
-
-            explanationText.textContent = questionObj.explanation;
-
-            // Đổi chữ nút ở câu cuối cùng
-            if (currentQuestionIndex === quizData.length - 1) {
-                nextBtnText.textContent = 'Xem Kết Quả Tổng Kết';
-            } else {
-                nextBtnText.textContent = 'Câu tiếp theo';
-            }
-
-            feedbackModal.classList.remove('hidden');
-        }
-
-        // Phát video mượt mà với cơ chế fallback nếu trình duyệt chặn autoplay có tiếng
-        function playReactionVideo(videoSrc) {
-            reactionVideo.pause();
-            reactionVideo.src = videoSrc;
-            reactionVideo.muted = isMuted;
-            reactionVideo.currentTime = 0;
-
-            const playPromise = reactionVideo.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Nếu trình duyệt chặn tự động phát có tiếng, tạm thời tắt tiếng để video vẫn tự chạy mượt mà
-                    reactionVideo.muted = true;
-                    reactionVideo.play().catch(err => console.warn('Không thể tự động phát video:', err));
-                });
-            }
-        }
-
-        // Dừng video khi chuyển câu
-        function stopVideo() {
-            reactionVideo.pause();
-            reactionVideo.removeAttribute('src');
-            reactionVideo.load();
-        }
-
-        // Chuyển sang câu tiếp theo hoặc màn hình kết quả
-        function nextQuestion() {
-            stopVideo();
-            feedbackModal.classList.add('hidden');
-
-            if (currentQuestionIndex < quizData.length - 1) {
-                currentQuestionIndex++;
-                renderQuestion();
-            } else {
-                showResultScreen();
-            }
-        }
-
-        // Hiển thị màn hình tổng kết điểm số
-        function showResultScreen() {
-            quizScreen.classList.add('hidden');
-            gameHeader.classList.add('hidden');
-            resultScreen.classList.remove('hidden');
-
-            const totalQ = quizData.length;
-            const correctCount = userAnswers.filter(a => a.isCorrect).length;
-
-            document.getElementById('final-score').textContent = `${score}/${totalQ * 10}`;
-            document.getElementById('final-correct').textContent = `${correctCount}/${totalQ}`;
-
-            const resultBadge = document.getElementById('result-badge');
-            const resultMessage = document.getElementById('result-message');
-            const finalRank = document.getElementById('final-rank');
-
-            if (correctCount === totalQ) {
-                resultBadge.textContent = '👑';
-                finalRank.textContent = 'Bậc Thầy';
-                finalRank.className = 'text-lg sm:text-xl font-extrabold text-amber-600 mt-1.5';
-                resultMessage.textContent = 'Tuyệt vời! Bạn trả lời đúng cả 7/7 câu, ong vàng cực kỳ tự hào về bạn!';
-            } else if (correctCount >= 5) {
-                resultBadge.textContent = '🏆';
-                finalRank.textContent = 'Giỏi';
-                finalRank.className = 'text-lg sm:text-xl font-extrabold text-emerald-600 mt-1.5';
-                resultMessage.textContent = 'Rất tốt! Bạn đã nắm chắc phần lớn kiến thức Bài 7: Chiến lược phân phối.';
-            } else if (correctCount >= 3) {
-                resultBadge.textContent = '📚';
-                finalRank.textContent = 'Khá';
-                finalRank.className = 'text-lg sm:text-xl font-extrabold text-indigo-600 mt-1.5';
-                resultMessage.textContent = 'Khá ổn rồi! Xem lại một vài câu mèo lườm bên dưới để đạt điểm tối đa nhé.';
-            } else {
-                resultBadge.textContent = '😼';
-                finalRank.textContent = 'Cần Ôn Thêm';
-                finalRank.className = 'text-lg sm:text-xl font-extrabold text-rose-600 mt-1.5';
-                resultMessage.textContent = 'Mèo vàng lườm hơi nhiều rồi nha! Hãy đọc lại vở ghi và thử sức lại nhé.';
-            }
-
-            // Render danh sách tóm tắt kết quả từng câu
-            const reviewList = document.getElementById('review-list');
-            reviewList.innerHTML = '';
-
-            userAnswers.forEach((item, idx) => {
-                const row = document.createElement('div');
-                row.className = `p-3 rounded-xl border ${item.isCorrect ? 'bg-emerald-50/80 border-emerald-200' : 'bg-rose-50/80 border-rose-200'} flex items-start gap-2.5`;
-                row.innerHTML = `
-                    <span class="text-base mt-0.5">${item.isCorrect ? '🐝' : '😾'}</span>
-                    <div class="flex-1">
-                        <p class="font-bold text-slate-800">Câu ${idx + 1}: ${item.isCorrect ? '<span class="text-emerald-700">Đúng</span>' : `<span class="text-rose-700">Sai (Bạn chọn ${item.selectedLabel} - Đáp án: ${item.correctLabel})</span>`}</p>
-                        <p class="text-slate-600 line-clamp-1 mt-0.5">${item.question}</p>
-                    </div>
-                `;
-                reviewList.appendChild(row);
-            });
-        }
-    </script>
-</body>
-</html>
+  <script>
+    const questions = [
+      {
+        q: "Theo vở ghi, sự khác biệt cơ bản giữa kênh phân phối trực tiếp và kênh phân phối gián tiếp là gì?",
+        options: [
+          "Kênh trực tiếp chỉ bán cho khách hàng cá nhân, kênh gián tiếp bán cho doanh nghiệp",
+          "Kênh gián tiếp có sự tham gia của các trung gian (đại lý cấp 1, nhà bán buôn, nhà bán lẻ), còn kênh trực tiếp lưu thông thẳng từ nhà sản xuất đến người tiêu dùng/khách hàng doanh nghiệp",
+          "Kênh trực tiếp bắt buộc phải dùng kho công cộng, còn kênh gián tiếp thì không",
+          "Kênh gián tiếp do nhà sản xuất tự vận chuyển toàn bộ hàng hóa"
+        ],
+        answer: 1,
+        explain: "Trong kênh trực tiếp, hàng hóa lưu thông thẳng từ nhà sản xuất (NSX) tới người tiêu dùng cuối cùng hoặc KH doanh nghiệp. Trong kênh gián tiếp, hàng hóa được vận chuyển qua trung gian như đại lý cấp 1, nhà bán buôn, nhà bán lẻ."
+      },
+      {
+        q: "Trong các bên tham gia vào kênh phân phối, nhóm nào thuộc 'Nhóm thành viên chính'?",
+        options: [
+          "Nhà sản xuất, nhà bán buôn, nhà bán lẻ, đại lý",
+          "Các tổ chức tài chính, ngân hàng thương mại",
+          "Các kho công cộng và hãng vận tải",
+          "Các công ty quảng cáo và nghiên cứu thị trường"
+        ],
+        answer: 0,
+        explain: "Nhóm thành viên chính bao gồm: Nhà sản xuất (NSX), nhà bán buôn, nhà bán lẻ và đại lý. Các tổ chức tài chính, kho công cộng, hãng vận tải thuộc nhóm đơn vị hỗ trợ."
+      },
+      {
+        q: "Điểm khác nhau cốt lõi giữa 'Nhà bán buôn' và 'Đại lý của nhà sản xuất' là gì?",
+        options: [
+          "Nhà bán buôn chỉ bán cho cá nhân, còn đại lý bán cho tổ chức",
+          "Nhà bán buôn không được hưởng hoa hồng, còn đại lý sở hữu toàn bộ hàng hóa",
+          "Nhà bán buôn có quyền sở hữu hàng hóa, còn đại lý không có quyền sở hữu hàng hóa mà chỉ thay mặt NSX tìm kiếm, thương lượng KH để hưởng % hoa hồng",
+          "Đại lý phải tự bỏ vốn đầu tư kho bãi riêng, còn nhà bán buôn thì không"
+        ],
+        answer: 2,
+        explain: "Nhà bán buôn có quyền sở hữu hàng hóa. Đại lý của NSX là người thay mặt cho NSX tìm kiếm và thương lượng với KH để tạo điều kiện cho quá trình mua bán thuận lợi, đổi lại họ không có quyền sở hữu hàng hóa mà được hưởng % hoa hồng từ giá bán."
+      },
+      {
+        q: "Đơn vị hỗ trợ nào cho thuê không gian lưu trữ hàng tồn kho, giúp doanh nghiệp tiết kiệm chi phí mà không cần tự đầu tư xây dựng kho bãi riêng?",
+        options: [
+          "Các tổ chức tín dụng trung gian",
+          "Các kho công cộng",
+          "Các nhà bán lẻ độc lập",
+          "Hệ thống đại lý cấp 1"
+        ],
+        answer: 1,
+        explain: "Các kho công cộng cung cấp dịch vụ cho thuê không gian lưu trữ hàng tồn kho, giúp doanh nghiệp tiết kiệm chi phí và không cần tự đầu tư xây dựng kho bãi riêng."
+      },
+      {
+        q: "So với kênh Marketing thông thường, đặc điểm nổi bật của Hệ thống Marketing dọc (VMS) là gì?",
+        options: [
+          "Các thành viên hoạt động độc lập, rời rạc và tự tối đa hóa lợi nhuận riêng",
+          "Không có thành viên nào nắm quyền kiểm soát toàn bộ kênh nên dễ xảy ra mâu thuẫn",
+          "Các thành viên liên kết chặt chẽ như một thể thống nhất, hướng tới mục tiêu chung và có một thành viên chủ đạo điều phối để hạn chế tối đa xung đột",
+          "Chỉ áp dụng cho các doanh nghiệp vận tải quốc tế như DHL, FedEx"
+        ],
+        answer: 2,
+        explain: "Trong hệ thống MKT dọc, các thành viên liên kết chặt chẽ hoạt động như một thể thống nhất, hướng tới mục tiêu chung để tối ưu hóa hoạt động của toàn hệ thống, có 1 thành viên chủ đạo điều phối (sở hữu hoặc ràng buộc) giúp hạn chế tối đa xung đột."
+      },
+      {
+        q: "Hệ thống Marketing dọc (VMS) bao gồm 3 hình thức nào sau đây?",
+        options: [
+          "Chiều dọc, chiều ngang và đa kênh",
+          "Hình thức công ty, hệ thống quản lý và theo hợp đồng",
+          "Bán buôn, bán lẻ và đại lý",
+          "Đối thoại, hội đồng đại lý và phân xử hòa
