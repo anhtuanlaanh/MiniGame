@@ -235,4 +235,119 @@
           "Chiều dọc, chiều ngang và đa kênh",
           "Hình thức công ty, hệ thống quản lý và theo hợp đồng",
           "Bán buôn, bán lẻ và đại lý",
-          "Đối thoại, hội đồng đại lý và phân xử hòa
+          "Đối thoại, hội đồng đại lý và phân xử hòa giải"
+        ],
+        answer: 1,
+        explain: "Có 3 hình thức MKT dọc được ghi trong bài: Hình thức công ty, Hệ thống quản lý, và Theo hợp đồng."
+      },
+      {
+        q: "Để giảm tối đa và xử lý mâu thuẫn trong kênh phân phối, nhà sản xuất cần thực hiện những biện pháp nào?",
+        options: [
+          "Cắt giảm hoa hồng và loại bỏ toàn bộ các nhà bán lẻ",
+          "Tăng giá bán buôn và ngừng cung cấp hàng cho đại lý",
+          "Đối thoại, thành lập hội đồng các đại lý, phân xử và hòa giải",
+          "Chuyển toàn bộ sang bán hàng trực tiếp và đóng cửa kho công cộng"
+        ],
+        answer: 2,
+        explain: "Để giảm tối đa mâu thuẫn, nhà sản xuất cần thực hiện các biện pháp: Đối thoại, thành lập hội đồng các đại lý, và phân xử & hòa giải."
+      }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    const letters = ["A", "B", "C", "D"];
+
+    const startScreen = document.getElementById("start-screen");
+    const quizScreen = document.getElementById("quiz-screen");
+    const resultScreen = document.getElementById("result-screen");
+    const modal = document.getElementById("feedback-modal");
+    const videoEl = document.getElementById("feedback-video");
+
+    function startGame() {
+      currentIdx = 0;
+      score = 0;
+      startScreen.classList.add("hidden");
+      resultScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const qObj = questions[currentIdx];
+      document.getElementById("question-counter").textContent = `Câu ${currentIdx + 1} / ${questions.length}`;
+      document.getElementById("score-display").textContent = score;
+      document.getElementById("progress-fill").style.width = `${((currentIdx) / questions.length) * 100}%`;
+      document.getElementById("question-text").textContent = qObj.q;
+
+      const container = document.getElementById("options-container");
+      container.innerHTML = "";
+      qObj.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt}</span>`;
+        btn.onclick = () => checkAnswer(idx);
+        container.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selectedIdx) {
+      const qObj = questions[currentIdx];
+      const isCorrect = selectedIdx === qObj.answer;
+
+      const header = document.getElementById("modal-header");
+      const note = document.getElementById("correct-ans-note");
+      const nextBtn = document.getElementById("btn-next");
+
+      if (isCorrect) {
+        score += 10;
+        document.getElementById("score-display").textContent = score;
+        header.className = "modal-header correct";
+        header.textContent = "🎉 Chính Xác! Ong Vàng Nháy Mắt (+10 điểm)";
+        note.textContent = `✔ Đáp án đúng là ${letters[qObj.answer]}: ${qObj.options[qObj.answer]}`;
+        nextBtn.className = "btn-next correct";
+        // Đã đảo sang video_1.mp4 cho đáp án ĐÚNG
+        videoEl.src = "video_1.mp4";
+      } else {
+        header.className = "modal-header wrong";
+        header.textContent = "😼 Sai Rồi! Mèo Vàng Đang Lườm Kìa!";
+        note.textContent = `✔ Đáp án đúng là ${letters[qObj.answer]}: ${qObj.options[qObj.answer]}`;
+        nextBtn.className = "btn-next wrong";
+        // Đã đảo sang video_2.mp4 cho đáp án SAI
+        videoEl.src = "video_2.mp4";
+      }
+
+      document.getElementById("explanation-text").textContent = qObj.explain;
+      nextBtn.textContent = currentIdx === questions.length - 1 ? "Xem Kết Quả →" : "Câu tiếp theo →";
+
+      modal.classList.remove("hidden");
+      videoEl.currentTime = 0;
+      videoEl.play().catch(() => {});
+    }
+
+    function nextQuestion() {
+      videoEl.pause();
+      modal.classList.add("hidden");
+      currentIdx++;
+      if (currentIdx < questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      quizScreen.classList.add("hidden");
+      resultScreen.classList.remove("hidden");
+      document.getElementById("final-score").textContent = score;
+      const comment = document.getElementById("result-comment");
+      if (score >= 60) {
+        comment.textContent = "Xuất sắc! Bạn đã nắm rất chắc toàn bộ kiến thức Bài 7: Chiến lược phân phối.";
+      } else if (score >= 40) {
+        comment.textContent = "Khá tốt! Ôn lại thêm một chút phần phân loại kênh và xử lý mâu thuẫn là chuẩn bài.";
+      } else {
+        comment.textContent = "Mèo vàng vẫn đang lườm đấy, đọc lại vở ghi Bài 7 rồi chơi lại nhé!";
+      }
+    }
+  </script>
+</body>
+</html>
