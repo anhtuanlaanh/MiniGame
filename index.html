@@ -103,7 +103,7 @@
       flex-shrink: 0;
     }
 
-    /* Nút vuông ở góc dưới bên phải màn hình */
+    /* Nút vuông ở góc dưới bên phải */
     .corner-dock {
       position: fixed;
       right: 20px;
@@ -135,8 +135,7 @@
       box-shadow: 0 14px 30px rgba(245, 158, 11, 0.65);
     }
     .square-btn .sq-icon { font-size: 26px; line-height: 1; }
-    .square-btn .sq-label { font-size: 11px; font-weight: 800; letter-spacing: 0.2px; text-align: center; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-
+    .square-btn .sq-label { font-size: 11px; font-weight: 800; text-align: center; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
     .square-btn.secondary {
       width: 74px;
       height: 44px;
@@ -147,60 +146,59 @@
     }
     .square-btn.secondary:hover { background: #3f3f46; }
 
-    /* POPUP TRÒ CHƠI TRẨY XOÀI CHẤM MUỐI ỚT GIỐNG VIDEO */
+    /* =====================================================================
+       SÂN KHẤU HOẠT HÌNH TRẨY XOÀI CHẤM MUỐI ỚT (ĐÚNG TỪNG CHI TIẾT VIDEO)
+       ===================================================================== */
     .mango-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 10px;
       z-index: 60;
     }
-    .mango-game-box {
+    .mango-viewport {
       width: 100%;
-      max-width: 920px;
-      height: min(600px, 92vh);
-      border-radius: 22px;
+      max-width: 1040px;
+      aspect-ratio: 16 / 9;
+      max-height: 92vh;
+      border-radius: 20px;
       overflow: hidden;
       position: relative;
-      border: 2px solid #78350f;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
-      background: linear-gradient(180deg, #7dd3fc 0%, #bae6fd 42%, #fde68a 66%, #d97706 72%, #92400e 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      border: 2.5px solid #92400e;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95);
+      background: #87ceeb;
       user-select: none;
     }
 
-    /* Thanh trên cùng trong game trẩy xoài */
-    .mango-top-bar {
-      position: relative;
-      z-index: 15;
+    /* Thanh điều khiển nổi gọn gàng góc trên */
+    .mango-hud {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      right: 14px;
+      z-index: 30;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 18px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.55), transparent);
+      pointer-events: none;
     }
-    .mango-title-badge {
-      background: #fef08a;
+    .mango-hud > * { pointer-events: auto; }
+    .hud-pill {
+      background: rgba(254, 249, 195, 0.94);
       color: #78350f;
       font-weight: 900;
-      font-size: 14px;
+      font-size: 13px;
       padding: 6px 14px;
       border-radius: 999px;
       border: 2px solid #b45309;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
-    .mango-controls {
-      display: flex;
-      gap: 8px;
-    }
-    .btn-mango-act {
-      background: #ef4444;
+    .hud-btns { display: flex; gap: 8px; }
+    .btn-hud {
+      background: #dc2626;
       color: #fff;
       border: 2px solid #fecaca;
       padding: 7px 14px;
@@ -208,309 +206,276 @@
       font-weight: 800;
       font-size: 13px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
-    .btn-mango-act.orange {
+    .btn-hud.gold {
       background: linear-gradient(135deg, #f59e0b, #ea580c);
-      border-color: #fde047;
+      border-color: #fef08a;
     }
-    .btn-mango-act:hover { transform: scale(1.04); }
+    .btn-hud:hover { transform: scale(1.04); }
 
-    /* Cảnh cây xoài cổ thụ & tán lá */
-    .tree-scene {
+    /* Nền SVG toàn cảnh làng quê, cây xoài cổ thụ, nhà mái ngói, sân đất */
+    .scene-bg-svg {
       position: absolute;
       inset: 0;
-      overflow: hidden;
-    }
-    /* Nắng sân quê */
-    .sun-glow {
-      position: absolute;
-      top: -40px;
-      left: 8%;
-      width: 240px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(254,240,138,0.85) 0%, rgba(254,240,138,0) 70%);
-      pointer-events: none;
-    }
-    /* Ngôi nhà ngói bên trái giống video */
-    .village-house {
-      position: absolute;
-      left: 2%;
-      bottom: 24%;
-      width: 170px;
-      height: 110px;
-      pointer-events: none;
-      opacity: 0.92;
-    }
-    /* Thân cây cổ thụ bên phải */
-    .tree-trunk {
-      position: absolute;
-      right: 18%;
-      bottom: 20%;
-      width: 135px;
-      height: 230px;
-      background: linear-gradient(90deg, #451a03, #78350f 45%, #451a03);
-      border-radius: 30px 30px 10px 10px;
-      box-shadow: inset -12px 0 20px rgba(0,0,0,0.6);
-      z-index: 2;
-    }
-    .tree-trunk::before {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      left: -35px;
-      width: 205px;
-      height: 36px;
-      background: radial-gradient(ellipse at center, #78350f 30%, #451a03 80%, transparent 100%);
-      border-radius: 50%;
-    }
-    /* Tán lá xanh khổng lồ phủ nửa trên màn hình */
-    .tree-canopy {
-      position: absolute;
-      top: -35px;
-      left: -5%;
-      right: -5%;
-      height: 58%;
-      background:
-        radial-gradient(circle at 20% 45%, #15803d 0%, #166534 55%, transparent 72%),
-        radial-gradient(circle at 50% 35%, #22c55e 0%, #15803d 55%, transparent 75%),
-        radial-gradient(circle at 80% 45%, #16a34a 0%, #14532d 60%, transparent 75%),
-        linear-gradient(180deg, #14532d 0%, #166534 75%, transparent 100%);
-      z-index: 3;
-      transition: transform 0.08s;
-    }
-    .tree-canopy.shaking {
-      animation: canopyShake 0.14s infinite alternate;
-    }
-    @keyframes canopyShake {
-      0% { transform: translate(-4px, -2px) rotate(-0.5deg); }
-      100% { transform: translate(4px, 2px) rotate(0.5deg); }
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
     }
 
-    /* Lưới treo các quả xoài vàng có mặt cười + bảng tên */
-    .mango-grid {
+    /* Tán cây rung lắc khi chưởng */
+    .canopy-shaking {
+      animation: treeViolentShake 0.11s infinite alternate;
+      transform-origin: 62% 35%;
+    }
+    @keyframes treeViolentShake {
+      0% { transform: translate(-6px, -3px) rotate(-0.8deg); }
+      100% { transform: translate(6px, 3px) rotate(0.8deg); }
+    }
+
+    /* Các quả xoài treo trên cành cây */
+    .mango-tree-layer {
       position: absolute;
-      top: 52px;
-      left: 3%;
+      top: 7%;
+      left: 16%;
       right: 3%;
-      height: 48%;
-      z-index: 6;
+      height: 46%;
+      z-index: 8;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-content: flex-start;
-      gap: 6px 8px;
-      padding: 4px;
+      gap: 4px 7px;
+      pointer-events: auto;
     }
-    .mango-item {
+    .mango-node {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 76px;
+      width: 68px;
       cursor: pointer;
-      transition: transform 0.15s;
-      animation: mangoSway 2.4s ease-in-out infinite alternate;
+      transform-origin: top center;
+      animation: gentleBreeze 2.6s ease-in-out infinite alternate;
     }
-    .mango-item:nth-child(odd) { animation-delay: 0.4s; }
-    .mango-item:nth-child(3n) { animation-delay: 0.9s; }
-    @keyframes mangoSway {
+    .mango-node:nth-child(2n) { animation-delay: 0.5s; }
+    .mango-node:nth-child(3n) { animation-delay: 1.1s; }
+    @keyframes gentleBreeze {
       0% { transform: rotate(-4deg); }
       100% { transform: rotate(4deg); }
     }
-    .mango-item.shaking-hard {
-      animation: mangoShakeHard 0.1s infinite alternate !important;
+    .mango-node.hard-shake {
+      animation: mangoPanicShake 0.09s infinite alternate !important;
     }
-    @keyframes mangoShakeHard {
-      0% { transform: rotate(-16deg) scale(1.06); }
-      100% { transform: rotate(16deg) scale(1.06); }
+    @keyframes mangoPanicShake {
+      0% { transform: rotate(-20deg) scale(1.08); }
+      100% { transform: rotate(20deg) scale(1.08); }
     }
-    /* Quả xoài vàng mặt cười chibi */
-    .mango-fruit {
-      width: 34px;
-      height: 40px;
-      background: radial-gradient(circle at 35% 30%, #fef08a, #facc15 55%, #eab308 90%);
-      border: 1.5px solid #a16207;
-      border-radius: 55% 45% 50% 50% / 60% 60% 40% 40%;
+
+    .mango-body {
+      width: 32px;
+      height: 38px;
+      background: radial-gradient(circle at 32% 28%, #fef9c3, #facc15 55%, #ca8a04 95%);
+      border: 1.5px solid #854d0e;
+      border-radius: 52% 48% 48% 52% / 58% 58% 42% 42%;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.35);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.4);
     }
-    /* Cuống lá nhỏ trên đầu quả xoài */
-    .mango-fruit::before {
+    .mango-body::before {
       content: "";
       position: absolute;
-      top: -6px;
-      right: 8px;
+      top: -5px;
+      right: 7px;
       width: 10px;
-      height: 6px;
-      background: #16a34a;
+      height: 5px;
+      background: #15803d;
       border-radius: 8px 0 8px 0;
       transform: rotate(-20deg);
     }
-    .mango-face {
-      font-size: 11px;
+    .mango-face-txt {
+      font-size: 10px;
       font-weight: 900;
       color: #713f12;
-      line-height: 1;
       margin-top: 2px;
     }
-    /* Bảng tên trắng viền xanh dưới mỗi quả xoài giống y video */
-    .mango-tag {
-      background: rgba(255, 255, 255, 0.95);
-      color: #1e293b;
-      font-size: 9.5px;
+    .mango-nameplate {
+      background: rgba(255, 255, 255, 0.96);
+      color: #0f172a;
+      font-size: 9px;
       font-weight: 800;
-      padding: 1.5px 5px;
-      border-radius: 4px;
-      border: 1px solid #64748b;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid #475569;
       margin-top: -2px;
-      max-width: 76px;
+      max-width: 68px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.45);
     }
 
-    /* Hai nhân vật hoạt hình + tờ giấy muối ớt ở sân dưới */
-    .ground-stage {
+    /* Tờ giấy trắng đổ bột canh muối ớt ở giữa sân dưới */
+    .salt-sheet-wrap {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 36%;
-      background: linear-gradient(180deg, #d97706 0%, #b45309 60%, #78350f 100%);
-      border-top: 3px solid #92400e;
-      z-index: 5;
-    }
-
-    /* Tờ giấy trắng đổ bột canh muối ớt ở giữa sân */
-    .chili-salt-paper {
-      position: absolute;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%) perspective(220px) rotateX(48deg);
-      width: 150px;
-      height: 95px;
-      background: #f8fafc;
-      border: 2px solid #cbd5e1;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+      bottom: 7%;
+      left: 44%;
+      transform: translateX(-50%);
+      width: 155px;
+      height: 85px;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 6;
     }
-    .chili-salt-pile {
-      width: 96px;
-      height: 58px;
-      background: radial-gradient(circle at 50% 45%, #ef4444 15%, #f97316 55%, #fed7aa 88%, transparent 100%);
-      border-radius: 50%;
-      filter: contrast(1.25);
-      transition: transform 0.4s;
-    }
-
-    /* Cậu bé áo đỏ bên trái & bạn nữ áo vàng bên phải */
-    .kid-boy {
-      position: absolute;
-      bottom: 24px;
-      left: 24%;
-      z-index: 8;
+    .salt-paper {
+      width: 140px;
+      height: 68px;
+      background: #f8fafc;
+      border: 2px solid #94a3b8;
+      transform: skewX(-18deg);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.45);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      transition: transform 0.2s;
-    }
-    .kid-girl {
-      position: absolute;
-      bottom: 24px;
-      right: 24%;
-      z-index: 8;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .speech-bubble {
-      background: #fff;
-      color: #0f172a;
-      font-size: 11.5px;
-      font-weight: 800;
-      padding: 6px 10px;
-      border-radius: 12px;
-      border: 2px solid #0f172a;
-      margin-bottom: 6px;
-      white-space: nowrap;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+      justify-content: center;
       position: relative;
     }
-    .speech-bubble::after {
+    .salt-mound {
+      width: 88px;
+      height: 44px;
+      background: radial-gradient(circle at 50% 42%, #dc2626 10%, #ea580c 48%, #fdba74 82%, transparent 100%);
+      border-radius: 50%;
+      transform: scale(0.2);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
+    }
+    .salt-mound.poured {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    /* Hai nhân vật hoạt hình cậu bé áo đỏ & bạn nữ áo vàng */
+    .char-boy {
+      position: absolute;
+      bottom: 9%;
+      left: 25%;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.25s;
+    }
+    .char-girl {
+      position: absolute;
+      bottom: 9%;
+      right: 32%;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.25s;
+    }
+    .char-jump {
+      animation: charCheerJump 0.45s ease-in-out infinite alternate;
+    }
+    @keyframes charCheerJump {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    /* Bong bóng thoại trắng viền đen giống truyện tranh trong video */
+    .comic-bubble {
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 12px;
+      border: 2px solid #0f172a;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      position: relative;
+      transition: opacity 0.2s;
+    }
+    .comic-bubble::after {
       content: "";
       position: absolute;
-      bottom: -7px;
+      bottom: -6px;
       left: 50%;
       transform: translateX(-50%);
-      border-width: 7px 6px 0;
+      border-width: 6px 5px 0;
       border-style: solid;
       border-color: #0f172a transparent transparent;
     }
 
-    /* Hiệu ứng chữ võ công chưởng cây xoài: LĂNG BA VI BỘ / HÂY-A! */
-    .kungfu-text {
+    /* Chữ võ công lớn bay trên màn hình: LĂNG BA VI BỘ! / HÂY-A! */
+    .kungfu-banner {
       position: absolute;
-      top: 32%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.5);
-      font-size: 40px;
+      top: 34%;
+      left: 54%;
+      transform: translate(-50%, -50%) scale(0.4);
+      font-size: 44px;
       font-weight: 900;
-      color: #fef08a;
-      text-shadow: 0 0 12px #ef4444, 3px 3px 0 #7f1d1d, -2px -2px 0 #7f1d1d;
-      z-index: 20;
+      font-style: italic;
+      color: #fde047;
+      text-shadow: 0 0 16px #dc2626, 3px 3px 0 #7f1d1d, -2px -2px 0 #7f1d1d;
+      z-index: 22;
       pointer-events: none;
       opacity: 0;
-      transition: all 0.2s;
+      transition: all 0.18s;
       white-space: nowrap;
     }
-    .kungfu-text.show {
+    .kungfu-banner.active {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1.1);
+      transform: translate(-50%, -50%) scale(1.08);
     }
 
-    /* Quả xoài rụng BỊCH xuống đất */
-    .fallen-mango-stage {
+    /* Quả xoài rụng BỊCH xuống đất & thẻ tên người được chọn */
+    .drop-result-layer {
       position: absolute;
-      bottom: 26px;
-      left: 50%;
-      transform: translateX(-50%);
+      inset: 0;
       z-index: 25;
+      pointer-events: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: dropBich 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      justify-content: flex-end;
+      padding-bottom: 16px;
     }
-    @keyframes dropBich {
-      0% { transform: translate(-50%, -260px) scale(0.8) rotate(-25deg); opacity: 0.4; }
-      75% { transform: translate(-50%, 6px) scale(1.25) rotate(8deg); opacity: 1; }
-      100% { transform: translate(-50%, 0) scale(1.15) rotate(0deg); opacity: 1; }
+    .falling-mango-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 8px;
+      animation: mangoFallImpact 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-    .bich-sfx {
-      font-size: 32px;
+    @keyframes mangoFallImpact {
+      0% { transform: translateY(-290px) rotate(-35deg) scale(0.8); opacity: 0; }
+      75% { transform: translateY(8px) rotate(12deg) scale(1.25); opacity: 1; }
+      100% { transform: translateY(0) rotate(0deg) scale(1.15); opacity: 1; }
+    }
+    .sfx-bich {
+      font-size: 36px;
       font-weight: 900;
-      color: #fde047;
-      text-shadow: 2px 2px 0 #991b1b, -2px -2px 0 #991b1b;
-      margin-bottom: 4px;
+      color: #fef08a;
+      text-shadow: 3px 3px 0 #991b1b, -2px -2px 0 #991b1b;
+      letter-spacing: 1px;
     }
-    .winner-card-popup {
+    .picked-panel {
+      pointer-events: auto;
       background: rgba(24, 24, 27, 0.94);
       border: 2.5px solid #facc15;
       border-radius: 16px;
-      padding: 12px 20px;
+      padding: 12px 22px;
       text-align: center;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.75);
-      margin-top: 6px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.85);
     }
-    .winner-card-popup .w-sub { font-size: 12px; color: #fde047; font-weight: 700; }
-    .winner-card-popup .w-name { font-size: 22px; color: #fff; font-weight: 900; margin: 4px 0 10px; }
-    .winner-btns { display: flex; gap: 8px; justify-content: center; }
+    .picked-panel .p-label { font-size: 12px; color: #fde047; font-weight: 700; }
+    .picked-panel .p-name { font-size: 24px; color: #fff; font-weight: 900; margin: 3px 0 10px; }
+    .picked-panel .p-actions { display: flex; gap: 10px; justify-content: center; }
 
     /* Popup Quản lý tên & Video phản hồi */
     .modal-overlay {
@@ -609,7 +574,7 @@
     <div id="options-container" class="options"></div>
   </div>
 
-  <!-- NÚT VUÔNG Ở GÓC DƯỚI BÊN PHẢI (CHỈ HIỆN KHI VÀO CÂU HỎI) -->
+  <!-- NÚT VUÔNG Ở GÓC DƯỚI BÊN PHẢI -->
   <div id="corner-dock" class="corner-dock hidden">
     <button id="btn-open-mango" type="button" class="square-btn" title="Mở cây xoài chọn ngẫu nhiên 1 bạn">
       <span class="sq-icon">🥭</span>
@@ -629,86 +594,159 @@
     <button id="btn-restart" type="button" class="btn-primary">↻ Chơi Lại Từ Đầu</button>
   </div>
 
-  <!-- POPUP TRÒ CHƠI TRẨY XOÀI CHẤM MUỐI ỚT (GIỐNG Y VIDEO) -->
+  <!-- POPUP SÂN KHẤU TRẨY XOÀI CHẤM MUỐI ỚT (ĐÚNG TỪNG CHI TIẾT VIDEO) -->
   <div id="mango-modal" class="mango-overlay hidden">
-    <div class="mango-game-box">
-      <div class="mango-top-bar">
-        <div class="mango-title-badge">🥭 CÂY XOÀI MAY MẮN (<span id="mango-left-count">33</span> quả)</div>
-        <div class="mango-controls">
-          <button id="btn-shake-tree" type="button" class="btn-mango-act orange">⚡ Rung cây trẩy xoài!</button>
-          <button id="btn-close-mango" type="button" class="btn-mango-act">✕ Đóng</button>
+    <div class="mango-viewport">
+      <div class="mango-hud">
+        <div class="hud-pill">🥭 CÂY XOÀI LỚP (<span id="mango-left-count">33</span> quả)</div>
+        <div class="hud-btns">
+          <button id="btn-replay-story" type="button" class="btn-hud">🎬 Diễn lại cảnh rắc muối</button>
+          <button id="btn-shake-tree" type="button" class="btn-hud gold">⚡ Trẩy xoài ngay!</button>
+          <button id="btn-close-mango" type="button" class="btn-hud">✕ Đóng</button>
         </div>
       </div>
 
-      <div class="tree-scene">
-        <div class="sun-glow"></div>
-        <div class="tree-trunk"></div>
-        <div id="tree-canopy" class="tree-canopy"></div>
+      <!-- CẢNH NỀN LÀNG QUÊ, NHÀ NGÓI, RẶNG TRE, CÂY XOÀI CỔ THỤ VẼ VECTOR CHI TIẾT -->
+      <svg class="scene-bg-svg" viewBox="0 0 1000 562" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#60a5fa"/>
+            <stop offset="55%" stop-color="#bae6fd"/>
+            <stop offset="100%" stop-color="#fef3c7"/>
+          </linearGradient>
+          <linearGradient id="yardGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d97706"/>
+            <stop offset="45%" stop-color="#b45309"/>
+            <stop offset="100%" stop-color="#78350f"/>
+          </linearGradient>
+          <linearGradient id="trunkGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3e1f0d"/>
+            <stop offset="45%" stop-color="#6d3b1b"/>
+            <stop offset="80%" stop-color="#4a2511"/>
+            <stop offset="100%" stop-color="#291206"/>
+          </linearGradient>
+          <radialGradient id="sunHalo" cx="25%" cy="28%" r="35%">
+            <stop offset="0%" stop-color="#fef9c3" stop-opacity="0.95"/>
+            <stop offset="50%" stop-color="#fde047" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
 
-        <!-- Lưới quả xoài treo trên cành kèm bảng tên -->
-        <div id="mango-grid" class="mango-grid"></div>
+        <!-- Bầu trời & ánh nắng -->
+        <rect width="1000" height="390" fill="url(#skyGrad)"/>
+        <rect width="1000" height="390" fill="url(#sunHalo)"/>
 
-        <!-- Chữ võ công khi rung cây -->
-        <div id="kungfu-text" class="kungfu-text">HÂY-A! LĂNG BA VI BỘ!</div>
+        <!-- Rặng tre & lũy cây xa phía sau -->
+        <path d="M0,330 Q120,250 260,310 Q420,220 580,300 Q780,230 1000,290 L1000,380 L0,380 Z" fill="#4d7c0f" opacity="0.65"/>
+        <path d="M0,350 Q180,280 360,340 Q540,270 720,335 Q880,280 1000,330 L1000,385 L0,385 Z" fill="#3f6212" opacity="0.8"/>
 
-        <!-- Sân đất & tờ giấy bột canh muối ớt -->
-        <div class="ground-stage">
-          <div class="chili-salt-paper">
-            <div class="chili-salt-pile"></div>
+        <!-- Ngôi nhà ngói 3 gian truyền thống bên trái giống trong video -->
+        <g transform="translate(15, 215)">
+          <!-- Tường nhà -->
+          <rect x="20" y="65" width="165" height="75" fill="#d6c7b2" stroke="#57534e" stroke-width="2"/>
+          <!-- Cửa gỗ -->
+          <rect x="45" y="85" width="32" height="55" fill="#5c3a21"/>
+          <rect x="115" y="88" width="28" height="30" fill="#44403c"/>
+          <!-- Mái ngói đỏ nâu -->
+          <polygon points="5,68 102,15 200,68" fill="#7c2d12" stroke="#431407" stroke-width="2"/>
+          <line x1="25" y1="56" x2="180" y2="56" stroke="#9a3412" stroke-width="2"/>
+          <line x1="45" y1="44" x2="160" y2="44" stroke="#9a3412" stroke-width="2"/>
+          <line x1="68" y1="32" x2="138" y2="32" stroke="#9a3412" stroke-width="2"/>
+        </g>
+
+        <!-- Sân đất vàng rộng phía trước -->
+        <rect y="365" width="1000" height="197" fill="url(#yardGrad)"/>
+        <ellipse cx="640" cy="395" rx="220" ry="26" fill="#451a03" opacity="0.35"/>
+
+        <!-- Thân cây xoài cổ thụ xù xì bên phải giống hệt video -->
+        <g id="tree-trunk-group">
+          <path d="M585,392 C595,330 605,260 590,190 L695,190 C680,260 695,330 725,392 C690,402 615,402 585,392 Z" fill="url(#trunkGrad)"/>
+          <!-- Rễ cây bạnh ra mặt đất -->
+          <path d="M585,392 Q550,398 530,406 Q575,404 605,396 Z" fill="#3e1f0d"/>
+          <path d="M725,392 Q765,398 785,406 Q735,404 705,396 Z" fill="#291206"/>
+          <!-- Vân vỏ cây -->
+          <path d="M625,220 Q632,290 620,375" stroke="#291206" stroke-width="3" fill="none" opacity="0.6"/>
+          <path d="M658,210 Q650,295 668,380" stroke="#291206" stroke-width="3.5" fill="none" opacity="0.6"/>
+          <!-- Cành lớn vươn ra -->
+          <path d="M600,210 Q520,160 440,145" stroke="#4a2511" stroke-width="22" stroke-linecap="round" fill="none"/>
+          <path d="M680,210 Q760,165 840,150" stroke="#4a2511" stroke-width="20" stroke-linecap="round" fill="none"/>
+        </g>
+
+        <!-- Tán lá xanh rậm rạp phía trên -->
+        <g id="svg-canopy-group">
+          <ellipse cx="560" cy="110" rx="430" ry="135" fill="#14532d"/>
+          <circle cx="230" cy="125" r="95" fill="#166534"/>
+          <circle cx="370" cy="95" r="115" fill="#15803d"/>
+          <circle cx="540" cy="85" r="130" fill="#166534"/>
+          <circle cx="720" cy="95" r="120" fill="#15803d"/>
+          <circle cx="870" cy="125" r="100" fill="#14532d"/>
+          <ellipse cx="560" cy="135" rx="390" ry="95" fill="#16a34a" opacity="0.45"/>
+        </g>
+      </svg>
+
+      <!-- LƯỚI QUẢ XOÀI MẶT CƯỜI + BẢNG TÊN TREO TRÊN TÁN LÁ -->
+      <div id="mango-grid" class="mango-tree-layer"></div>
+
+      <!-- CHỮ VÕ CÔNG CHƯỞNG CÂY XOÀI: LĂNG BA VI BỘ / HÂY-A! -->
+      <div id="kungfu-banner" class="kungfu-banner">LĂNG BA VI BỘ!</div>
+
+      <!-- TỜ GIẤY TRẮNG ĐỔ BỘT CANH MUỐI ỚT GIỮA SÂN -->
+      <div class="salt-sheet-wrap">
+        <div class="salt-paper">
+          <div id="salt-mound" class="salt-mound"></div>
+        </div>
+      </div>
+
+      <!-- CẬU BÉ ÁO ĐỎ BÊN TRÁI -->
+      <div id="char-boy" class="char-boy">
+        <div id="boy-bubble" class="comic-bubble">Muối ớt Tây Ninh chuẩn bài!</div>
+        <svg width="78" height="96" viewBox="0 0 78 96">
+          <circle cx="39" cy="26" r="18" fill="#fed7aa" stroke="#0f172a" stroke-width="2"/>
+          <path d="M21 24 C21 8, 57 8, 57 24 C50 16, 28 16, 21 24 Z" fill="#0f172a"/>
+          <circle cx="33" cy="26" r="2.2" fill="#0f172a"/>
+          <circle cx="45" cy="26" r="2.2" fill="#0f172a"/>
+          <path d="M34 33 Q39 38 44 33" stroke="#0f172a" stroke-width="2" fill="none"/>
+          <!-- Áo đỏ -->
+          <rect x="23" y="44" width="32" height="28" rx="6" fill="#dc2626" stroke="#0f172a" stroke-width="2"/>
+          <!-- Quần đen & Chân -->
+          <rect x="25" y="72" width="11" height="20" rx="3" fill="#0f172a"/>
+          <rect x="42" y="72" width="11" height="20" rx="3" fill="#0f172a"/>
+        </svg>
+      </div>
+
+      <!-- BẠN NỮ ÁO VÀNG XANH BÊN PHẢI -->
+      <div id="char-girl" class="char-girl">
+        <div id="girl-bubble" class="comic-bubble">Giờ chỉ thiếu xoài thôi...</div>
+        <svg width="78" height="96" viewBox="0 0 78 96">
+          <circle cx="19" cy="20" r="7" fill="#0f172a"/>
+          <circle cx="59" cy="20" r="7" fill="#0f172a"/>
+          <circle cx="39" cy="26" r="18" fill="#fed7aa" stroke="#0f172a" stroke-width="2"/>
+          <path d="M21 24 C21 8, 57 8, 57 24 C50 16, 28 16, 21 24 Z" fill="#0f172a"/>
+          <circle cx="33" cy="26" r="2.2" fill="#0f172a"/>
+          <circle cx="45" cy="26" r="2.2" fill="#0f172a"/>
+          <path d="M35 33 Q39 37 43 33" stroke="#0f172a" stroke-width="2" fill="none"/>
+          <!-- Áo vàng chanh -->
+          <rect x="23" y="44" width="32" height="28" rx="6" fill="#bef264" stroke="#0f172a" stroke-width="2"/>
+          <!-- Quần & Chân -->
+          <rect x="26" y="72" width="10" height="20" rx="3" fill="#334155"/>
+          <rect x="42" y="72" width="10" height="20" rx="3" fill="#334155"/>
+        </svg>
+      </div>
+
+      <!-- KẾT QUẢ QUẢ XOÀI RỤNG BỊCH XUỐNG ĐẤT -->
+      <div id="drop-result-layer" class="drop-result-layer hidden">
+        <div id="falling-mango-unit" class="falling-mango-unit">
+          <div class="sfx-bich">BỊCH!</div>
+          <div class="mango-body" style="width:46px;height:54px;">
+            <span class="mango-face-txt" style="font-size:14px;">^‿^</span>
           </div>
-
-          <!-- Cậu bé áo đỏ -->
-          <div class="kid-boy">
-            <div id="boy-bubble" class="speech-bubble">Muối ớt Tây Ninh chuẩn bài!</div>
-            <svg width="68" height="84" viewBox="0 0 68 84">
-              <!-- Tóc & Đầu -->
-              <circle cx="34" cy="24" r="16" fill="#fed7aa" stroke="#1e293b" stroke-width="2"/>
-              <path d="M18 22 C18 8, 50 8, 50 22 C45 15, 23 15, 18 22 Z" fill="#1e293b"/>
-              <circle cx="29" cy="24" r="2" fill="#1e293b"/>
-              <circle cx="40" cy="24" r="2" fill="#1e293b"/>
-              <path d="M30 30 Q35 35 40 30" stroke="#1e293b" stroke-width="2" fill="none"/>
-              <!-- Áo đỏ -->
-              <rect x="20" y="40" width="28" height="24" rx="6" fill="#dc2626" stroke="#1e293b" stroke-width="2"/>
-              <!-- Quần đen & Chân -->
-              <rect x="22" y="64" width="10" height="16" rx="3" fill="#1e293b"/>
-              <rect x="36" y="64" width="10" height="16" rx="3" fill="#1e293b"/>
-            </svg>
-          </div>
-
-          <!-- Bạn nữ áo vàng -->
-          <div class="kid-girl">
-            <div id="girl-bubble" class="speech-bubble">Giờ chỉ thiếu xoài thôi...</div>
-            <svg width="68" height="84" viewBox="0 0 68 84">
-              <!-- Tóc buộc 2 bên & Đầu -->
-              <circle cx="16" cy="18" r="6" fill="#1e293b"/>
-              <circle cx="52" cy="18" r="6" fill="#1e293b"/>
-              <circle cx="34" cy="24" r="16" fill="#fed7aa" stroke="#1e293b" stroke-width="2"/>
-              <path d="M18 22 C18 8, 50 8, 50 22 C44 16, 24 16, 18 22 Z" fill="#1e293b"/>
-              <circle cx="28" cy="24" r="2" fill="#1e293b"/>
-              <circle cx="39" cy="24" r="2" fill="#1e293b"/>
-              <path d="M30 30 Q34 34 38 30" stroke="#1e293b" stroke-width="2" fill="none"/>
-              <!-- Áo vàng xanh -->
-              <rect x="20" y="40" width="28" height="24" rx="6" fill="#a3e635" stroke="#1e293b" stroke-width="2"/>
-              <!-- Chân -->
-              <rect x="23" y="64" width="9" height="16" rx="3" fill="#334155"/>
-              <rect x="36" y="64" width="9" height="16" rx="3" fill="#334155"/>
-            </svg>
-          </div>
-
-          <!-- Quả xoài rụng BỊCH xuống đất -->
-          <div id="fallen-mango-stage" class="fallen-mango-stage hidden">
-            <div class="bich-sfx">💥 BỊCH!</div>
-            <div class="mango-fruit" style="width:46px;height:54px;">
-              <span class="mango-face" style="font-size:14px;">^‿^</span>
-            </div>
-            <div class="winner-card-popup">
-              <div class="w-sub">🎯 Xoài đã rụng! Xin mời lên trả lời:</div>
-              <div id="mango-winner-name" class="w-name">Nguyễn Văn A</div>
-              <div class="winner-btns">
-                <button id="btn-mango-reroll" type="button" class="btn-mango-act">↻ Trẩy quả khác</button>
-                <button id="btn-mango-accept" type="button" class="btn-mango-act orange">✔ Mời bạn này trả lời</button>
-              </div>
-            </div>
+        </div>
+        <div class="picked-panel">
+          <div class="p-label">🎯 Xoài đã rụng! Xin mời lên trả lời câu hỏi:</div>
+          <div id="mango-winner-name" class="p-name">Đinh Thái Sơn</div>
+          <div class="p-actions">
+            <button id="btn-mango-reroll" type="button" class="btn-hud">↻ Trẩy quả khác</button>
+            <button id="btn-mango-accept" type="button" class="btn-hud gold">✔ Mời bạn này trả lời</button>
           </div>
         </div>
       </div>
@@ -843,7 +881,7 @@
     ];
 
     const defaultClassList = ["Phùng Khánh Duy", "Vương Thị Huyền", "Nguyễn Hương Ly", "Đỗ Công Tuyền", "Trương Quang Hậu", "Quách Bạch Dương", "Tạ Ngọc Chi", "Nông Phúc Thái", "Nguyễn Duy Nam", "Hoàng Thị Ngọc Ánh", "Trần Việt Hoàng", "Nguyễn Lan Anh", "Nguyễn Bá Dương", "Phạm Thị Linh", "Hà Thu Trang", "Trương Phương Nhi", "Nguyễn Thành Trung", "Lê Dương Trúc Quỳnh", "Nguyễn Anh Dũng", "Đinh Thái Sơn", "Vũ Đăng Hưng", "Nguyễn Ích Hiếu", "Nguyễn Thanh Tùng", "Đinh Thị Mai Hương", "Nguyễn Thị Thảo", "Nguyễn Thanh Dung", "Phạm Thuỳ Linh", "Trương Thị Huệ Chi", "Nguyễn Thị Dịu", "Hoàng Phương Liên", "Nguyễn Viết Chuẩn", "Nguyễn Nhật Quân", "Đỗ Duy Khánh"];
-    const STORAGE_KEY = "minigame_bai7_mango_v1";
+    const STORAGE_KEY = "minigame_bai7_mango_v2";
 
     let allStudents = [];
     let remainingStudents = [];
@@ -852,7 +890,8 @@
     let isLastAnswerCorrect = false;
     let hasAttemptedCurrent = false;
     let currentChosenStudent = "";
-    let isShaking = false;
+    let storyTimers = [];
+    let isAnimating = false;
 
     const letters = ["A", "B", "C", "D"];
     const faces = ["•‿•", "^‿^", "◕‿◕", "≧◡≦", "°▽°"];
@@ -866,6 +905,30 @@
     const feedbackModal = document.getElementById("feedback-modal");
     const videoWrap = document.getElementById("video-wrap");
     const videoEl = document.getElementById("feedback-video");
+
+    // Tạo hiệu ứng âm thanh vui nhộn bằng Web Audio API (không cần file mp3 rời)
+    function playTone(freq, duration, type) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type || "triangle";
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function clearStoryTimers() {
+      storyTimers.forEach(t => clearTimeout(t));
+      storyTimers = [];
+    }
 
     function loadStudents() {
       try {
@@ -954,7 +1017,6 @@
       }
     }
 
-    // Vẽ các quả xoài vàng treo trên tán cây
     function renderMangoTree() {
       if (remainingStudents.length === 0 && allStudents.length > 0) {
         remainingStudents = [...allStudents];
@@ -963,29 +1025,29 @@
 
       const grid = document.getElementById("mango-grid");
       grid.innerHTML = "";
-      remainingStudents.forEach((fullName, idx) => {
+      remainingStudents.forEach(function(fullName, idx) {
         const item = document.createElement("div");
-        item.className = "mango-item";
+        item.className = "mango-node";
         item.title = fullName;
 
-        const fruit = document.createElement("div");
-        fruit.className = "mango-fruit";
+        const body = document.createElement("div");
+        body.className = "mango-body";
         const face = document.createElement("span");
-        face.className = "mango-face";
+        face.className = "mango-face-txt";
         face.textContent = faces[idx % faces.length];
-        fruit.appendChild(face);
+        body.appendChild(face);
 
         const tag = document.createElement("div");
-        tag.className = "mango-tag";
+        tag.className = "mango-nameplate";
         tag.textContent = getShortName(fullName);
 
-        item.appendChild(fruit);
+        item.appendChild(body);
         item.appendChild(tag);
 
-        // Cho phép bấm trực tiếp vào 1 quả xoài bất kỳ để trẩy quả đó
         item.onclick = function() {
-          if (!isShaking) {
-            triggerMangoDrop(fullName);
+          if (!isAnimating) {
+            clearStoryTimers();
+            dropSpecificMango(fullName);
           }
         };
 
@@ -993,9 +1055,13 @@
       });
     }
 
-    // Hiệu ứng rung cây chưởng võ công như video rồi làm 1 quả xoài rụng BỊCH
-    function shakeTreeAndPick() {
-      if (isShaking) return;
+    // Diễn hoạt đúng kịch bản như video:
+    // 1. Trải giấy trắng & rắc bột canh muối ớt Tây Ninh
+    // 2. Bạn nữ nói "Giờ chỉ thiếu xoài thôi..."
+    // 3. Cậu bé vận công chưởng "LĂNG BA VI BỘ! / HÂY-A!" làm cả cây xoài rung bần bật
+    // 4. Một quả xoài rụng "BỊCH!" xuống sân kèm tên bạn được gọi
+    function playFullMangoStory(skipIntro) {
+      clearStoryTimers();
       if (allStudents.length === 0) {
         mangoModal.classList.add("hidden");
         renderChips();
@@ -1007,48 +1073,85 @@
         renderMangoTree();
       }
 
-      isShaking = true;
-      document.getElementById("fallen-mango-stage").classList.add("hidden");
+      isAnimating = true;
+      document.getElementById("drop-result-layer").classList.add("hidden");
+      document.getElementById("kungfu-banner").classList.remove("active");
+      document.getElementById("svg-canopy-group").classList.remove("canopy-shaking");
+      document.getElementById("char-boy").classList.remove("char-jump");
+      document.getElementById("char-girl").classList.remove("char-jump");
+      document.querySelectorAll(".mango-node").forEach(n => n.classList.remove("hard-shake"));
 
-      const canopy = document.getElementById("tree-canopy");
-      const kungfu = document.getElementById("kungfu-text");
+      const saltMound = document.getElementById("salt-mound");
       const boyBubble = document.getElementById("boy-bubble");
       const girlBubble = document.getElementById("girl-bubble");
-      const items = document.querySelectorAll(".mango-item");
 
-      canopy.classList.add("shaking");
-      items.forEach(el => el.classList.add("shaking-hard"));
+      if (!skipIntro) {
+        saltMound.classList.remove("poured");
+        boyBubble.textContent = "Đổ muối ớt Tây Ninh ra giấy nào!";
+        girlBubble.textContent = "Nhìn hấp dẫn quá đi!";
 
-      const cries = ["LĂNG BA VI BỘ!", "HÂY-A! CHƯỞNG!", "XOÀI RỤNG NÀO!"];
-      kungfu.textContent = cries[Math.floor(Math.random() * cries.length)];
-      kungfu.classList.add("show");
-      boyBubble.textContent = "Xem tuyệt chiêu đây!";
-      girlBubble.textContent = "Xoài ơi rụng xuống đi!";
+        storyTimers.push(setTimeout(function() {
+          saltMound.classList.add("poured");
+          playTone(520, 0.15, "sine");
+          boyBubble.textContent = "Muối ớt Tây Ninh chuẩn bài!";
+          girlBubble.textContent = "Giờ chỉ thiếu xoài thôi...";
+        }, 700));
 
-      setTimeout(function() {
-        canopy.classList.remove("shaking");
-        items.forEach(el => el.classList.remove("shaking-hard"));
-        kungfu.classList.remove("show");
-
-        const randIdx = Math.floor(Math.random() * remainingStudents.length);
-        const pickedName = remainingStudents[randIdx];
-        isShaking = false;
-        triggerMangoDrop(pickedName);
-      }, 1500);
+        storyTimers.push(setTimeout(function() {
+          startKungfuShake();
+        }, 1900));
+      } else {
+        saltMound.classList.add("poured");
+        startKungfuShake();
+      }
     }
 
-    function triggerMangoDrop(pickedName) {
-      currentChosenStudent = pickedName;
-      document.getElementById("mango-winner-name").textContent = pickedName;
-      document.getElementById("boy-bubble").textContent = "Quả này chắc ngọt nè!";
-      document.getElementById("girl-bubble").textContent = "Chấm muối ớt thôi!";
+    function startKungfuShake() {
+      const canopy = document.getElementById("svg-canopy-group");
+      const banner = document.getElementById("kungfu-banner");
+      const boyBubble = document.getElementById("boy-bubble");
+      const girlBubble = document.getElementById("girl-bubble");
+      const nodes = document.querySelectorAll(".mango-node");
 
-      const dropStage = document.getElementById("fallen-mango-stage");
-      dropStage.classList.remove("hidden");
-      // Reset animation rơi BỊCH
-      dropStage.style.animation = "none";
-      void dropStage.offsetWidth;
-      dropStage.style.animation = "";
+      canopy.classList.add("canopy-shaking");
+      nodes.forEach(n => n.classList.add("hard-shake"));
+      document.getElementById("char-boy").classList.add("char-jump");
+
+      const moves = ["LĂNG BA VI BỘ!", "HÂY-A! CHƯỞNG!", "XOÀI RỤNG NÀO!"];
+      banner.textContent = moves[Math.floor(Math.random() * moves.length)];
+      banner.classList.add("active");
+      boyBubble.textContent = "Coi tuyệt chiêu của tớ đây!";
+      girlBubble.textContent = "Cố lên! Rụng xuống đi!";
+      playTone(320, 0.25, "sawtooth");
+
+      storyTimers.push(setTimeout(function() {
+        canopy.classList.remove("canopy-shaking");
+        nodes.forEach(n => n.classList.remove("hard-shake"));
+        banner.classList.remove("active");
+        document.getElementById("char-boy").classList.remove("char-jump");
+
+        const randIdx = Math.floor(Math.random() * remainingStudents.length);
+        const winner = remainingStudents[randIdx];
+        isAnimating = false;
+        dropSpecificMango(winner);
+      }, 1500));
+    }
+
+    function dropSpecificMango(winnerName) {
+      currentChosenStudent = winnerName;
+      document.getElementById("mango-winner-name").textContent = winnerName;
+      document.getElementById("boy-bubble").textContent = "BỊCH! Trúng quả ngon rồi!";
+      document.getElementById("girl-bubble").textContent = "Chấm muối ớt thôi!";
+      document.getElementById("char-girl").classList.add("char-jump");
+      playTone(180, 0.3, "triangle");
+
+      const layer = document.getElementById("drop-result-layer");
+      const unit = document.getElementById("falling-mango-unit");
+      layer.classList.remove("hidden");
+
+      unit.style.animation = "none";
+      void unit.offsetWidth;
+      unit.style.animation = "";
     }
 
     function acceptMangoStudent() {
@@ -1200,17 +1303,23 @@
     document.getElementById("btn-next").onclick = handleModalAction;
 
     document.getElementById("btn-open-mango").onclick = function() {
-      document.getElementById("fallen-mango-stage").classList.add("hidden");
-      document.getElementById("boy-bubble").textContent = "Muối ớt Tây Ninh chuẩn bài!";
-      document.getElementById("girl-bubble").textContent = "Giờ chỉ thiếu xoài thôi...";
       renderMangoTree();
       mangoModal.classList.remove("hidden");
-      shakeTreeAndPick();
+      playFullMangoStory(false);
     };
-    document.getElementById("btn-shake-tree").onclick = shakeTreeAndPick;
-    document.getElementById("btn-mango-reroll").onclick = shakeTreeAndPick;
+    document.getElementById("btn-replay-story").onclick = function() {
+      playFullMangoStory(false);
+    };
+    document.getElementById("btn-shake-tree").onclick = function() {
+      playFullMangoStory(true);
+    };
+    document.getElementById("btn-mango-reroll").onclick = function() {
+      playFullMangoStory(true);
+    };
     document.getElementById("btn-mango-accept").onclick = acceptMangoStudent;
     document.getElementById("btn-close-mango").onclick = function() {
+      clearStoryTimers();
+      isAnimating = false;
       mangoModal.classList.add("hidden");
     };
 
