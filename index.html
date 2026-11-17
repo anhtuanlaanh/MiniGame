@@ -60,8 +60,8 @@
     .progress-fill { height: 100%; background: #f59e0b; width: 0%; transition: width 0.3s; }
 
     .active-student-banner {
-      background: linear-gradient(135deg, rgba(250, 204, 21, 0.18), rgba(234, 88, 12, 0.12));
-      border: 1.5px solid rgba(250, 204, 21, 0.55);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.12));
+      border: 1.5px solid rgba(52, 211, 153, 0.55);
       border-radius: 12px;
       padding: 10px 14px;
       margin-bottom: 18px;
@@ -69,9 +69,9 @@
       align-items: center;
       justify-content: space-between;
       font-size: 14px;
-      color: #fef08a;
+      color: #a7f3d0;
     }
-    .active-student-banner strong { color: #facc15; font-size: 17px; }
+    .active-student-banner strong { color: #34d399; font-size: 17px; }
 
     .question-text { font-size: 20px; font-weight: 700; text-align: left; line-height: 1.45; margin-bottom: 20px; color: #fff; }
     .options { display: flex; flex-direction: column; gap: 12px; }
@@ -118,8 +118,8 @@
       width: 74px;
       height: 74px;
       border-radius: 16px;
-      border: 2px solid #fde047;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: 2px solid #6ee7b7;
+      background: linear-gradient(135deg, #059669, #0284c7);
       color: #fff;
       cursor: pointer;
       display: flex;
@@ -127,12 +127,12 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.45);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.45);
       transition: transform 0.15s, box-shadow 0.15s;
     }
     .square-btn:hover {
       transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 14px 30px rgba(245, 158, 11, 0.65);
+      box-shadow: 0 14px 30px rgba(52, 211, 153, 0.65);
     }
     .square-btn .sq-icon { font-size: 26px; line-height: 1; }
     .square-btn .sq-label { font-size: 11px; font-weight: 800; text-align: center; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
@@ -147,34 +147,34 @@
     .square-btn.secondary:hover { background: #3f3f46; }
 
     /* =====================================================================
-       SÂN KHẤU HOẠT HÌNH TRẨY XOÀI CHẤM MUỐI ỚT (ĐÚNG TỪNG CHI TIẾT VIDEO)
+       SÂN KHẤU UFO BẮT CÓC KHẢO BÀI (GIỐNG Y 2 ẢNH VIETQUIZZY CỦA BẠN)
        ===================================================================== */
-    .mango-overlay {
+    .ufo-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(5, 8, 20, 0.92);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 10px;
       z-index: 60;
     }
-    .mango-viewport {
+    .ufo-viewport {
       width: 100%;
-      max-width: 1040px;
+      max-width: 1080px;
       aspect-ratio: 16 / 9;
       max-height: 92vh;
       border-radius: 20px;
       overflow: hidden;
       position: relative;
-      border: 2.5px solid #92400e;
+      border: 2px solid #334155;
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95);
-      background: #87ceeb;
+      background: #0f172a;
       user-select: none;
     }
 
-    /* Thanh điều khiển nổi gọn gàng góc trên */
-    .mango-hud {
+    /* Thanh trạng thái góc trên bên trái */
+    .ufo-top-hud {
       position: absolute;
       top: 12px;
       left: 14px;
@@ -185,37 +185,29 @@
       align-items: center;
       pointer-events: none;
     }
-    .mango-hud > * { pointer-events: auto; }
-    .hud-pill {
-      background: rgba(254, 249, 195, 0.94);
-      color: #78350f;
-      font-weight: 900;
+    .ufo-top-hud > * { pointer-events: auto; }
+    .ufo-status-pill {
+      background: rgba(15, 23, 42, 0.88);
+      color: #f8fafc;
+      font-weight: 700;
       font-size: 13px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 2px solid #b45309;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .hud-btns { display: flex; gap: 8px; }
-    .btn-hud {
-      background: #dc2626;
-      color: #fff;
-      border: 2px solid #fecaca;
       padding: 7px 14px;
       border-radius: 10px;
-      font-weight: 800;
-      font-size: 13px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .btn-hud.gold {
-      background: linear-gradient(135deg, #f59e0b, #ea580c);
-      border-color: #fef08a;
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
     }
-    .btn-hud:hover { transform: scale(1.04); }
+    .ufo-status-pill span.highlight { color: #34d399; font-weight: 800; }
 
-    /* Nền SVG toàn cảnh làng quê, cây xoài cổ thụ, nhà mái ngói, sân đất */
-    .scene-bg-svg {
+    .city-bg-svg {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -224,258 +216,330 @@
       display: block;
     }
 
-    /* Tán cây rung lắc khi chưởng */
-    .canopy-shaking {
-      animation: treeViolentShake 0.11s infinite alternate;
-      transform-origin: 62% 35%;
-    }
-    @keyframes treeViolentShake {
-      0% { transform: translate(-6px, -3px) rotate(-0.8deg); }
-      100% { transform: translate(6px, 3px) rotate(0.8deg); }
-    }
-
-    /* Các quả xoài treo trên cành cây */
-    .mango-tree-layer {
+    /* Đĩa bay UFO & chùm tia sáng xanh hút người */
+    .ufo-ship-wrap {
       position: absolute;
       top: 7%;
-      left: 16%;
-      right: 3%;
-      height: 46%;
-      z-index: 8;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-content: flex-start;
-      gap: 4px 7px;
-      pointer-events: auto;
-    }
-    .mango-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 68px;
-      cursor: pointer;
-      transform-origin: top center;
-      animation: gentleBreeze 2.6s ease-in-out infinite alternate;
-    }
-    .mango-node:nth-child(2n) { animation-delay: 0.5s; }
-    .mango-node:nth-child(3n) { animation-delay: 1.1s; }
-    @keyframes gentleBreeze {
-      0% { transform: rotate(-4deg); }
-      100% { transform: rotate(4deg); }
-    }
-    .mango-node.hard-shake {
-      animation: mangoPanicShake 0.09s infinite alternate !important;
-    }
-    @keyframes mangoPanicShake {
-      0% { transform: rotate(-20deg) scale(1.08); }
-      100% { transform: rotate(20deg) scale(1.08); }
-    }
-
-    .mango-body {
-      width: 32px;
-      height: 38px;
-      background: radial-gradient(circle at 32% 28%, #fef9c3, #facc15 55%, #ca8a04 95%);
-      border: 1.5px solid #854d0e;
-      border-radius: 52% 48% 48% 52% / 58% 58% 42% 42%;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-    }
-    .mango-body::before {
-      content: "";
-      position: absolute;
-      top: -5px;
-      right: 7px;
-      width: 10px;
-      height: 5px;
-      background: #15803d;
-      border-radius: 8px 0 8px 0;
-      transform: rotate(-20deg);
-    }
-    .mango-face-txt {
-      font-size: 10px;
-      font-weight: 900;
-      color: #713f12;
-      margin-top: 2px;
-    }
-    .mango-nameplate {
-      background: rgba(255, 255, 255, 0.96);
-      color: #0f172a;
-      font-size: 9px;
-      font-weight: 800;
-      padding: 1px 4px;
-      border-radius: 3px;
-      border: 1px solid #475569;
-      margin-top: -2px;
-      max-width: 68px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.45);
-    }
-
-    /* Tờ giấy trắng đổ bột canh muối ớt ở giữa sân dưới */
-    .salt-sheet-wrap {
-      position: absolute;
-      bottom: 7%;
-      left: 44%;
-      transform: translateX(-50%);
-      width: 155px;
-      height: 85px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .salt-paper {
-      width: 140px;
-      height: 68px;
-      background: #f8fafc;
-      border: 2px solid #94a3b8;
-      transform: skewX(-18deg);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .salt-mound {
-      width: 88px;
-      height: 44px;
-      background: radial-gradient(circle at 50% 42%, #dc2626 10%, #ea580c 48%, #fdba74 82%, transparent 100%);
-      border-radius: 50%;
-      transform: scale(0.2);
-      opacity: 0;
-      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
-    }
-    .salt-mound.poured {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    /* Hai nhân vật hoạt hình cậu bé áo đỏ & bạn nữ áo vàng */
-    .char-boy {
-      position: absolute;
-      bottom: 9%;
-      left: 25%;
-      z-index: 12;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.25s;
-    }
-    .char-girl {
-      position: absolute;
-      bottom: 9%;
-      right: 32%;
-      z-index: 12;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.25s;
-    }
-    .char-jump {
-      animation: charCheerJump 0.45s ease-in-out infinite alternate;
-    }
-    @keyframes charCheerJump {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
-    }
-
-    /* Bong bóng thoại trắng viền đen giống truyện tranh trong video */
-    .comic-bubble {
-      background: #ffffff;
-      color: #0f172a;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 5px 10px;
-      border-radius: 12px;
-      border: 2px solid #0f172a;
-      margin-bottom: 4px;
-      white-space: nowrap;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
-      position: relative;
-      transition: opacity 0.2s;
-    }
-    .comic-bubble::after {
-      content: "";
-      position: absolute;
-      bottom: -6px;
       left: 50%;
       transform: translateX(-50%);
-      border-width: 6px 5px 0;
-      border-style: solid;
-      border-color: #0f172a transparent transparent;
-    }
-
-    /* Chữ võ công lớn bay trên màn hình: LĂNG BA VI BỘ! / HÂY-A! */
-    .kungfu-banner {
-      position: absolute;
-      top: 34%;
-      left: 54%;
-      transform: translate(-50%, -50%) scale(0.4);
-      font-size: 44px;
-      font-weight: 900;
-      font-style: italic;
-      color: #fde047;
-      text-shadow: 0 0 16px #dc2626, 3px 3px 0 #7f1d1d, -2px -2px 0 #7f1d1d;
-      z-index: 22;
+      width: 240px;
+      height: 360px;
+      z-index: 18;
       pointer-events: none;
-      opacity: 0;
-      transition: all 0.18s;
-      white-space: nowrap;
+      transition: left 0.25s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .kungfu-banner.active {
+    .ufo-saucer {
+      width: 210px;
+      height: 86px;
+      position: relative;
+      z-index: 3;
+      animation: ufoHover 1.8s ease-in-out infinite alternate;
+    }
+    @keyframes ufoHover {
+      0% { transform: translateY(0px) rotate(-1.5deg); }
+      100% { transform: translateY(-7px) rotate(1.5deg); }
+    }
+    .ufo-counter-badge {
+      position: absolute;
+      top: 38px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #34d399;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1.5px solid #34d399;
+    }
+    .ufo-beam {
+      width: 220px;
+      height: 290px;
+      margin-top: -16px;
+      background: linear-gradient(180deg, rgba(52, 211, 153, 0.55) 0%, rgba(16, 185, 129, 0.24) 65%, rgba(16, 185, 129, 0.02) 100%);
+      clip-path: polygon(28% 0%, 72% 0%, 100% 100%, 0% 100%);
+      opacity: 0;
+      transform: scaleY(0.1);
+      transform-origin: top center;
+      transition: opacity 0.2s, transform 0.25s;
+      z-index: 2;
+    }
+    .ufo-beam.active {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1.08);
+      transform: scaleY(1);
     }
 
-    /* Quả xoài rụng BỊCH xuống đất & thẻ tên người được chọn */
-    .drop-result-layer {
+    .street-crowd-layer {
+      position: absolute;
+      left: 2%;
+      right: 2%;
+      bottom: 11%;
+      height: 36%;
+      z-index: 12;
+    }
+    .student-pawn {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: left 0.45s ease-in-out, top 0.45s ease-in-out, transform 0.3s;
+    }
+    .student-pawn.panicking {
+      animation: pawnRunShake 0.16s infinite alternate;
+    }
+    @keyframes pawnRunShake {
+      0% { transform: translateX(-5px) rotate(-5deg); }
+      100% { transform: translateX(5px) rotate(5deg); }
+    }
+    .student-pawn.abducting {
+      transition: all 1.1s cubic-bezier(0.34, 1.2, 0.64, 1) !important;
+      top: -185px !important;
+      transform: scale(0.45) rotate(360deg) !important;
+      opacity: 0;
+    }
+
+    .panic-bubble {
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1.5px solid #0f172a;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.45);
+      display: none;
+    }
+    .student-pawn.show-bubble .panic-bubble {
+      display: block;
+    }
+    .pawn-name-tag {
+      background: rgba(255, 255, 255, 0.95);
+      color: #0f172a;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1.5px 6px;
+      border-radius: 5px;
+      border: 1px solid #334155;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Thanh điều khiển dưới đáy */
+    .ufo-bottom-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 96%;
+    }
+    .btn-ufo-ctrl {
+      background: rgba(30, 41, 59, 0.92);
+      color: #f8fafc;
+      border: 1.5px solid #475569;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: all 0.15s;
+    }
+    .btn-ufo-ctrl:hover { background: #334155; transform: translateY(-1px); }
+    .btn-ufo-ctrl.primary-green {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-color: #6ee7b7;
+      color: #fff;
+      font-weight: 800;
+    }
+    .btn-ufo-ctrl.active-fast {
+      background: #d97706;
+      border-color: #fde047;
+    }
+
+    /* =====================================================================
+       MODAL KẾT QUẢ "LỆNH TRIỆU TẬP LIÊN HÀNH TINH" GIỐNG Y ẢNH MỚI
+       ===================================================================== */
+    .summon-backdrop {
       position: absolute;
       inset: 0;
-      z-index: 25;
-      pointer-events: none;
+      z-index: 40;
+      background: rgba(9, 13, 24, 0.72);
+      backdrop-filter: blur(7px);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 16px;
+      justify-content: center;
+      padding: 16px;
     }
-    .falling-mango-unit {
+    .summon-card {
+      width: 100%;
+      max-width: 470px;
+      background: #14171f;
+      border: 1.5px solid #2b3140;
+      border-radius: 22px;
+      padding: 24px 24px 20px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+      position: relative;
+      text-align: left;
+      animation: summonPopIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes summonPopIn {
+      0% { transform: scale(0.88); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .summon-header {
       display: flex;
-      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-right: 68px;
+    }
+    .summon-ufo-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: #232836;
+      border: 1px solid #363e52;
+      display: flex;
       align-items: center;
-      margin-bottom: 8px;
-      animation: mangoFallImpact 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
     }
-    @keyframes mangoFallImpact {
-      0% { transform: translateY(-290px) rotate(-35deg) scale(0.8); opacity: 0; }
-      75% { transform: translateY(8px) rotate(12deg) scale(1.25); opacity: 1; }
-      100% { transform: translateY(0) rotate(0deg) scale(1.15); opacity: 1; }
+    .summon-kicker {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #2dd4bf;
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
-    .sfx-bich {
-      font-size: 36px;
+    .summon-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.25;
+    }
+    /* Con dấu đỏ "ĐÃ BẮT" nghiêng góc trên bên phải y hệt ảnh */
+    .captured-stamp {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      border: 2px solid #dc2626;
+      color: #ef4444;
+      font-size: 11px;
       font-weight: 900;
-      color: #fef08a;
-      text-shadow: 3px 3px 0 #991b1b, -2px -2px 0 #991b1b;
-      letter-spacing: 1px;
+      line-height: 1.1;
+      padding: 5px 9px;
+      border-radius: 6px;
+      transform: rotate(10deg);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(220, 38, 38, 0.08);
     }
-    .picked-panel {
-      pointer-events: auto;
-      background: rgba(24, 24, 27, 0.94);
-      border: 2.5px solid #facc15;
-      border-radius: 16px;
-      padding: 12px 22px;
-      text-align: center;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.85);
+
+    .summon-slot-box {
+      background: #1b202b;
+      border: 1px solid #2d3446;
+      border-radius: 14px;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
     }
-    .picked-panel .p-label { font-size: 12px; color: #fde047; font-weight: 700; }
-    .picked-panel .p-name { font-size: 24px; color: #fff; font-weight: 900; margin: 3px 0 10px; }
-    .picked-panel .p-actions { display: flex; gap: 10px; justify-content: center; }
+    .slot-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #0f392b;
+      border: 1.5px solid #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .slot-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .slot-student-name {
+      font-size: 19px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .summon-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #64748b;
+      padding-top: 10px;
+      border-top: 1px solid #232936;
+      margin-bottom: 14px;
+    }
+
+    .summon-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn-summon-new {
+      flex: 1;
+      background: #10b981;
+      hover: #059669;
+      color: #052e16;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s;
+    }
+    .btn-summon-new:hover { background: #34d399; }
+    .space-key-badge {
+      background: rgba(0, 0, 0, 0.22);
+      color: #052e16;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 5px;
+    }
+    .btn-summon-close {
+      background: #232936;
+      color: #e2e8f0;
+      border: 1px solid #333c4d;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-summon-close:hover { background: #2e3647; }
 
     /* Popup Quản lý tên & Video phản hồi */
     .modal-overlay {
@@ -496,7 +560,7 @@
     .modal-header { padding: 16px 20px; font-weight: 700; font-size: 18px; color: #fff; text-align: center; }
     .modal-header.correct { background: #16a34a; }
     .modal-header.wrong { background: #e11d48; }
-    .modal-header.picker { background: linear-gradient(135deg, #d97706, #b45309); }
+    .modal-header.picker { background: linear-gradient(135deg, #059669, #0284c7); }
 
     .manage-body { padding: 18px 20px; text-align: left; }
     .add-name-row { display: flex; gap: 8px; margin-bottom: 12px; }
@@ -504,9 +568,9 @@
       flex: 1; background: #18181b; border: 1px solid #3f3f46; border-radius: 10px;
       color: #f4f4f5; padding: 10px 12px; font-size: 14px;
     }
-    .add-name-row input:focus { outline: none; border-color: #f59e0b; }
+    .add-name-row input:focus { outline: none; border-color: #10b981; }
     .btn-add-name {
-      background: #f59e0b; color: #18181b; border: none; border-radius: 10px;
+      background: #10b981; color: #fff; border: none; border-radius: 10px;
       padding: 0 16px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;
     }
     .manage-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #a1a1aa; margin-bottom: 8px; }
@@ -543,7 +607,7 @@
     }
     .btn-next.correct { background: #16a34a; }
     .btn-next.wrong { background: #e11d48; }
-    .btn-next.picker { background: #d97706; }
+    .btn-next.picker { background: #059669; }
     .result-score { font-size: 48px; font-weight: 800; color: #facc15; margin: 12px 0; }
   </style>
 </head>
@@ -553,7 +617,7 @@
   <div id="start-screen" class="card">
     <div class="badge">ÔN TẬP MARKETING CĂN BẢN</div>
     <h1>Bài 7: Chiến Lược Phân Phối</h1>
-    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> & trò chơi <span>Trẩy Xoài Chấm Muối Ớt</span> gọi tên trả lời!</p>
+    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> & trò chơi <span>UFO Bắt Cóc Khảo Bài</span>!</p>
     <button id="btn-start" type="button" class="btn-primary">▶ Bắt Đầu Chơi Ngay</button>
   </div>
 
@@ -566,8 +630,8 @@
     <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
 
     <div id="active-student-banner" class="active-student-banner hidden">
-      <span>🥭 Người trả lời: <strong id="current-student-name"></strong></span>
-      <span id="remaining-badge" style="font-size: 12px; color: #fde047;"></span>
+      <span>🛸 Người bị UFO bắt khảo bài: <strong id="current-student-name"></strong></span>
+      <span id="remaining-badge" style="font-size: 12px; color: #6ee7b7;"></span>
     </div>
 
     <div id="question-text" class="question-text"></div>
@@ -576,9 +640,9 @@
 
   <!-- NÚT VUÔNG Ở GÓC DƯỚI BÊN PHẢI -->
   <div id="corner-dock" class="corner-dock hidden">
-    <button id="btn-open-mango" type="button" class="square-btn" title="Mở cây xoài chọn ngẫu nhiên 1 bạn">
-      <span class="sq-icon">🥭</span>
-      <span class="sq-label">Trẩy xoài</span>
+    <button id="btn-open-ufo" type="button" class="square-btn" title="Gọi UFO bắt cóc ngẫu nhiên 1 bạn khảo bài">
+      <span class="sq-icon">🛸</span>
+      <span class="sq-label">UFO gọi tên</span>
     </button>
     <button id="btn-manage-list" type="button" class="square-btn secondary" title="Thêm hoặc sửa danh sách tên">
       <span class="sq-label">+ Thêm tên</span>
@@ -594,161 +658,190 @@
     <button id="btn-restart" type="button" class="btn-primary">↻ Chơi Lại Từ Đầu</button>
   </div>
 
-  <!-- POPUP SÂN KHẤU TRẨY XOÀI CHẤM MUỐI ỚT (ĐÚNG TỪNG CHI TIẾT VIDEO) -->
-  <div id="mango-modal" class="mango-overlay hidden">
-    <div class="mango-viewport">
-      <div class="mango-hud">
-        <div class="hud-pill">🥭 CÂY XOÀI LỚP (<span id="mango-left-count">33</span> quả)</div>
-        <div class="hud-btns">
-          <button id="btn-replay-story" type="button" class="btn-hud">🎬 Diễn lại cảnh rắc muối</button>
-          <button id="btn-shake-tree" type="button" class="btn-hud gold">⚡ Trẩy xoài ngay!</button>
-          <button id="btn-close-mango" type="button" class="btn-hud">✕ Đóng</button>
+  <!-- POPUP SÂN KHẤU UFO BẮT CÓC KHẢO BÀI (GIỐNG Y 2 ẢNH VIETQUIZZY) -->
+  <div id="ufo-modal" class="ufo-overlay hidden">
+    <div class="ufo-viewport">
+      <!-- Thanh trạng thái góc trên bên trái -->
+      <div class="ufo-top-hud">
+        <div class="ufo-status-pill">
+          <span class="status-dot"></span>
+          <span>Sĩ số: <span id="ufo-roster-stat" class="highlight">33/33</span> | Cần bắt: <span class="highlight">1 học sinh</span></span>
         </div>
       </div>
 
-      <!-- CẢNH NỀN LÀNG QUÊ, NHÀ NGÓI, RẶNG TRE, CÂY XOÀI CỔ THỤ VẼ VECTOR CHI TIẾT -->
-      <svg class="scene-bg-svg" viewBox="0 0 1000 562" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#60a5fa"/>
-            <stop offset="55%" stop-color="#bae6fd"/>
-            <stop offset="100%" stop-color="#fef3c7"/>
-          </linearGradient>
-          <linearGradient id="yardGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#d97706"/>
-            <stop offset="45%" stop-color="#b45309"/>
-            <stop offset="100%" stop-color="#78350f"/>
-          </linearGradient>
-          <linearGradient id="trunkGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#3e1f0d"/>
-            <stop offset="45%" stop-color="#6d3b1b"/>
-            <stop offset="80%" stop-color="#4a2511"/>
-            <stop offset="100%" stop-color="#291206"/>
-          </linearGradient>
-          <radialGradient id="sunHalo" cx="25%" cy="28%" r="35%">
-            <stop offset="0%" stop-color="#fef9c3" stop-opacity="0.95"/>
-            <stop offset="50%" stop-color="#fde047" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+      <!-- CẢNH NỀN PHỐ ĐÊM SVG -->
+      <svg class="city-bg-svg" viewBox="0 0 1000 562" preserveAspectRatio="xMidYMid slice">
+        <rect width="1000" height="400" fill="#172554"/>
+        <circle cx="88" cy="72" r="24" fill="#fef08a"/>
+        <circle cx="98" cy="66" r="21" fill="#172554"/>
+        <ellipse cx="480" cy="70" rx="58" ry="22" fill="#334155" opacity="0.65"/>
+        <ellipse cx="525" cy="78" rx="45" ry="18" fill="#334155" opacity="0.65"/>
+        <ellipse cx="830" cy="82" rx="64" ry="22" fill="#334155" opacity="0.6"/>
 
-        <!-- Bầu trời & ánh nắng -->
-        <rect width="1000" height="390" fill="url(#skyGrad)"/>
-        <rect width="1000" height="390" fill="url(#sunHalo)"/>
+        <rect x="20" y="135" width="120" height="235" fill="#1e293b"/>
+        <rect x="38" y="155" width="32" height="22" fill="#fde047"/>
+        <rect x="85" y="155" width="32" height="22" fill="#fde047"/>
+        <rect x="38" y="195" width="32" height="22" fill="#fde047"/>
+        <rect x="85" y="195" width="32" height="22" fill="#fde047"/>
 
-        <!-- Rặng tre & lũy cây xa phía sau -->
-        <path d="M0,330 Q120,250 260,310 Q420,220 580,300 Q780,230 1000,290 L1000,380 L0,380 Z" fill="#4d7c0f" opacity="0.65"/>
-        <path d="M0,350 Q180,280 360,340 Q540,270 720,335 Q880,280 1000,330 L1000,385 L0,385 Z" fill="#3f6212" opacity="0.8"/>
+        <rect x="148" y="155" width="110" height="215" fill="#273549"/>
+        <rect x="165" y="175" width="30" height="22" fill="#fde047"/>
+        <rect x="210" y="175" width="30" height="22" fill="#fde047"/>
+        <rect x="165" y="215" width="30" height="22" fill="#fde047"/>
 
-        <!-- Ngôi nhà ngói 3 gian truyền thống bên trái giống trong video -->
-        <g transform="translate(15, 215)">
-          <!-- Tường nhà -->
-          <rect x="20" y="65" width="165" height="75" fill="#d6c7b2" stroke="#57534e" stroke-width="2"/>
-          <!-- Cửa gỗ -->
-          <rect x="45" y="85" width="32" height="55" fill="#5c3a21"/>
-          <rect x="115" y="88" width="28" height="30" fill="#44403c"/>
-          <!-- Mái ngói đỏ nâu -->
-          <polygon points="5,68 102,15 200,68" fill="#7c2d12" stroke="#431407" stroke-width="2"/>
-          <line x1="25" y1="56" x2="180" y2="56" stroke="#9a3412" stroke-width="2"/>
-          <line x1="45" y1="44" x2="160" y2="44" stroke="#9a3412" stroke-width="2"/>
-          <line x1="68" y1="32" x2="138" y2="32" stroke="#9a3412" stroke-width="2"/>
+        <rect x="266" y="125" width="140" height="245" fill="#1e293b"/>
+        <rect x="285" y="145" width="38" height="22" fill="#fde047"/>
+        <rect x="342" y="145" width="38" height="22" fill="#fde047"/>
+        <rect x="285" y="185" width="38" height="22" fill="#fde047"/>
+        <rect x="342" y="185" width="38" height="22" fill="#fde047"/>
+
+        <rect x="415" y="110" width="135" height="260" fill="#273549"/>
+        <rect x="435" y="130" width="36" height="24" fill="#fde047"/>
+        <rect x="490" y="130" width="36" height="24" fill="#fde047"/>
+        <rect x="435" y="172" width="36" height="24" fill="#fde047"/>
+        <rect x="490" y="172" width="36" height="24" fill="#fde047"/>
+
+        <rect x="560" y="140" width="130" height="230" fill="#1e293b"/>
+        <rect x="580" y="160" width="35" height="22" fill="#fde047"/>
+        <rect x="635" y="160" width="35" height="22" fill="#fde047"/>
+        <rect x="580" y="200" width="35" height="22" fill="#fde047"/>
+        <rect x="635" y="200" width="35" height="22" fill="#fde047"/>
+
+        <rect x="700" y="125" width="135" height="245" fill="#273549"/>
+        <rect x="720" y="145" width="36" height="22" fill="#fde047"/>
+        <rect x="775" y="145" width="36" height="22" fill="#fde047"/>
+        <rect x="720" y="185" width="36" height="22" fill="#fde047"/>
+        <rect x="775" y="185" width="36" height="22" fill="#fde047"/>
+
+        <rect x="845" y="145" width="135" height="225" fill="#1e293b"/>
+        <rect x="865" y="165" width="35" height="22" fill="#fde047"/>
+        <rect x="920" y="165" width="35" height="22" fill="#fde047"/>
+
+        <rect x="25" y="250" width="110" height="28" rx="3" fill="#16a34a"/>
+        <text x="80" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">NHÀ SÁCH</text>
+        <rect x="30" y="278" width="100" height="72" fill="#fef08a"/>
+
+        <rect x="145" y="250" width="100" height="28" rx="3" fill="#0284c7"/>
+        <text x="195" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">TẠP HÓA</text>
+        <rect x="150" y="278" width="90" height="72" fill="#fed7aa"/>
+
+        <rect x="255" y="250" width="105" height="28" rx="3" fill="#d97706"/>
+        <text x="307" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">BÁNH MÌ</text>
+        <rect x="260" y="278" width="95" height="72" fill="#fde68a"/>
+
+        <rect x="370" y="250" width="105" height="28" rx="3" fill="#dc2626"/>
+        <text x="422" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">circle k</text>
+        <rect x="375" y="278" width="95" height="72" fill="#fecaca"/>
+
+        <rect x="485" y="250" width="100" height="28" rx="3" fill="#ca8a04"/>
+        <text x="535" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">TRÀ SỮA</text>
+        <rect x="490" y="278" width="90" height="72" fill="#fef08a"/>
+
+        <rect x="595" y="250" width="110" height="28" rx="3" fill="#2563eb"/>
+        <text x="650" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">HỚT TÓC</text>
+        <rect x="600" y="278" width="100" height="72" fill="#bfdbfe"/>
+
+        <rect x="715" y="250" width="100" height="28" rx="3" fill="#15803d"/>
+        <text x="765" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">QUÁN ĂN</text>
+        <rect x="720" y="278" width="90" height="72" fill="#bbf7d0"/>
+
+        <rect x="825" y="250" width="145" height="28" rx="3" fill="#e11d48"/>
+        <text x="897" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">ĐIỆN THOẠI</text>
+        <rect x="830" y="278" width="135" height="72" fill="#fbcfe8"/>
+
+        <g fill="#15803d">
+          <rect x="136" y="305" width="7" height="45" fill="#451a03"/>
+          <circle cx="140" cy="292" r="24"/>
+          <rect x="358" y="305" width="7" height="45" fill="#451a03"/>
+          <circle cx="362" cy="292" r="24"/>
+          <rect x="586" y="305" width="7" height="45" fill="#451a03"/>
+          <circle cx="590" cy="292" r="24"/>
+          <rect x="816" y="305" width="7" height="45" fill="#451a03"/>
+          <circle cx="820" cy="292" r="24"/>
         </g>
 
-        <!-- Sân đất vàng rộng phía trước -->
-        <rect y="365" width="1000" height="197" fill="url(#yardGrad)"/>
-        <ellipse cx="640" cy="395" rx="220" ry="26" fill="#451a03" opacity="0.35"/>
+        <rect y="350" width="1000" height="16" fill="#64748b"/>
+        <rect y="366" width="1000" height="196" fill="#1f2937"/>
+        <line x1="20" y1="435" x2="980" y2="435" stroke="#e2e8f0" stroke-width="5" stroke-dasharray="28,24" opacity="0.85"/>
 
-        <!-- Thân cây xoài cổ thụ xù xì bên phải giống hệt video -->
-        <g id="tree-trunk-group">
-          <path d="M585,392 C595,330 605,260 590,190 L695,190 C680,260 695,330 725,392 C690,402 615,402 585,392 Z" fill="url(#trunkGrad)"/>
-          <!-- Rễ cây bạnh ra mặt đất -->
-          <path d="M585,392 Q550,398 530,406 Q575,404 605,396 Z" fill="#3e1f0d"/>
-          <path d="M725,392 Q765,398 785,406 Q735,404 705,396 Z" fill="#291206"/>
-          <!-- Vân vỏ cây -->
-          <path d="M625,220 Q632,290 620,375" stroke="#291206" stroke-width="3" fill="none" opacity="0.6"/>
-          <path d="M658,210 Q650,295 668,380" stroke="#291206" stroke-width="3.5" fill="none" opacity="0.6"/>
-          <!-- Cành lớn vươn ra -->
-          <path d="M600,210 Q520,160 440,145" stroke="#4a2511" stroke-width="22" stroke-linecap="round" fill="none"/>
-          <path d="M680,210 Q760,165 840,150" stroke="#4a2511" stroke-width="20" stroke-linecap="round" fill="none"/>
+        <g transform="translate(80, 368)">
+          <rect x="12" y="0" width="52" height="20" rx="6" fill="#ef4444"/>
+          <rect x="0" y="16" width="82" height="22" rx="6" fill="#dc2626"/>
+          <circle cx="18" cy="39" r="8" fill="#0f172a"/>
+          <circle cx="64" cy="39" r="8" fill="#0f172a"/>
         </g>
-
-        <!-- Tán lá xanh rậm rạp phía trên -->
-        <g id="svg-canopy-group">
-          <ellipse cx="560" cy="110" rx="430" ry="135" fill="#14532d"/>
-          <circle cx="230" cy="125" r="95" fill="#166534"/>
-          <circle cx="370" cy="95" r="115" fill="#15803d"/>
-          <circle cx="540" cy="85" r="130" fill="#166534"/>
-          <circle cx="720" cy="95" r="120" fill="#15803d"/>
-          <circle cx="870" cy="125" r="100" fill="#14532d"/>
-          <ellipse cx="560" cy="135" rx="390" ry="95" fill="#16a34a" opacity="0.45"/>
+        <g transform="translate(625, 362)">
+          <rect x="0" y="0" width="135" height="44" rx="8" fill="#38bdf8"/>
+          <rect x="10" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
+          <rect x="40" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
+          <rect x="70" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
+          <rect x="100" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
+          <circle cx="28" cy="45" r="9" fill="#0f172a"/>
+          <circle cx="106" cy="45" r="9" fill="#0f172a"/>
         </g>
       </svg>
 
-      <!-- LƯỚI QUẢ XOÀI MẶT CƯỜI + BẢNG TÊN TREO TRÊN TÁN LÁ -->
-      <div id="mango-grid" class="mango-tree-layer"></div>
-
-      <!-- CHỮ VÕ CÔNG CHƯỞNG CÂY XOÀI: LĂNG BA VI BỘ / HÂY-A! -->
-      <div id="kungfu-banner" class="kungfu-banner">LĂNG BA VI BỘ!</div>
-
-      <!-- TỜ GIẤY TRẮNG ĐỔ BỘT CANH MUỐI ỚT GIỮA SÂN -->
-      <div class="salt-sheet-wrap">
-        <div class="salt-paper">
-          <div id="salt-mound" class="salt-mound"></div>
+      <!-- ĐĨA BAY UFO & CHÙM TIA SÁNG XANH -->
+      <div id="ufo-ship-wrap" class="ufo-ship-wrap">
+        <div class="ufo-saucer">
+          <svg viewBox="0 0 210 86" width="210" height="86">
+            <path d="M62,38 C62,10 148,10 148,38 Z" fill="#7dd3fc" opacity="0.78" stroke="#e0f2fe" stroke-width="2"/>
+            <ellipse cx="105" cy="46" rx="98" ry="22" fill="#cbd5e1" stroke="#475569" stroke-width="2.5"/>
+            <ellipse cx="105" cy="42" rx="86" ry="14" fill="#f1f5f9"/>
+            <circle cx="35" cy="47" r="5" fill="#facc15"/>
+            <circle cx="68" cy="52" r="5" fill="#34d399"/>
+            <circle cx="142" cy="52" r="5" fill="#34d399"/>
+            <circle cx="175" cy="47" r="5" fill="#facc15"/>
+          </svg>
+          <div id="ufo-counter-badge" class="ufo-counter-badge">0/1</div>
         </div>
+        <div id="ufo-beam" class="ufo-beam"></div>
       </div>
 
-      <!-- CẬU BÉ ÁO ĐỎ BÊN TRÁI -->
-      <div id="char-boy" class="char-boy">
-        <div id="boy-bubble" class="comic-bubble">Muối ớt Tây Ninh chuẩn bài!</div>
-        <svg width="78" height="96" viewBox="0 0 78 96">
-          <circle cx="39" cy="26" r="18" fill="#fed7aa" stroke="#0f172a" stroke-width="2"/>
-          <path d="M21 24 C21 8, 57 8, 57 24 C50 16, 28 16, 21 24 Z" fill="#0f172a"/>
-          <circle cx="33" cy="26" r="2.2" fill="#0f172a"/>
-          <circle cx="45" cy="26" r="2.2" fill="#0f172a"/>
-          <path d="M34 33 Q39 38 44 33" stroke="#0f172a" stroke-width="2" fill="none"/>
-          <!-- Áo đỏ -->
-          <rect x="23" y="44" width="32" height="28" rx="6" fill="#dc2626" stroke="#0f172a" stroke-width="2"/>
-          <!-- Quần đen & Chân -->
-          <rect x="25" y="72" width="11" height="20" rx="3" fill="#0f172a"/>
-          <rect x="42" y="72" width="11" height="20" rx="3" fill="#0f172a"/>
-        </svg>
-      </div>
+      <!-- ĐÁM ĐÔNG HỌC SINH CHẠY NHÁO NHÁC TRÊN ĐƯỜNG -->
+      <div id="street-crowd-layer" class="street-crowd-layer"></div>
 
-      <!-- BẠN NỮ ÁO VÀNG XANH BÊN PHẢI -->
-      <div id="char-girl" class="char-girl">
-        <div id="girl-bubble" class="comic-bubble">Giờ chỉ thiếu xoài thôi...</div>
-        <svg width="78" height="96" viewBox="0 0 78 96">
-          <circle cx="19" cy="20" r="7" fill="#0f172a"/>
-          <circle cx="59" cy="20" r="7" fill="#0f172a"/>
-          <circle cx="39" cy="26" r="18" fill="#fed7aa" stroke="#0f172a" stroke-width="2"/>
-          <path d="M21 24 C21 8, 57 8, 57 24 C50 16, 28 16, 21 24 Z" fill="#0f172a"/>
-          <circle cx="33" cy="26" r="2.2" fill="#0f172a"/>
-          <circle cx="45" cy="26" r="2.2" fill="#0f172a"/>
-          <path d="M35 33 Q39 37 43 33" stroke="#0f172a" stroke-width="2" fill="none"/>
-          <!-- Áo vàng chanh -->
-          <rect x="23" y="44" width="32" height="28" rx="6" fill="#bef264" stroke="#0f172a" stroke-width="2"/>
-          <!-- Quần & Chân -->
-          <rect x="26" y="72" width="10" height="20" rx="3" fill="#334155"/>
-          <rect x="42" y="72" width="10" height="20" rx="3" fill="#334155"/>
-        </svg>
-      </div>
+      <!-- MODAL KẾT QUẢ "LỆNH TRIỆU TẬP LIÊN HÀNH TINH" GIỐNG Y ẢNH MỚI -->
+      <div id="summon-backdrop" class="summon-backdrop hidden">
+        <div class="summon-card">
+          <div class="captured-stamp">ĐÃ<br>BẮT</div>
+          <div class="summon-header">
+            <div class="summon-ufo-avatar">🛸</div>
+            <div>
+              <div class="summon-kicker">LỆNH TRIỆU TẬP LIÊN HÀNH TINH</div>
+              <div class="summon-title">Mời bạn lên bảng trả bài</div>
+            </div>
+          </div>
 
-      <!-- KẾT QUẢ QUẢ XOÀI RỤNG BỊCH XUỐNG ĐẤT -->
-      <div id="drop-result-layer" class="drop-result-layer hidden">
-        <div id="falling-mango-unit" class="falling-mango-unit">
-          <div class="sfx-bich">BỊCH!</div>
-          <div class="mango-body" style="width:46px;height:54px;">
-            <span class="mango-face-txt" style="font-size:14px;">^‿^</span>
+          <div class="summon-slot-box">
+            <div class="slot-avatar">👦</div>
+            <div>
+              <div class="slot-label">NGƯỜI ĐƯỢC CHỌN</div>
+              <div id="ufo-winner-name" class="slot-student-name">Nguyễn Văn A</div>
+            </div>
+          </div>
+
+          <div class="summon-meta-row">
+            <span id="summon-timestamp">22:18 - 17/11/2026</span>
+            <span>Hệ thống khảo bài UFO v2.1</span>
+          </div>
+
+          <div class="summon-actions">
+            <button id="btn-ufo-reroll" type="button" class="btn-summon-new">
+              <span>Lượt mới</span>
+              <span class="space-key-badge">Space</span>
+            </button>
+            <button id="btn-ufo-accept" type="button" class="btn-summon-close">Đóng</button>
           </div>
         </div>
-        <div class="picked-panel">
-          <div class="p-label">🎯 Xoài đã rụng! Xin mời lên trả lời câu hỏi:</div>
-          <div id="mango-winner-name" class="p-name">Đinh Thái Sơn</div>
-          <div class="p-actions">
-            <button id="btn-mango-reroll" type="button" class="btn-hud">↻ Trẩy quả khác</button>
-            <button id="btn-mango-accept" type="button" class="btn-hud gold">✔ Mời bạn này trả lời</button>
-          </div>
-        </div>
+      </div>
+
+      <!-- THANH ĐIỀU KHIỂN DƯỚI ĐÁY -->
+      <div class="ufo-bottom-bar">
+        <button id="btn-ufo-start" type="button" class="btn-ufo-ctrl primary-green">Bắt đầu</button>
+        <button id="btn-ufo-fast" type="button" class="btn-ufo-ctrl">Tua nhanh x3</button>
+        <button id="btn-ufo-sound" type="button" class="btn-ufo-ctrl">Âm thanh: Bật</button>
+        <button id="btn-ufo-close" type="button" class="btn-ufo-ctrl">Thoát</button>
       </div>
     </div>
   </div>
@@ -756,14 +849,14 @@
   <!-- POPUP THÊM / SỬA DANH SÁCH TÊN -->
   <div id="manage-modal" class="modal-overlay hidden">
     <div class="modal-box">
-      <div class="modal-header picker">👥 Danh Sách Trên Cây Xoài (<span id="roster-count">0</span>)</div>
+      <div class="modal-header picker">👥 Danh Sách Thành Viên (<span id="roster-count">0</span>)</div>
       <div class="manage-body">
         <div class="add-name-row">
           <input id="modal-name-input" type="text" placeholder="Nhập tên muốn thêm (Enter để thêm)..." />
           <button id="btn-modal-add" type="button" class="btn-add-name">+ Thêm</button>
         </div>
         <div class="manage-meta">
-          <span>Bấm dấu × để xóa tên khỏi cây xoài:</span>
+          <span>Bấm dấu × để xóa tên khỏi danh sách:</span>
           <button id="btn-reset-list" type="button" class="btn-reset-list">Khôi phục danh sách lớp</button>
         </div>
         <div id="modal-chips-container" class="chips-container"></div>
@@ -881,7 +974,7 @@
     ];
 
     const defaultClassList = ["Phùng Khánh Duy", "Vương Thị Huyền", "Nguyễn Hương Ly", "Đỗ Công Tuyền", "Trương Quang Hậu", "Quách Bạch Dương", "Tạ Ngọc Chi", "Nông Phúc Thái", "Nguyễn Duy Nam", "Hoàng Thị Ngọc Ánh", "Trần Việt Hoàng", "Nguyễn Lan Anh", "Nguyễn Bá Dương", "Phạm Thị Linh", "Hà Thu Trang", "Trương Phương Nhi", "Nguyễn Thành Trung", "Lê Dương Trúc Quỳnh", "Nguyễn Anh Dũng", "Đinh Thái Sơn", "Vũ Đăng Hưng", "Nguyễn Ích Hiếu", "Nguyễn Thanh Tùng", "Đinh Thị Mai Hương", "Nguyễn Thị Thảo", "Nguyễn Thanh Dung", "Phạm Thuỳ Linh", "Trương Thị Huệ Chi", "Nguyễn Thị Dịu", "Hoàng Phương Liên", "Nguyễn Viết Chuẩn", "Nguyễn Nhật Quân", "Đỗ Duy Khánh"];
-    const STORAGE_KEY = "minigame_bai7_mango_v2";
+    const STORAGE_KEY = "minigame_bai7_ufo_v2";
 
     let allStudents = [];
     let remainingStudents = [];
@@ -890,44 +983,71 @@
     let isLastAnswerCorrect = false;
     let hasAttemptedCurrent = false;
     let currentChosenStudent = "";
-    let storyTimers = [];
-    let isAnimating = false;
+    let isAbducting = false;
+    let isFastMode = false;
+    let isSoundOn = true;
+    let ufoTimers = [];
+    let ufoMoveInterval = null;
 
     const letters = ["A", "B", "C", "D"];
-    const faces = ["•‿•", "^‿^", "◕‿◕", "≧◡≦", "°▽°"];
+    const shirtColors = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"];
+    const panicLines = [
+      "Em chưa thuộc bài!!",
+      "Đừng bắt em!!",
+      "Ối giời ơi UFO!",
+      "Rớt xuống may quá!",
+      "Né tia sáng ra!!",
+      "Tha cho em!!"
+    ];
 
     const startScreen = document.getElementById("start-screen");
     const quizScreen = document.getElementById("quiz-screen");
     const resultScreen = document.getElementById("result-screen");
     const cornerDock = document.getElementById("corner-dock");
-    const mangoModal = document.getElementById("mango-modal");
+    const ufoModal = document.getElementById("ufo-modal");
+    const summonBackdrop = document.getElementById("summon-backdrop");
     const manageModal = document.getElementById("manage-modal");
     const feedbackModal = document.getElementById("feedback-modal");
     const videoWrap = document.getElementById("video-wrap");
     const videoEl = document.getElementById("feedback-video");
 
-    // Tạo hiệu ứng âm thanh vui nhộn bằng Web Audio API (không cần file mp3 rời)
-    function playTone(freq, duration, type) {
+    function playUfoSound(freq1, freq2, dur) {
+      if (!isSoundOn) return;
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         if (!AudioCtx) return;
         const ctx = new AudioCtx();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = type || "triangle";
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        gain.gain.setValueAtTime(0.15, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq1, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq2, ctx.currentTime + dur);
+        gain.gain.setValueAtTime(0.14, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start();
-        osc.stop(ctx.currentTime + duration);
+        osc.stop(ctx.currentTime + dur);
       } catch (e) {}
     }
 
-    function clearStoryTimers() {
-      storyTimers.forEach(t => clearTimeout(t));
-      storyTimers = [];
+    function clearUfoTimers() {
+      ufoTimers.forEach(t => clearTimeout(t));
+      ufoTimers = [];
+      if (ufoMoveInterval) {
+        clearInterval(ufoMoveInterval);
+        ufoMoveInterval = null;
+      }
+    }
+
+    function getFormattedTimestamp() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      const dd = String(now.getDate()).padStart(2, "0");
+      const mo = String(now.getMonth() + 1).padStart(2, "0");
+      const yyyy = now.getFullYear();
+      return hh + ":" + mm + " - " + dd + "/" + mo + "/" + yyyy;
     }
 
     function loadStudents() {
@@ -975,7 +1095,7 @@
           remainingStudents = remainingStudents.filter(s => s !== name);
           saveStudents();
           renderChips();
-          renderMangoTree();
+          renderStreetCrowd();
           updateStudentBanner();
         };
 
@@ -1002,7 +1122,7 @@
       inputEl.focus();
       saveStudents();
       renderChips();
-      renderMangoTree();
+      renderStreetCrowd();
       updateStudentBanner();
     }
 
@@ -1010,158 +1130,181 @@
       const banner = document.getElementById("active-student-banner");
       if (currentChosenStudent) {
         document.getElementById("current-student-name").textContent = currentChosenStudent;
-        document.getElementById("remaining-badge").textContent = "Còn " + remainingStudents.length + "/" + allStudents.length + " quả xoài";
+        document.getElementById("remaining-badge").textContent = "Còn " + remainingStudents.length + "/" + allStudents.length + " bạn";
         banner.classList.remove("hidden");
       } else {
         banner.classList.add("hidden");
       }
     }
 
-    function renderMangoTree() {
+    function renderStreetCrowd() {
       if (remainingStudents.length === 0 && allStudents.length > 0) {
         remainingStudents = [...allStudents];
       }
-      document.getElementById("mango-left-count").textContent = remainingStudents.length;
+      document.getElementById("ufo-roster-stat").textContent = remainingStudents.length + "/" + allStudents.length;
+      document.getElementById("ufo-counter-badge").textContent = "0/1";
 
-      const grid = document.getElementById("mango-grid");
-      grid.innerHTML = "";
+      const layer = document.getElementById("street-crowd-layer");
+      layer.innerHTML = "";
+
+      const total = remainingStudents.length;
+      const cols = Math.min(11, Math.max(6, Math.ceil(total / 3)));
+
       remainingStudents.forEach(function(fullName, idx) {
-        const item = document.createElement("div");
-        item.className = "mango-node";
-        item.title = fullName;
+        const pawn = document.createElement("div");
+        pawn.className = "student-pawn";
+        pawn.dataset.fullname = fullName;
 
-        const body = document.createElement("div");
-        body.className = "mango-body";
-        const face = document.createElement("span");
-        face.className = "mango-face-txt";
-        face.textContent = faces[idx % faces.length];
-        body.appendChild(face);
+        const col = idx % cols;
+        const row = Math.floor(idx / cols);
+        const leftPct = 4 + (col * (88 / Math.max(1, cols - 1))) + ((row % 2) * 3);
+        const topPct = 10 + (row * 28);
+
+        pawn.style.left = Math.min(91, leftPct) + "%";
+        pawn.style.top = Math.min(72, topPct) + "%";
+
+        const bubble = document.createElement("div");
+        bubble.className = "panic-bubble";
+        bubble.textContent = panicLines[idx % panicLines.length];
 
         const tag = document.createElement("div");
-        tag.className = "mango-nameplate";
+        tag.className = "pawn-name-tag";
         tag.textContent = getShortName(fullName);
 
-        item.appendChild(body);
-        item.appendChild(tag);
+        const color = shirtColors[idx % shirtColors.length];
+        const avatar = document.createElement("div");
+        avatar.innerHTML =
+          '<svg width="30" height="36" viewBox="0 0 30 36">' +
+            '<circle cx="15" cy="8" r="6" fill="#fed7aa" stroke="#0f172a" stroke-width="1.5"/>' +
+            '<path d="M9 7 C9 2, 21 2, 21 7 Z" fill="#0f172a"/>' +
+            '<path d="M15 15 L6 7 M15 15 L24 7" stroke="#fed7aa" stroke-width="3" stroke-linecap="round"/>' +
+            '<rect x="10" y="14" width="10" height="12" rx="3" fill="' + color + '" stroke="#0f172a" stroke-width="1.2"/>' +
+            '<path d="M12 26 L10 35 M18 26 L20 35" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>' +
+          '</svg>';
 
-        item.onclick = function() {
-          if (!isAnimating) {
-            clearStoryTimers();
-            dropSpecificMango(fullName);
+        pawn.appendChild(bubble);
+        pawn.appendChild(tag);
+        pawn.appendChild(avatar);
+
+        pawn.onclick = function() {
+          if (!isAbducting) {
+            clearUfoTimers();
+            abductTargetPawn(pawn);
           }
         };
 
-        grid.appendChild(item);
+        layer.appendChild(pawn);
       });
     }
 
-    // Diễn hoạt đúng kịch bản như video:
-    // 1. Trải giấy trắng & rắc bột canh muối ớt Tây Ninh
-    // 2. Bạn nữ nói "Giờ chỉ thiếu xoài thôi..."
-    // 3. Cậu bé vận công chưởng "LĂNG BA VI BỘ! / HÂY-A!" làm cả cây xoài rung bần bật
-    // 4. Một quả xoài rụng "BỊCH!" xuống sân kèm tên bạn được gọi
-    function playFullMangoStory(skipIntro) {
-      clearStoryTimers();
+    function startUfoHunt() {
+      clearUfoTimers();
       if (allStudents.length === 0) {
-        mangoModal.classList.add("hidden");
+        stopCityAmbient();
+      ufoModal.classList.add("hidden");
         renderChips();
         manageModal.classList.remove("hidden");
         return;
       }
       if (remainingStudents.length === 0) {
         remainingStudents = [...allStudents];
-        renderMangoTree();
+        renderStreetCrowd();
       }
 
-      isAnimating = true;
-      document.getElementById("drop-result-layer").classList.add("hidden");
-      document.getElementById("kungfu-banner").classList.remove("active");
-      document.getElementById("svg-canopy-group").classList.remove("canopy-shaking");
-      document.getElementById("char-boy").classList.remove("char-jump");
-      document.getElementById("char-girl").classList.remove("char-jump");
-      document.querySelectorAll(".mango-node").forEach(n => n.classList.remove("hard-shake"));
+      isAbducting = true;
+      summonBackdrop.classList.add("hidden");
+      document.getElementById("ufo-counter-badge").textContent = "0/1";
 
-      const saltMound = document.getElementById("salt-mound");
-      const boyBubble = document.getElementById("boy-bubble");
-      const girlBubble = document.getElementById("girl-bubble");
+      const ship = document.getElementById("ufo-ship-wrap");
+      const beam = document.getElementById("ufo-beam");
+      const pawns = Array.from(document.querySelectorAll(".student-pawn"));
 
-      if (!skipIntro) {
-        saltMound.classList.remove("poured");
-        boyBubble.textContent = "Đổ muối ớt Tây Ninh ra giấy nào!";
-        girlBubble.textContent = "Nhìn hấp dẫn quá đi!";
+      beam.classList.add("active");
+      pawns.forEach((p, i) => {
+        p.classList.add("panicking");
+        if (i % 3 === 0) p.classList.add("show-bubble");
+      });
 
-        storyTimers.push(setTimeout(function() {
-          saltMound.classList.add("poured");
-          playTone(520, 0.15, "sine");
-          boyBubble.textContent = "Muối ớt Tây Ninh chuẩn bài!";
-          girlBubble.textContent = "Giờ chỉ thiếu xoài thôi...";
-        }, 700));
+      const speedFactor = isFastMode ? 0.35 : 1;
+      let sweepStep = 0;
+      const maxSweeps = isFastMode ? 5 : 10;
 
-        storyTimers.push(setTimeout(function() {
-          startKungfuShake();
-        }, 1900));
-      } else {
-        saltMound.classList.add("poured");
-        startKungfuShake();
-      }
+      ufoMoveInterval = setInterval(function() {
+        const randX = 18 + Math.floor(Math.random() * 64);
+        ship.style.left = randX + "%";
+        playUfoSound(280 + sweepStep * 35, 520, 0.16);
+
+        pawns.forEach(p => {
+          const curLeft = parseFloat(p.style.left) || 50;
+          const delta = (Math.random() - 0.5) * 14;
+          p.style.left = Math.max(4, Math.min(90, curLeft + delta)) + "%";
+        });
+
+        sweepStep++;
+        if (sweepStep >= maxSweeps) {
+          clearInterval(ufoMoveInterval);
+          ufoMoveInterval = null;
+          const chosenPawn = pawns[Math.floor(Math.random() * pawns.length)];
+          abductTargetPawn(chosenPawn);
+        }
+      }, Math.round(240 * speedFactor));
     }
 
-    function startKungfuShake() {
-      const canopy = document.getElementById("svg-canopy-group");
-      const banner = document.getElementById("kungfu-banner");
-      const boyBubble = document.getElementById("boy-bubble");
-      const girlBubble = document.getElementById("girl-bubble");
-      const nodes = document.querySelectorAll(".mango-node");
+    function abductTargetPawn(pawnEl) {
+      if (!pawnEl) return;
+      isAbducting = true;
+      const ship = document.getElementById("ufo-ship-wrap");
+      const beam = document.getElementById("ufo-beam");
+      const pawns = document.querySelectorAll(".student-pawn");
 
-      canopy.classList.add("canopy-shaking");
-      nodes.forEach(n => n.classList.add("hard-shake"));
-      document.getElementById("char-boy").classList.add("char-jump");
+      ship.style.left = pawnEl.style.left;
+      beam.classList.add("active");
 
-      const moves = ["LĂNG BA VI BỘ!", "HÂY-A! CHƯỞNG!", "XOÀI RỤNG NÀO!"];
-      banner.textContent = moves[Math.floor(Math.random() * moves.length)];
-      banner.classList.add("active");
-      boyBubble.textContent = "Coi tuyệt chiêu của tớ đây!";
-      girlBubble.textContent = "Cố lên! Rụng xuống đi!";
-      playTone(320, 0.25, "sawtooth");
+      pawns.forEach(p => {
+        p.classList.remove("panicking");
+        p.classList.remove("show-bubble");
+      });
 
-      storyTimers.push(setTimeout(function() {
-        canopy.classList.remove("canopy-shaking");
-        nodes.forEach(n => n.classList.remove("hard-shake"));
-        banner.classList.remove("active");
-        document.getElementById("char-boy").classList.remove("char-jump");
+      const bubble = pawnEl.querySelector(".panic-bubble");
+      if (bubble) bubble.textContent = "Đừng bắt em!!";
+      pawnEl.classList.add("show-bubble");
 
-        const randIdx = Math.floor(Math.random() * remainingStudents.length);
-        const winner = remainingStudents[randIdx];
-        isAnimating = false;
-        dropSpecificMango(winner);
-      }, 1500));
+      ufoTimers.push(setTimeout(function() {
+        playUfoSound(300, 920, 0.85);
+        pawnEl.classList.add("abducting");
+        document.getElementById("ufo-counter-badge").textContent = "1/1";
+      }, 280));
+
+      ufoTimers.push(setTimeout(function() {
+        beam.classList.remove("active");
+        const winnerName = pawnEl.dataset.fullname;
+        currentChosenStudent = winnerName;
+        document.getElementById("ufo-winner-name").textContent = winnerName;
+        document.getElementById("summon-timestamp").textContent = getFormattedTimestamp();
+        summonBackdrop.classList.remove("hidden");
+        isAbducting = false;
+      }, 1350));
     }
 
-    function dropSpecificMango(winnerName) {
-      currentChosenStudent = winnerName;
-      document.getElementById("mango-winner-name").textContent = winnerName;
-      document.getElementById("boy-bubble").textContent = "BỊCH! Trúng quả ngon rồi!";
-      document.getElementById("girl-bubble").textContent = "Chấm muối ớt thôi!";
-      document.getElementById("char-girl").classList.add("char-jump");
-      playTone(180, 0.3, "triangle");
-
-      const layer = document.getElementById("drop-result-layer");
-      const unit = document.getElementById("falling-mango-unit");
-      layer.classList.remove("hidden");
-
-      unit.style.animation = "none";
-      void unit.offsetWidth;
-      unit.style.animation = "";
-    }
-
-    function acceptMangoStudent() {
+    function acceptUfoStudent() {
       const idx = remainingStudents.indexOf(currentChosenStudent);
       if (idx !== -1) {
         remainingStudents.splice(idx, 1);
       }
       updateStudentBanner();
-      mangoModal.classList.add("hidden");
+      summonBackdrop.classList.add("hidden");
+      stopCityAmbient();
+      ufoModal.classList.add("hidden");
     }
+
+    // Phím tắt Space để bắt lượt mới khi thẻ triệu tập đang mở
+    document.addEventListener("keydown", function(e) {
+      if (e.code === "Space" && !summonBackdrop.classList.contains("hidden") && !ufoModal.classList.contains("hidden")) {
+        e.preventDefault();
+        renderStreetCrowd();
+        startUfoHunt();
+      }
+    });
 
     loadStudents();
     remainingStudents = [...allStudents];
@@ -1179,7 +1322,7 @@
       remainingStudents = [...allStudents];
       saveStudents();
       renderChips();
-      renderMangoTree();
+      renderStreetCrowd();
       updateStudentBanner();
     };
 
@@ -1302,25 +1445,121 @@
     document.getElementById("btn-restart").onclick = startGame;
     document.getElementById("btn-next").onclick = handleModalAction;
 
-    document.getElementById("btn-open-mango").onclick = function() {
-      renderMangoTree();
-      mangoModal.classList.remove("hidden");
-      playFullMangoStory(false);
+    
+    let cityAmbientInterval = null;
+    function startCityAmbient() {
+      if (!isSoundOn) return;
+      stopCityAmbient();
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        
+        // Traffic rumble: brown/pink-ish noise through lowpass filter
+        const bufferSize = ctx.sampleRate * 2;
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          output[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = output[i];
+          output[i] *= 0.18; // volume
+        }
+        const whiteNoise = ctx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 350; // muffled city rumble
+
+        whiteNoise.connect(filter);
+        filter.connect(ctx.destination);
+        whiteNoise.start();
+
+        // Store ctx and source to stop later
+        window._cityAudioCtx = ctx;
+        window._cityNoiseSource = whiteNoise;
+
+        // Occasional car horn
+        cityAmbientInterval = setInterval(() => {
+          if (!isSoundOn || ufoModal.classList.contains("hidden")) return;
+          playCarHonk();
+        }, 4500);
+      } catch(e) {}
+    }
+
+    function playCarHonk() {
+      if (!isSoundOn) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        // Car horn frequency dual-tone (e.g., 350Hz & 440Hz)
+        [340, 435].forEach(freq => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+          gain.gain.setValueAtTime(0.04, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.35);
+        });
+      } catch(e) {}
+    }
+
+    function stopCityAmbient() {
+      if (cityAmbientInterval) {
+        clearInterval(cityAmbientInterval);
+        cityAmbientInterval = null;
+      }
+      try {
+        if (window._cityNoiseSource) {
+          window._cityNoiseSource.stop();
+          window._cityNoiseSource.disconnect();
+          window._cityNoiseSource = null;
+        }
+        if (window._cityAudioCtx) {
+          window._cityAudioCtx.close();
+          window._cityAudioCtx = null;
+        }
+      } catch(e) {}
+    }
+
+    document.getElementById("btn-open-ufo").onclick = function() {
+      clearUfoTimers();
+      isAbducting = false;
+      document.getElementById("ufo-beam").classList.remove("active");
+      summonBackdrop.classList.add("hidden");
+      renderStreetCrowd();
+      ufoModal.classList.remove("hidden");
+      startCityAmbient();
     };
-    document.getElementById("btn-replay-story").onclick = function() {
-      playFullMangoStory(false);
+    document.getElementById("btn-ufo-start").onclick = startUfoHunt;
+    document.getElementById("btn-ufo-reroll").onclick = function() {
+      renderStreetCrowd();
+      startUfoHunt();
     };
-    document.getElementById("btn-shake-tree").onclick = function() {
-      playFullMangoStory(true);
+    document.getElementById("btn-ufo-accept").onclick = acceptUfoStudent;
+    document.getElementById("btn-ufo-fast").onclick = function() {
+      isFastMode = !isFastMode;
+      this.classList.toggle("active-fast", isFastMode);
+      this.textContent = isFastMode ? "Tua nhanh: Bật (x3)" : "Tua nhanh x3";
     };
-    document.getElementById("btn-mango-reroll").onclick = function() {
-      playFullMangoStory(true);
+    document.getElementById("btn-ufo-sound").onclick = function() {
+      isSoundOn = !isSoundOn;
+      this.textContent = isSoundOn ? "Âm thanh: Bật" : "Âm thanh: Tắt";
     };
-    document.getElementById("btn-mango-accept").onclick = acceptMangoStudent;
-    document.getElementById("btn-close-mango").onclick = function() {
-      clearStoryTimers();
-      isAnimating = false;
-      mangoModal.classList.add("hidden");
+    document.getElementById("btn-ufo-close").onclick = function() {
+      clearUfoTimers();
+      isAbducting = false;
+      summonBackdrop.classList.add("hidden");
+      stopCityAmbient();
+      ufoModal.classList.add("hidden");
     };
 
     document.getElementById("btn-manage-list").onclick = function() {
