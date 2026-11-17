@@ -37,8 +37,100 @@
       margin-bottom: 16px;
     }
     h1 { font-size: 32px; margin-bottom: 12px; color: #fff; }
-    .subtitle { color: #a1a1aa; font-size: 15px; line-height: 1.5; margin-bottom: 28px; }
+    .subtitle { color: #a1a1aa; font-size: 15px; line-height: 1.5; margin-bottom: 24px; }
     .subtitle span { color: #facc15; font-weight: 600; }
+
+    /* Quản lý danh sách tên tùy ý */
+    .roster-box {
+      background: #252529;
+      border: 1px solid #3f3f46;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .roster-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #d4d4d8;
+      font-weight: 600;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .roster-actions { display: flex; align-items: center; gap: 10px; }
+    .roster-count { color: #facc15; }
+    .btn-clear-all {
+      background: transparent;
+      border: 1px solid #52525b;
+      color: #a1a1aa;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-clear-all:hover { border-color: #ef4444; color: #fca5a5; }
+
+    .add-name-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .add-name-row input {
+      flex: 1;
+      background: #18181b;
+      border: 1px solid #3f3f46;
+      border-radius: 10px;
+      color: #f4f4f5;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    .add-name-row input:focus { outline: none; border-color: #f59e0b; }
+    .btn-add-name {
+      background: #f59e0b;
+      color: #18181b;
+      border: none;
+      border-radius: 10px;
+      padding: 0 16px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-add-name:hover { background: #fbbf24; }
+
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-height: 140px;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+    .name-chip {
+      background: #18181b;
+      border: 1px solid #3f3f46;
+      color: #f4f4f5;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .name-chip button {
+      background: none;
+      border: none;
+      color: #a1a1aa;
+      font-size: 14px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .name-chip button:hover { color: #ef4444; }
+    .roster-note { font-size: 12px; color: #71717a; margin-top: 8px; }
+
     .btn-primary {
       background: linear-gradient(135deg, #f59e0b, #ea580c);
       color: #fff;
@@ -53,10 +145,57 @@
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35); }
     .hidden { display: none !important; }
 
-    .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 14px; color: #a1a1aa; }
-    .score-pill { background: #27272a; color: #facc15; padding: 4px 12px; border-radius: 999px; font-weight: 700; }
-    .progress-bar { height: 6px; background: #27272a; border-radius: 999px; overflow: hidden; margin-bottom: 24px; }
+    .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 14px; color: #a1a1aa; gap: 8px; flex-wrap: wrap; }
+    .score-pill { background: #27272a; color: #facc15; padding: 5px 12px; border-radius: 999px; font-weight: 700; }
+    .progress-bar { height: 6px; background: #27272a; border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
     .progress-fill { height: 100%; background: #f59e0b; width: 0%; transition: width 0.3s; }
+
+    /* Thanh chọn ngẫu nhiên người trả lời */
+    .picker-bar {
+      background: linear-gradient(135deg, #27272a, #202024);
+      border: 1.5px solid #3f3f46;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .selected-student-info {
+      text-align: left;
+      flex: 1;
+      min-width: 160px;
+    }
+    .selected-label { font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px; }
+    .selected-name { font-size: 17px; font-weight: 800; color: #facc15; margin-top: 2px; }
+    .picker-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-pick {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-pick:hover { box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35); }
+    .btn-manage-list {
+      background: #3f3f46;
+      color: #f4f4f5;
+      border: none;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-manage-list:hover { background: #52525b; }
+
     .question-text { font-size: 20px; font-weight: 700; text-align: left; line-height: 1.45; margin-bottom: 20px; color: #fff; }
     .options { display: flex; flex-direction: column; gap: 12px; }
     .option-btn {
@@ -87,9 +226,10 @@
       flex-shrink: 0;
     }
 
+    /* Popup Quay Tên, Quản Lý Tên & Video Phản Hồi */
     .modal-overlay {
       position: fixed; inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.84);
       backdrop-filter: blur(4px);
       display: flex; align-items: center; justify-content: center;
       padding: 16px; z-index: 50;
@@ -100,11 +240,41 @@
       width: 100%; max-width: 460px;
       overflow: hidden;
       border: 1px solid #333;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85);
     }
     .modal-header { padding: 16px 20px; font-weight: 700; font-size: 18px; color: #fff; text-align: center; }
     .modal-header.correct { background: #16a34a; }
     .modal-header.wrong { background: #e11d48; }
+    .modal-header.picker { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+
+    .wheel-stage {
+      padding: 36px 20px;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      text-align: center;
+    }
+    .wheel-emoji { font-size: 46px; margin-bottom: 12px; display: block; }
+    .wheel-name-box {
+      background: #18181b;
+      border: 2px solid #3b82f6;
+      border-radius: 16px;
+      padding: 18px 16px;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+      transition: all 0.2s;
+    }
+    .wheel-name-box.winner {
+      border-color: #facc15;
+      color: #facc15;
+      transform: scale(1.04);
+      box-shadow: 0 0 32px rgba(250, 204, 21, 0.4);
+    }
+    .wheel-sub { font-size: 13px; color: #94a3b8; margin-top: 12px; }
 
     .video-wrap {
       background: #0d0d0f;
@@ -126,9 +296,7 @@
       border-radius: 8px;
       box-shadow: 0 0 24px rgba(0, 0, 0, 0.75);
     }
-    .video-wrap.cat-mode {
-      background: #000;
-    }
+    .video-wrap.cat-mode { background: #000; }
     .video-wrap.cat-mode video {
       width: 100%;
       height: 100%;
@@ -140,35 +308,75 @@
     .correct-ans-note { color: #4ade80; font-weight: 600; margin-bottom: 8px; }
     .wrong-ans-note { color: #fda4af; font-weight: 600; margin-bottom: 8px; }
     .explain-title { color: #facc15; font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 4px; }
-    .modal-footer { padding: 0 20px 20px; }
+    .modal-footer { padding: 0 20px 20px; display: flex; gap: 10px; }
     .btn-next {
       width: 100%; padding: 13px; border: none; border-radius: 12px;
       font-size: 15px; font-weight: 700; color: #fff; cursor: pointer;
     }
     .btn-next.correct { background: #16a34a; }
     .btn-next.wrong { background: #e11d48; }
+    .btn-next.picker { background: #2563eb; }
+    .btn-secondary {
+      padding: 13px 16px; border: 1px solid #3f3f46; border-radius: 12px;
+      background: #27272a; color: #e4e4e7; font-size: 14px; font-weight: 700; cursor: pointer;
+      white-space: nowrap;
+    }
     .result-score { font-size: 48px; font-weight: 800; color: #facc15; margin: 12px 0; }
   </style>
 </head>
 <body>
 
+  <!-- MÀN HÌNH BẮT ĐẦU + THÊM TÊN NGƯỜI TÙY Ý -->
   <div id="start-screen" class="card">
     <div class="badge">ÔN TẬP MARKETING CĂN BẢN</div>
     <h1>Bài 7: Chiến Lược Phân Phối</h1>
-    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> được tổng hợp từ vở ghi của bạn!</p>
+    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> & chọn ngẫu nhiên người trả lời!</p>
+
+    <div class="roster-box">
+      <div class="roster-header">
+        <span>👥 Thêm tên người tham gia (tùy ý):</span>
+        <div class="roster-actions">
+          <span class="roster-count">Tổng: <span id="roster-count">0</span> người</span>
+          <button id="btn-clear-all" type="button" class="btn-clear-all">Xóa hết</button>
+        </div>
+      </div>
+
+      <div class="add-name-row">
+        <input id="new-name-input" type="text" placeholder="Nhập tên (hoặc dán nhiều tên cách nhau bằng dấu phẩy)..." />
+        <button id="btn-add-name" type="button" class="btn-add-name">+ Thêm</button>
+      </div>
+
+      <div id="chips-container" class="chips-container"></div>
+      <div class="roster-note">* Danh sách tự động lưu trên trình duyệt; bạn có thể thêm/xóa tên bất cứ lúc nào kể cả khi đang chơi.</div>
+    </div>
+
     <button id="btn-start" type="button" class="btn-primary">▶ Bắt Đầu Chơi Ngay</button>
   </div>
 
+  <!-- MÀN HÌNH CÂU HỎI -->
   <div id="quiz-screen" class="card hidden">
     <div class="quiz-header">
       <span id="question-counter">Câu 1 / 7</span>
       <span class="score-pill">Điểm: <span id="score-display">0</span></span>
     </div>
     <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+
+    <div class="picker-bar">
+      <div class="selected-student-info">
+        <div class="selected-label">🎯 Người được chọn trả lời:</div>
+        <div id="current-student-name" class="selected-name">Chưa chọn</div>
+      </div>
+      <div class="picker-btns">
+        <button id="btn-manage-list" type="button" class="btn-manage-list">+ Thêm / Sửa tên</button>
+        <button id="btn-open-picker" type="button" class="btn-pick">🎲 Quay ngẫu nhiên</button>
+      </div>
+    </div>
+
     <div id="question-text" class="question-text"></div>
     <div id="options-container" class="options"></div>
   </div>
 
+  <!-- MÀN HÌNH KẾT QUẢ -->
   <div id="result-screen" class="card hidden">
     <div class="badge">HOÀN THÀNH THỬ THÁCH</div>
     <h1>Tổng Kết Điểm Số</h1>
@@ -177,6 +385,40 @@
     <button id="btn-restart" type="button" class="btn-primary">↻ Chơi Lại Từ Đầu</button>
   </div>
 
+  <!-- POPUP QUAY CHỌN NGƯỜI TRẢ LỜI -->
+  <div id="picker-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header picker">🎲 Đang Chọn Ngẫu Nhiên Người Trả Lời...</div>
+      <div class="wheel-stage">
+        <span id="wheel-emoji" class="wheel-emoji">🎯</span>
+        <div id="wheel-name-display" class="wheel-name-box">Đang quay...</div>
+        <div id="wheel-sub" class="wheel-sub">Ai sẽ là người trả lời câu hỏi này?</div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-reroll" type="button" class="btn-secondary hidden">↻ Quay lại</button>
+        <button id="btn-confirm-student" type="button" class="btn-next picker hidden">✔ Mời người này trả lời</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP THÊM / SỬA TÊN NGAY TRONG LÚC CHƠI -->
+  <div id="manage-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header picker">👥 Danh Sách Người Tham Gia</div>
+      <div style="padding: 20px;">
+        <div class="add-name-row">
+          <input id="modal-name-input" type="text" placeholder="Nhập tên muốn thêm..." />
+          <button id="btn-modal-add" type="button" class="btn-add-name">+ Thêm</button>
+        </div>
+        <div id="modal-chips-container" class="chips-container" style="max-height: 200px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-close-manage" type="button" class="btn-next picker">✔ Xong</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP VIDEO PHẢN HỒI ĐÚNG / SAI -->
   <div id="feedback-modal" class="modal-overlay hidden">
     <div class="modal-box">
       <div id="modal-header" class="modal-header"></div>
@@ -282,23 +524,144 @@
       }
     ];
 
+    const STORAGE_KEY = "minigame_bai7_students";
+    const defaultList = ["Nguyễn Văn An", "Trần Thị Bình", "Lê Hoàng Cường", "Phạm Minh Đức", "Vũ Anh Tuấn"];
+
+    let allStudents = [];
+    let remainingStudents = [];
     let currentIdx = 0;
     let score = 0;
     let isLastAnswerCorrect = false;
     let hasAttemptedCurrent = false;
-    const letters = ["A", "B", "C", "D"];
+    let currentChosenStudent = "";
+    let spinTimer = null;
 
+    const letters = ["A", "B", "C", "D"];
     const startScreen = document.getElementById("start-screen");
     const quizScreen = document.getElementById("quiz-screen");
     const resultScreen = document.getElementById("result-screen");
-    const modal = document.getElementById("feedback-modal");
+    const feedbackModal = document.getElementById("feedback-modal");
+    const pickerModal = document.getElementById("picker-modal");
+    const manageModal = document.getElementById("manage-modal");
     const videoWrap = document.getElementById("video-wrap");
     const videoEl = document.getElementById("feedback-video");
 
+    function loadStudents() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            allStudents = parsed;
+            return;
+          }
+        }
+      } catch (e) {}
+      allStudents = [...defaultList];
+    }
+
+    function saveStudents() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(allStudents));
+      } catch (e) {}
+    }
+
+    function addNamesFromInput(inputEl) {
+      const raw = inputEl.value.trim();
+      if (!raw) return;
+      const parts = raw.split(/[,;
+]+/).map(s => s.trim()).filter(s => s.length > 0);
+      parts.forEach(name => {
+        if (!allStudents.includes(name)) {
+          allStudents.push(name);
+          remainingStudents.push(name);
+        }
+      });
+      inputEl.value = "";
+      saveStudents();
+      renderChips();
+      updateQuizPickerLabel();
+    }
+
+    function removeStudent(name) {
+      allStudents = allStudents.filter(s => s !== name);
+      remainingStudents = remainingStudents.filter(s => s !== name);
+      saveStudents();
+      renderChips();
+      updateQuizPickerLabel();
+    }
+
+    function renderChips() {
+      document.getElementById("roster-count").textContent = allStudents.length;
+      const targets = [
+        document.getElementById("chips-container"),
+        document.getElementById("modal-chips-container")
+      ];
+      targets.forEach(container => {
+        if (!container) return;
+        container.innerHTML = "";
+        allStudents.forEach(name => {
+          const chip = document.createElement("span");
+          chip.className = "name-chip";
+          chip.innerHTML = `<span>${name}</span><button type="button" title="Xóa">×</button>`;
+          chip.querySelector("button").addEventListener("click", () => removeStudent(name));
+          container.appendChild(chip);
+        });
+      });
+    }
+
+    function updateQuizPickerLabel() {
+      const labelEl = document.getElementById("current-student-name");
+      if (!labelEl) return;
+      if (currentChosenStudent) {
+        labelEl.textContent = `${currentChosenStudent} (Còn ${remainingStudents.length} người)`;
+      } else {
+        labelEl.textContent = `Chưa chọn (Còn ${remainingStudents.length} người)`;
+      }
+    }
+
+    loadStudents();
+    remainingStudents = [...allStudents];
+    renderChips();
+
+    document.getElementById("btn-add-name").addEventListener("click", () => {
+      addNamesFromInput(document.getElementById("new-name-input"));
+    });
+    document.getElementById("new-name-input").addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addNamesFromInput(e.target);
+      }
+    });
+
+    document.getElementById("btn-modal-add").addEventListener("click", () => {
+      addNamesFromInput(document.getElementById("modal-name-input"));
+    });
+    document.getElementById("modal-name-input").addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addNamesFromInput(e.target);
+      }
+    });
+
+    document.getElementById("btn-clear-all").addEventListener("click", () => {
+      allStudents = [];
+      remainingStudents = [];
+      saveStudents();
+      renderChips();
+    });
+
     function startGame() {
+      if (allStudents.length === 0) {
+        allStudents = ["Người chơi 1", "Người chơi 2", "Người chơi 3"];
+        renderChips();
+      }
+      remainingStudents = [...allStudents];
       currentIdx = 0;
       score = 0;
       hasAttemptedCurrent = false;
+      currentChosenStudent = "";
+
       startScreen.classList.add("hidden");
       resultScreen.classList.add("hidden");
       quizScreen.classList.remove("hidden");
@@ -312,6 +675,9 @@
       document.getElementById("progress-fill").style.width = `${(currentIdx / questions.length) * 100}%`;
       document.getElementById("question-text").textContent = qObj.q;
 
+      currentChosenStudent = "";
+      updateQuizPickerLabel();
+
       const container = document.getElementById("options-container");
       container.innerHTML = "";
       qObj.options.forEach((opt, idx) => {
@@ -324,6 +690,62 @@
       });
     }
 
+    function spinRandomStudent() {
+      if (allStudents.length === 0) {
+        manageModal.classList.remove("hidden");
+        return;
+      }
+      if (remainingStudents.length === 0) {
+        remainingStudents = [...allStudents];
+      }
+
+      const nameDisplay = document.getElementById("wheel-name-display");
+      const wheelEmoji = document.getElementById("wheel-emoji");
+      const wheelSub = document.getElementById("wheel-sub");
+      const btnConfirm = document.getElementById("btn-confirm-student");
+      const btnReroll = document.getElementById("btn-reroll");
+
+      nameDisplay.classList.remove("winner");
+      btnConfirm.classList.add("hidden");
+      btnReroll.classList.add("hidden");
+      wheelEmoji.textContent = "🎲";
+      wheelSub.textContent = "Đang quay chọn ngẫu nhiên...";
+      pickerModal.classList.remove("hidden");
+
+      const icons = ["🎯", "✨", "🎲", "🌟", "🔥"];
+      let ticks = 0;
+      const totalTicks = 20;
+
+      if (spinTimer) clearInterval(spinTimer);
+      spinTimer = setInterval(() => {
+        const randIdx = Math.floor(Math.random() * remainingStudents.length);
+        nameDisplay.textContent = remainingStudents[randIdx];
+        wheelEmoji.textContent = icons[ticks % icons.length];
+        ticks++;
+
+        if (ticks >= totalTicks) {
+          clearInterval(spinTimer);
+          const finalIdx = Math.floor(Math.random() * remainingStudents.length);
+          currentChosenStudent = remainingStudents[finalIdx];
+          nameDisplay.textContent = currentChosenStudent;
+          nameDisplay.classList.add("winner");
+          wheelEmoji.textContent = "🎉";
+          wheelSub.textContent = `Xin mời ${currentChosenStudent} trả lời câu hỏi này!`;
+          btnConfirm.classList.remove("hidden");
+          btnReroll.classList.remove("hidden");
+        }
+      }, 75);
+    }
+
+    function confirmSelectedStudent() {
+      const idx = remainingStudents.indexOf(currentChosenStudent);
+      if (idx !== -1) {
+        remainingStudents.splice(idx, 1);
+      }
+      updateQuizPickerLabel();
+      pickerModal.classList.add("hidden");
+    }
+
     function checkAnswer(selectedIdx) {
       const qObj = questions[currentIdx];
       isLastAnswerCorrect = selectedIdx === qObj.answer;
@@ -334,17 +756,15 @@
       const explainText = document.getElementById("explanation-text");
       const nextBtn = document.getElementById("btn-next");
 
+      const studentTag = currentChosenStudent ? ` (${currentChosenStudent})` : "";
+
       if (isLastAnswerCorrect) {
-        if (!hasAttemptedCurrent) {
-          score += 10;
-        } else {
-          score += 5;
-        }
+        score += !hasAttemptedCurrent ? 10 : 5;
         document.getElementById("score-display").textContent = score;
         header.className = "modal-header correct";
         header.textContent = !hasAttemptedCurrent
-          ? "🎉 Chính Xác! Ong Vàng Nháy Mắt (+10 điểm)"
-          : "🎉 Chính Xác Rồi! Ong Vàng Nháy Mắt (+5 điểm)";
+          ? `🎉 Chính Xác${studentTag}! (+10 điểm)`
+          : `🎉 Chính Xác Rồi${studentTag}! (+5 điểm)`;
         note.className = "correct-ans-note";
         note.textContent = `✔ Đáp án đúng là ${letters[qObj.answer]}: ${qObj.options[qObj.answer]}`;
         explainTitle.textContent = "📖 Giải thích:";
@@ -356,9 +776,9 @@
       } else {
         hasAttemptedCurrent = true;
         header.className = "modal-header wrong";
-        header.textContent = "😼 Sai Rồi! Mèo Vàng Đang Lườm Kìa!";
+        header.textContent = `😼 Sai Rồi${studentTag}! Mèo Vàng Đang Lườm Kìa!`;
         note.className = "wrong-ans-note";
-        note.textContent = `✖ Bạn chọn ${letters[selectedIdx]} chưa chính xác. Hãy thử chọn lại nhé!`;
+        note.textContent = `✖ Đáp án ${letters[selectedIdx]} chưa chính xác. Hãy thử chọn lại nhé!`;
         explainTitle.textContent = "💡 Gợi ý cho bạn:";
         explainText.textContent = qObj.hint;
         nextBtn.className = "btn-next wrong";
@@ -367,19 +787,16 @@
         videoEl.src = "video_2.mp4";
       }
 
-      modal.classList.remove("hidden");
+      feedbackModal.classList.remove("hidden");
       videoEl.currentTime = 0;
       videoEl.play().catch(() => {});
     }
 
     function handleModalAction() {
       videoEl.pause();
-      modal.classList.add("hidden");
+      feedbackModal.classList.add("hidden");
 
-      if (!isLastAnswerCorrect) {
-        // Giữ nguyên câu hiện tại để người chơi chọn lại
-        return;
-      }
+      if (!isLastAnswerCorrect) return;
 
       hasAttemptedCurrent = false;
       currentIdx++;
@@ -396,7 +813,7 @@
       document.getElementById("final-score").textContent = score;
       const comment = document.getElementById("result-comment");
       if (score >= 60) {
-        comment.textContent = "Xuất sắc! Bạn đã nắm rất chắc toàn bộ kiến thức Bài 7: Chiến lược phân phối.";
+        comment.textContent = "Xuất sắc! Cả lớp đã nắm rất chắc toàn bộ kiến thức Bài 7: Chiến lược phân phối.";
       } else if (score >= 40) {
         comment.textContent = "Khá tốt! Ôn lại thêm một chút phần phân loại kênh và xử lý mâu thuẫn là chuẩn bài.";
       } else {
@@ -407,6 +824,16 @@
     document.getElementById("btn-start").addEventListener("click", startGame);
     document.getElementById("btn-restart").addEventListener("click", startGame);
     document.getElementById("btn-next").addEventListener("click", handleModalAction);
+    document.getElementById("btn-open-picker").addEventListener("click", spinRandomStudent);
+    document.getElementById("btn-reroll").addEventListener("click", spinRandomStudent);
+    document.getElementById("btn-confirm-student").addEventListener("click", confirmSelectedStudent);
+    document.getElementById("btn-manage-list").addEventListener("click", () => {
+      renderChips();
+      manageModal.classList.remove("hidden");
+    });
+    document.getElementById("btn-close-manage").addEventListener("click", () => {
+      manageModal.classList.add("hidden");
+    });
   </script>
 </body>
 </html>
