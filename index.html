@@ -60,8 +60,8 @@
     .progress-fill { height: 100%; background: #f59e0b; width: 0%; transition: width 0.3s; }
 
     .active-student-banner {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(37, 99, 235, 0.08));
-      border: 1px solid rgba(59, 130, 246, 0.45);
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.18), rgba(234, 88, 12, 0.12));
+      border: 1.5px solid rgba(250, 204, 21, 0.55);
       border-radius: 12px;
       padding: 10px 14px;
       margin-bottom: 18px;
@@ -69,9 +69,9 @@
       align-items: center;
       justify-content: space-between;
       font-size: 14px;
-      color: #e4e4e7;
+      color: #fef08a;
     }
-    .active-student-banner strong { color: #facc15; font-size: 16px; }
+    .active-student-banner strong { color: #facc15; font-size: 17px; }
 
     .question-text { font-size: 20px; font-weight: 700; text-align: left; line-height: 1.45; margin-bottom: 20px; color: #fff; }
     .options { display: flex; flex-direction: column; gap: 12px; }
@@ -103,7 +103,7 @@
       flex-shrink: 0;
     }
 
-    /* Nút vuông ở góc dưới bên phải màn hình khi vào phần câu hỏi */
+    /* Nút vuông ở góc dưới bên phải màn hình */
     .corner-dock {
       position: fixed;
       right: 20px;
@@ -115,11 +115,11 @@
       align-items: flex-end;
     }
     .square-btn {
-      width: 72px;
-      height: 72px;
+      width: 74px;
+      height: 74px;
       border-radius: 16px;
-      border: 1.5px solid rgba(255, 255, 255, 0.18);
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border: 2px solid #fde047;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
       color: #fff;
       cursor: pointer;
       display: flex;
@@ -127,18 +127,18 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.45);
       transition: transform 0.15s, box-shadow 0.15s;
     }
     .square-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.6);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 14px 30px rgba(245, 158, 11, 0.65);
     }
-    .square-btn .sq-icon { font-size: 24px; line-height: 1; }
-    .square-btn .sq-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2px; text-align: center; line-height: 1.1; }
+    .square-btn .sq-icon { font-size: 26px; line-height: 1; }
+    .square-btn .sq-label { font-size: 11px; font-weight: 800; letter-spacing: 0.2px; text-align: center; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
 
     .square-btn.secondary {
-      width: 72px;
+      width: 74px;
       height: 44px;
       border-radius: 12px;
       background: #27272a;
@@ -147,12 +147,378 @@
     }
     .square-btn.secondary:hover { background: #3f3f46; }
 
+    /* POPUP TRÒ CHƠI TRẨY XOÀI CHẤM MUỐI ỚT GIỐNG VIDEO */
+    .mango-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      z-index: 60;
+    }
+    .mango-game-box {
+      width: 100%;
+      max-width: 920px;
+      height: min(600px, 92vh);
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid #78350f;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+      background: linear-gradient(180deg, #7dd3fc 0%, #bae6fd 42%, #fde68a 66%, #d97706 72%, #92400e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    /* Thanh trên cùng trong game trẩy xoài */
+    .mango-top-bar {
+      position: relative;
+      z-index: 15;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.55), transparent);
+    }
+    .mango-title-badge {
+      background: #fef08a;
+      color: #78350f;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 2px solid #b45309;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+    .mango-controls {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-mango-act {
+      background: #ef4444;
+      color: #fff;
+      border: 2px solid #fecaca;
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+    }
+    .btn-mango-act.orange {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      border-color: #fde047;
+    }
+    .btn-mango-act:hover { transform: scale(1.04); }
+
+    /* Cảnh cây xoài cổ thụ & tán lá */
+    .tree-scene {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    /* Nắng sân quê */
+    .sun-glow {
+      position: absolute;
+      top: -40px;
+      left: 8%;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(254,240,138,0.85) 0%, rgba(254,240,138,0) 70%);
+      pointer-events: none;
+    }
+    /* Ngôi nhà ngói bên trái giống video */
+    .village-house {
+      position: absolute;
+      left: 2%;
+      bottom: 24%;
+      width: 170px;
+      height: 110px;
+      pointer-events: none;
+      opacity: 0.92;
+    }
+    /* Thân cây cổ thụ bên phải */
+    .tree-trunk {
+      position: absolute;
+      right: 18%;
+      bottom: 20%;
+      width: 135px;
+      height: 230px;
+      background: linear-gradient(90deg, #451a03, #78350f 45%, #451a03);
+      border-radius: 30px 30px 10px 10px;
+      box-shadow: inset -12px 0 20px rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+    .tree-trunk::before {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: -35px;
+      width: 205px;
+      height: 36px;
+      background: radial-gradient(ellipse at center, #78350f 30%, #451a03 80%, transparent 100%);
+      border-radius: 50%;
+    }
+    /* Tán lá xanh khổng lồ phủ nửa trên màn hình */
+    .tree-canopy {
+      position: absolute;
+      top: -35px;
+      left: -5%;
+      right: -5%;
+      height: 58%;
+      background:
+        radial-gradient(circle at 20% 45%, #15803d 0%, #166534 55%, transparent 72%),
+        radial-gradient(circle at 50% 35%, #22c55e 0%, #15803d 55%, transparent 75%),
+        radial-gradient(circle at 80% 45%, #16a34a 0%, #14532d 60%, transparent 75%),
+        linear-gradient(180deg, #14532d 0%, #166534 75%, transparent 100%);
+      z-index: 3;
+      transition: transform 0.08s;
+    }
+    .tree-canopy.shaking {
+      animation: canopyShake 0.14s infinite alternate;
+    }
+    @keyframes canopyShake {
+      0% { transform: translate(-4px, -2px) rotate(-0.5deg); }
+      100% { transform: translate(4px, 2px) rotate(0.5deg); }
+    }
+
+    /* Lưới treo các quả xoài vàng có mặt cười + bảng tên */
+    .mango-grid {
+      position: absolute;
+      top: 52px;
+      left: 3%;
+      right: 3%;
+      height: 48%;
+      z-index: 6;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: flex-start;
+      gap: 6px 8px;
+      padding: 4px;
+    }
+    .mango-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 76px;
+      cursor: pointer;
+      transition: transform 0.15s;
+      animation: mangoSway 2.4s ease-in-out infinite alternate;
+    }
+    .mango-item:nth-child(odd) { animation-delay: 0.4s; }
+    .mango-item:nth-child(3n) { animation-delay: 0.9s; }
+    @keyframes mangoSway {
+      0% { transform: rotate(-4deg); }
+      100% { transform: rotate(4deg); }
+    }
+    .mango-item.shaking-hard {
+      animation: mangoShakeHard 0.1s infinite alternate !important;
+    }
+    @keyframes mangoShakeHard {
+      0% { transform: rotate(-16deg) scale(1.06); }
+      100% { transform: rotate(16deg) scale(1.06); }
+    }
+    /* Quả xoài vàng mặt cười chibi */
+    .mango-fruit {
+      width: 34px;
+      height: 40px;
+      background: radial-gradient(circle at 35% 30%, #fef08a, #facc15 55%, #eab308 90%);
+      border: 1.5px solid #a16207;
+      border-radius: 55% 45% 50% 50% / 60% 60% 40% 40%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.35);
+    }
+    /* Cuống lá nhỏ trên đầu quả xoài */
+    .mango-fruit::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      right: 8px;
+      width: 10px;
+      height: 6px;
+      background: #16a34a;
+      border-radius: 8px 0 8px 0;
+      transform: rotate(-20deg);
+    }
+    .mango-face {
+      font-size: 11px;
+      font-weight: 900;
+      color: #713f12;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    /* Bảng tên trắng viền xanh dưới mỗi quả xoài giống y video */
+    .mango-tag {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1e293b;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1.5px 5px;
+      border-radius: 4px;
+      border: 1px solid #64748b;
+      margin-top: -2px;
+      max-width: 76px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    }
+
+    /* Hai nhân vật hoạt hình + tờ giấy muối ớt ở sân dưới */
+    .ground-stage {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 36%;
+      background: linear-gradient(180deg, #d97706 0%, #b45309 60%, #78350f 100%);
+      border-top: 3px solid #92400e;
+      z-index: 5;
+    }
+
+    /* Tờ giấy trắng đổ bột canh muối ớt ở giữa sân */
+    .chili-salt-paper {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%) perspective(220px) rotateX(48deg);
+      width: 150px;
+      height: 95px;
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 6;
+    }
+    .chili-salt-pile {
+      width: 96px;
+      height: 58px;
+      background: radial-gradient(circle at 50% 45%, #ef4444 15%, #f97316 55%, #fed7aa 88%, transparent 100%);
+      border-radius: 50%;
+      filter: contrast(1.25);
+      transition: transform 0.4s;
+    }
+
+    /* Cậu bé áo đỏ bên trái & bạn nữ áo vàng bên phải */
+    .kid-boy {
+      position: absolute;
+      bottom: 24px;
+      left: 24%;
+      z-index: 8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+    .kid-girl {
+      position: absolute;
+      bottom: 24px;
+      right: 24%;
+      z-index: 8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .speech-bubble {
+      background: #fff;
+      color: #0f172a;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 2px solid #0f172a;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+      position: relative;
+    }
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 7px 6px 0;
+      border-style: solid;
+      border-color: #0f172a transparent transparent;
+    }
+
+    /* Hiệu ứng chữ võ công chưởng cây xoài: LĂNG BA VI BỘ / HÂY-A! */
+    .kungfu-text {
+      position: absolute;
+      top: 32%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      font-size: 40px;
+      font-weight: 900;
+      color: #fef08a;
+      text-shadow: 0 0 12px #ef4444, 3px 3px 0 #7f1d1d, -2px -2px 0 #7f1d1d;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .kungfu-text.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* Quả xoài rụng BỊCH xuống đất */
+    .fallen-mango-stage {
+      position: absolute;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: dropBich 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes dropBich {
+      0% { transform: translate(-50%, -260px) scale(0.8) rotate(-25deg); opacity: 0.4; }
+      75% { transform: translate(-50%, 6px) scale(1.25) rotate(8deg); opacity: 1; }
+      100% { transform: translate(-50%, 0) scale(1.15) rotate(0deg); opacity: 1; }
+    }
+    .bich-sfx {
+      font-size: 32px;
+      font-weight: 900;
+      color: #fde047;
+      text-shadow: 2px 2px 0 #991b1b, -2px -2px 0 #991b1b;
+      margin-bottom: 4px;
+    }
+    .winner-card-popup {
+      background: rgba(24, 24, 27, 0.94);
+      border: 2.5px solid #facc15;
+      border-radius: 16px;
+      padding: 12px 20px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.75);
+      margin-top: 6px;
+    }
+    .winner-card-popup .w-sub { font-size: 12px; color: #fde047; font-weight: 700; }
+    .winner-card-popup .w-name { font-size: 22px; color: #fff; font-weight: 900; margin: 4px 0 10px; }
+    .winner-btns { display: flex; gap: 8px; justify-content: center; }
+
+    /* Popup Quản lý tên & Video phản hồi */
     .modal-overlay {
       position: fixed; inset: 0;
       background: rgba(0, 0, 0, 0.84);
       backdrop-filter: blur(4px);
       display: flex; align-items: center; justify-content: center;
-      padding: 16px; z-index: 50;
+      padding: 16px; z-index: 70;
     }
     .modal-box {
       background: #1c1c1e;
@@ -165,139 +531,41 @@
     .modal-header { padding: 16px 20px; font-weight: 700; font-size: 18px; color: #fff; text-align: center; }
     .modal-header.correct { background: #16a34a; }
     .modal-header.wrong { background: #e11d48; }
-    .modal-header.picker { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
-
-    .wheel-stage {
-      padding: 36px 20px;
-      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-      text-align: center;
-    }
-    .wheel-emoji { font-size: 46px; margin-bottom: 12px; display: block; }
-    .wheel-name-box {
-      background: #18181b;
-      border: 2px solid #3b82f6;
-      border-radius: 16px;
-      padding: 18px 16px;
-      font-size: 26px;
-      font-weight: 800;
-      color: #fff;
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
-      transition: all 0.2s;
-    }
-    .wheel-name-box.winner {
-      border-color: #facc15;
-      color: #facc15;
-      transform: scale(1.04);
-      box-shadow: 0 0 32px rgba(250, 204, 21, 0.4);
-    }
-    .wheel-sub { font-size: 13px; color: #94a3b8; margin-top: 12px; }
+    .modal-header.picker { background: linear-gradient(135deg, #d97706, #b45309); }
 
     .manage-body { padding: 18px 20px; text-align: left; }
-    .add-name-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+    .add-name-row { display: flex; gap: 8px; margin-bottom: 12px; }
     .add-name-row input {
-      flex: 1;
-      background: #18181b;
-      border: 1px solid #3f3f46;
-      border-radius: 10px;
-      color: #f4f4f5;
-      padding: 10px 12px;
-      font-size: 14px;
+      flex: 1; background: #18181b; border: 1px solid #3f3f46; border-radius: 10px;
+      color: #f4f4f5; padding: 10px 12px; font-size: 14px;
     }
     .add-name-row input:focus { outline: none; border-color: #f59e0b; }
     .btn-add-name {
-      background: #f59e0b;
-      color: #18181b;
-      border: none;
-      border-radius: 10px;
-      padding: 0 16px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      white-space: nowrap;
+      background: #f59e0b; color: #18181b; border: none; border-radius: 10px;
+      padding: 0 16px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;
     }
-    .btn-add-name:hover { background: #fbbf24; }
-    .manage-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: #a1a1aa;
-      margin-bottom: 8px;
-    }
+    .manage-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #a1a1aa; margin-bottom: 8px; }
     .btn-reset-list {
-      background: transparent;
-      border: 1px solid #52525b;
-      color: #d4d4d8;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 6px;
-      cursor: pointer;
+      background: transparent; border: 1px solid #52525b; color: #d4d4d8;
+      font-size: 11px; padding: 3px 8px; border-radius: 6px; cursor: pointer;
     }
-    .btn-reset-list:hover { border-color: #f59e0b; color: #facc15; }
-    .chips-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      max-height: 210px;
-      overflow-y: auto;
-      padding: 4px 0;
-    }
+    .chips-container { display: flex; flex-wrap: wrap; gap: 7px; max-height: 210px; overflow-y: auto; padding: 4px 0; }
     .name-chip {
-      background: #27272a;
-      border: 1px solid #3f3f46;
-      color: #f4f4f5;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      background: #27272a; border: 1px solid #3f3f46; color: #f4f4f5;
+      padding: 5px 10px; border-radius: 999px; font-size: 12px;
+      display: inline-flex; align-items: center; gap: 6px;
     }
-    .name-chip button {
-      background: none;
-      border: none;
-      color: #a1a1aa;
-      font-size: 14px;
-      cursor: pointer;
-      line-height: 1;
-    }
+    .name-chip button { background: none; border: none; color: #a1a1aa; font-size: 14px; cursor: pointer; line-height: 1; }
     .name-chip button:hover { color: #ef4444; }
 
     .video-wrap {
-      background: #0d0d0f;
-      width: 100%;
-      height: 290px;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #0d0d0f; width: 100%; height: 290px; overflow: hidden;
+      position: relative; display: flex; align-items: center; justify-content: center;
     }
-    .video-wrap.bee-mode {
-      background: radial-gradient(circle at center, #3b3014 0%, #14120c 100%);
-    }
-    .video-wrap.bee-mode video {
-      width: auto;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 0 24px rgba(0, 0, 0, 0.75);
-    }
+    .video-wrap.bee-mode { background: radial-gradient(circle at center, #3b3014 0%, #14120c 100%); }
+    .video-wrap.bee-mode video { width: auto; height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 0 24px rgba(0, 0, 0, 0.75); }
     .video-wrap.cat-mode { background: #000; }
-    .video-wrap.cat-mode video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-    }
+    .video-wrap.cat-mode video { width: 100%; height: 100%; object-fit: cover; object-position: center center; }
 
     .explanation-box { padding: 16px 20px; text-align: left; font-size: 14px; line-height: 1.55; color: #d4d4d8; }
     .correct-ans-note { color: #4ade80; font-weight: 600; margin-bottom: 8px; }
@@ -310,12 +578,7 @@
     }
     .btn-next.correct { background: #16a34a; }
     .btn-next.wrong { background: #e11d48; }
-    .btn-next.picker { background: #2563eb; }
-    .btn-secondary {
-      padding: 13px 16px; border: 1px solid #3f3f46; border-radius: 12px;
-      background: #27272a; color: #e4e4e7; font-size: 14px; font-weight: 700; cursor: pointer;
-      white-space: nowrap;
-    }
+    .btn-next.picker { background: #d97706; }
     .result-score { font-size: 48px; font-weight: 800; color: #facc15; margin: 12px 0; }
   </style>
 </head>
@@ -325,7 +588,7 @@
   <div id="start-screen" class="card">
     <div class="badge">ÔN TẬP MARKETING CĂN BẢN</div>
     <h1>Bài 7: Chiến Lược Phân Phối</h1>
-    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> & chọn ngẫu nhiên thành viên trả lời!</p>
+    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> & trò chơi <span>Trẩy Xoài Chấm Muối Ớt</span> gọi tên trả lời!</p>
     <button id="btn-start" type="button" class="btn-primary">▶ Bắt Đầu Chơi Ngay</button>
   </div>
 
@@ -338,8 +601,8 @@
     <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
 
     <div id="active-student-banner" class="active-student-banner hidden">
-      <span>🎯 Người trả lời: <strong id="current-student-name"></strong></span>
-      <span id="remaining-badge" style="font-size: 12px; color: #93c5fd;"></span>
+      <span>🥭 Người trả lời: <strong id="current-student-name"></strong></span>
+      <span id="remaining-badge" style="font-size: 12px; color: #fde047;"></span>
     </div>
 
     <div id="question-text" class="question-text"></div>
@@ -348,9 +611,9 @@
 
   <!-- NÚT VUÔNG Ở GÓC DƯỚI BÊN PHẢI (CHỈ HIỆN KHI VÀO CÂU HỎI) -->
   <div id="corner-dock" class="corner-dock hidden">
-    <button id="btn-open-picker" type="button" class="square-btn" title="Chọn ngẫu nhiên 1 bạn trả lời">
-      <span class="sq-icon">🎲</span>
-      <span class="sq-label">Chọn bạn</span>
+    <button id="btn-open-mango" type="button" class="square-btn" title="Mở cây xoài chọn ngẫu nhiên 1 bạn">
+      <span class="sq-icon">🥭</span>
+      <span class="sq-label">Trẩy xoài</span>
     </button>
     <button id="btn-manage-list" type="button" class="square-btn secondary" title="Thêm hoặc sửa danh sách tên">
       <span class="sq-label">+ Thêm tên</span>
@@ -366,18 +629,88 @@
     <button id="btn-restart" type="button" class="btn-primary">↻ Chơi Lại Từ Đầu</button>
   </div>
 
-  <!-- POPUP QUAY CHỌN NGƯỜI TRẢ LỜI -->
-  <div id="picker-modal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <div class="modal-header picker">🎲 Chọn Ngẫu Nhiên Thành Viên</div>
-      <div class="wheel-stage">
-        <span id="wheel-emoji" class="wheel-emoji">🎯</span>
-        <div id="wheel-name-display" class="wheel-name-box">Đang quay...</div>
-        <div id="wheel-sub" class="wheel-sub">Ai sẽ là người trả lời câu hỏi này?</div>
+  <!-- POPUP TRÒ CHƠI TRẨY XOÀI CHẤM MUỐI ỚT (GIỐNG Y VIDEO) -->
+  <div id="mango-modal" class="mango-overlay hidden">
+    <div class="mango-game-box">
+      <div class="mango-top-bar">
+        <div class="mango-title-badge">🥭 CÂY XOÀI MAY MẮN (<span id="mango-left-count">33</span> quả)</div>
+        <div class="mango-controls">
+          <button id="btn-shake-tree" type="button" class="btn-mango-act orange">⚡ Rung cây trẩy xoài!</button>
+          <button id="btn-close-mango" type="button" class="btn-mango-act">✕ Đóng</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button id="btn-reroll" type="button" class="btn-secondary hidden">↻ Quay lại</button>
-        <button id="btn-confirm-student" type="button" class="btn-next picker hidden">✔ Mời bạn này trả lời</button>
+
+      <div class="tree-scene">
+        <div class="sun-glow"></div>
+        <div class="tree-trunk"></div>
+        <div id="tree-canopy" class="tree-canopy"></div>
+
+        <!-- Lưới quả xoài treo trên cành kèm bảng tên -->
+        <div id="mango-grid" class="mango-grid"></div>
+
+        <!-- Chữ võ công khi rung cây -->
+        <div id="kungfu-text" class="kungfu-text">HÂY-A! LĂNG BA VI BỘ!</div>
+
+        <!-- Sân đất & tờ giấy bột canh muối ớt -->
+        <div class="ground-stage">
+          <div class="chili-salt-paper">
+            <div class="chili-salt-pile"></div>
+          </div>
+
+          <!-- Cậu bé áo đỏ -->
+          <div class="kid-boy">
+            <div id="boy-bubble" class="speech-bubble">Muối ớt Tây Ninh chuẩn bài!</div>
+            <svg width="68" height="84" viewBox="0 0 68 84">
+              <!-- Tóc & Đầu -->
+              <circle cx="34" cy="24" r="16" fill="#fed7aa" stroke="#1e293b" stroke-width="2"/>
+              <path d="M18 22 C18 8, 50 8, 50 22 C45 15, 23 15, 18 22 Z" fill="#1e293b"/>
+              <circle cx="29" cy="24" r="2" fill="#1e293b"/>
+              <circle cx="40" cy="24" r="2" fill="#1e293b"/>
+              <path d="M30 30 Q35 35 40 30" stroke="#1e293b" stroke-width="2" fill="none"/>
+              <!-- Áo đỏ -->
+              <rect x="20" y="40" width="28" height="24" rx="6" fill="#dc2626" stroke="#1e293b" stroke-width="2"/>
+              <!-- Quần đen & Chân -->
+              <rect x="22" y="64" width="10" height="16" rx="3" fill="#1e293b"/>
+              <rect x="36" y="64" width="10" height="16" rx="3" fill="#1e293b"/>
+            </svg>
+          </div>
+
+          <!-- Bạn nữ áo vàng -->
+          <div class="kid-girl">
+            <div id="girl-bubble" class="speech-bubble">Giờ chỉ thiếu xoài thôi...</div>
+            <svg width="68" height="84" viewBox="0 0 68 84">
+              <!-- Tóc buộc 2 bên & Đầu -->
+              <circle cx="16" cy="18" r="6" fill="#1e293b"/>
+              <circle cx="52" cy="18" r="6" fill="#1e293b"/>
+              <circle cx="34" cy="24" r="16" fill="#fed7aa" stroke="#1e293b" stroke-width="2"/>
+              <path d="M18 22 C18 8, 50 8, 50 22 C44 16, 24 16, 18 22 Z" fill="#1e293b"/>
+              <circle cx="28" cy="24" r="2" fill="#1e293b"/>
+              <circle cx="39" cy="24" r="2" fill="#1e293b"/>
+              <path d="M30 30 Q34 34 38 30" stroke="#1e293b" stroke-width="2" fill="none"/>
+              <!-- Áo vàng xanh -->
+              <rect x="20" y="40" width="28" height="24" rx="6" fill="#a3e635" stroke="#1e293b" stroke-width="2"/>
+              <!-- Chân -->
+              <rect x="23" y="64" width="9" height="16" rx="3" fill="#334155"/>
+              <rect x="36" y="64" width="9" height="16" rx="3" fill="#334155"/>
+            </svg>
+          </div>
+
+          <!-- Quả xoài rụng BỊCH xuống đất -->
+          <div id="fallen-mango-stage" class="fallen-mango-stage hidden">
+            <div class="bich-sfx">💥 BỊCH!</div>
+            <div class="mango-fruit" style="width:46px;height:54px;">
+              <span class="mango-face" style="font-size:14px;">^‿^</span>
+            </div>
+            <div class="winner-card-popup">
+              <div class="w-sub">🎯 Xoài đã rụng! Xin mời lên trả lời:</div>
+              <div id="mango-winner-name" class="w-name">Nguyễn Văn A</div>
+              <div class="winner-btns">
+                <button id="btn-mango-reroll" type="button" class="btn-mango-act">↻ Trẩy quả khác</button>
+                <button id="btn-mango-accept" type="button" class="btn-mango-act orange">✔ Mời bạn này trả lời</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -385,14 +718,14 @@
   <!-- POPUP THÊM / SỬA DANH SÁCH TÊN -->
   <div id="manage-modal" class="modal-overlay hidden">
     <div class="modal-box">
-      <div class="modal-header picker">👥 Danh Sách Thành Viên (<span id="roster-count">0</span>)</div>
+      <div class="modal-header picker">👥 Danh Sách Trên Cây Xoài (<span id="roster-count">0</span>)</div>
       <div class="manage-body">
         <div class="add-name-row">
           <input id="modal-name-input" type="text" placeholder="Nhập tên muốn thêm (Enter để thêm)..." />
           <button id="btn-modal-add" type="button" class="btn-add-name">+ Thêm</button>
         </div>
         <div class="manage-meta">
-          <span>Bấm dấu × để xóa tên khỏi danh sách quay:</span>
+          <span>Bấm dấu × để xóa tên khỏi cây xoài:</span>
           <button id="btn-reset-list" type="button" class="btn-reset-list">Khôi phục danh sách lớp</button>
         </div>
         <div id="modal-chips-container" class="chips-container"></div>
@@ -510,7 +843,7 @@
     ];
 
     const defaultClassList = ["Phùng Khánh Duy", "Vương Thị Huyền", "Nguyễn Hương Ly", "Đỗ Công Tuyền", "Trương Quang Hậu", "Quách Bạch Dương", "Tạ Ngọc Chi", "Nông Phúc Thái", "Nguyễn Duy Nam", "Hoàng Thị Ngọc Ánh", "Trần Việt Hoàng", "Nguyễn Lan Anh", "Nguyễn Bá Dương", "Phạm Thị Linh", "Hà Thu Trang", "Trương Phương Nhi", "Nguyễn Thành Trung", "Lê Dương Trúc Quỳnh", "Nguyễn Anh Dũng", "Đinh Thái Sơn", "Vũ Đăng Hưng", "Nguyễn Ích Hiếu", "Nguyễn Thanh Tùng", "Đinh Thị Mai Hương", "Nguyễn Thị Thảo", "Nguyễn Thanh Dung", "Phạm Thuỳ Linh", "Trương Thị Huệ Chi", "Nguyễn Thị Dịu", "Hoàng Phương Liên", "Nguyễn Viết Chuẩn", "Nguyễn Nhật Quân", "Đỗ Duy Khánh"];
-    const STORAGE_KEY = "minigame_bai7_roster_v2";
+    const STORAGE_KEY = "minigame_bai7_mango_v1";
 
     let allStudents = [];
     let remainingStudents = [];
@@ -519,16 +852,18 @@
     let isLastAnswerCorrect = false;
     let hasAttemptedCurrent = false;
     let currentChosenStudent = "";
-    let spinTimer = null;
+    let isShaking = false;
 
     const letters = ["A", "B", "C", "D"];
+    const faces = ["•‿•", "^‿^", "◕‿◕", "≧◡≦", "°▽°"];
+
     const startScreen = document.getElementById("start-screen");
     const quizScreen = document.getElementById("quiz-screen");
     const resultScreen = document.getElementById("result-screen");
     const cornerDock = document.getElementById("corner-dock");
-    const feedbackModal = document.getElementById("feedback-modal");
-    const pickerModal = document.getElementById("picker-modal");
+    const mangoModal = document.getElementById("mango-modal");
     const manageModal = document.getElementById("manage-modal");
+    const feedbackModal = document.getElementById("feedback-modal");
     const videoWrap = document.getElementById("video-wrap");
     const videoEl = document.getElementById("feedback-video");
 
@@ -552,6 +887,12 @@
       } catch (e) {}
     }
 
+    function getShortName(fullName) {
+      const parts = fullName.trim().split(/\s+/);
+      if (parts.length <= 2) return fullName;
+      return parts.slice(-2).join(" ");
+    }
+
     function renderChips() {
       document.getElementById("roster-count").textContent = allStudents.length;
       const container = document.getElementById("modal-chips-container");
@@ -566,12 +907,12 @@
         const delBtn = document.createElement("button");
         delBtn.type = "button";
         delBtn.textContent = "×";
-        delBtn.title = "Xóa";
         delBtn.onclick = function() {
           allStudents = allStudents.filter(s => s !== name);
           remainingStudents = remainingStudents.filter(s => s !== name);
           saveStudents();
           renderChips();
+          renderMangoTree();
           updateStudentBanner();
         };
 
@@ -586,7 +927,7 @@
       const raw = inputEl.value.trim();
       if (!raw) return;
 
-      const parts = raw.split(/[,;\n]+/).map(s => s.trim()).filter(s => s.length > 0);
+      const parts = raw.split(/[,;]+/).map(s => s.trim()).filter(s => s.length > 0);
       parts.forEach(name => {
         if (!allStudents.includes(name)) {
           allStudents.push(name);
@@ -598,6 +939,7 @@
       inputEl.focus();
       saveStudents();
       renderChips();
+      renderMangoTree();
       updateStudentBanner();
     }
 
@@ -605,11 +947,117 @@
       const banner = document.getElementById("active-student-banner");
       if (currentChosenStudent) {
         document.getElementById("current-student-name").textContent = currentChosenStudent;
-        document.getElementById("remaining-badge").textContent = `Còn ${remainingStudents.length}/${allStudents.length} bạn`;
+        document.getElementById("remaining-badge").textContent = "Còn " + remainingStudents.length + "/" + allStudents.length + " quả xoài";
         banner.classList.remove("hidden");
       } else {
         banner.classList.add("hidden");
       }
+    }
+
+    // Vẽ các quả xoài vàng treo trên tán cây
+    function renderMangoTree() {
+      if (remainingStudents.length === 0 && allStudents.length > 0) {
+        remainingStudents = [...allStudents];
+      }
+      document.getElementById("mango-left-count").textContent = remainingStudents.length;
+
+      const grid = document.getElementById("mango-grid");
+      grid.innerHTML = "";
+      remainingStudents.forEach((fullName, idx) => {
+        const item = document.createElement("div");
+        item.className = "mango-item";
+        item.title = fullName;
+
+        const fruit = document.createElement("div");
+        fruit.className = "mango-fruit";
+        const face = document.createElement("span");
+        face.className = "mango-face";
+        face.textContent = faces[idx % faces.length];
+        fruit.appendChild(face);
+
+        const tag = document.createElement("div");
+        tag.className = "mango-tag";
+        tag.textContent = getShortName(fullName);
+
+        item.appendChild(fruit);
+        item.appendChild(tag);
+
+        // Cho phép bấm trực tiếp vào 1 quả xoài bất kỳ để trẩy quả đó
+        item.onclick = function() {
+          if (!isShaking) {
+            triggerMangoDrop(fullName);
+          }
+        };
+
+        grid.appendChild(item);
+      });
+    }
+
+    // Hiệu ứng rung cây chưởng võ công như video rồi làm 1 quả xoài rụng BỊCH
+    function shakeTreeAndPick() {
+      if (isShaking) return;
+      if (allStudents.length === 0) {
+        mangoModal.classList.add("hidden");
+        renderChips();
+        manageModal.classList.remove("hidden");
+        return;
+      }
+      if (remainingStudents.length === 0) {
+        remainingStudents = [...allStudents];
+        renderMangoTree();
+      }
+
+      isShaking = true;
+      document.getElementById("fallen-mango-stage").classList.add("hidden");
+
+      const canopy = document.getElementById("tree-canopy");
+      const kungfu = document.getElementById("kungfu-text");
+      const boyBubble = document.getElementById("boy-bubble");
+      const girlBubble = document.getElementById("girl-bubble");
+      const items = document.querySelectorAll(".mango-item");
+
+      canopy.classList.add("shaking");
+      items.forEach(el => el.classList.add("shaking-hard"));
+
+      const cries = ["LĂNG BA VI BỘ!", "HÂY-A! CHƯỞNG!", "XOÀI RỤNG NÀO!"];
+      kungfu.textContent = cries[Math.floor(Math.random() * cries.length)];
+      kungfu.classList.add("show");
+      boyBubble.textContent = "Xem tuyệt chiêu đây!";
+      girlBubble.textContent = "Xoài ơi rụng xuống đi!";
+
+      setTimeout(function() {
+        canopy.classList.remove("shaking");
+        items.forEach(el => el.classList.remove("shaking-hard"));
+        kungfu.classList.remove("show");
+
+        const randIdx = Math.floor(Math.random() * remainingStudents.length);
+        const pickedName = remainingStudents[randIdx];
+        isShaking = false;
+        triggerMangoDrop(pickedName);
+      }, 1500);
+    }
+
+    function triggerMangoDrop(pickedName) {
+      currentChosenStudent = pickedName;
+      document.getElementById("mango-winner-name").textContent = pickedName;
+      document.getElementById("boy-bubble").textContent = "Quả này chắc ngọt nè!";
+      document.getElementById("girl-bubble").textContent = "Chấm muối ớt thôi!";
+
+      const dropStage = document.getElementById("fallen-mango-stage");
+      dropStage.classList.remove("hidden");
+      // Reset animation rơi BỊCH
+      dropStage.style.animation = "none";
+      void dropStage.offsetWidth;
+      dropStage.style.animation = "";
+    }
+
+    function acceptMangoStudent() {
+      const idx = remainingStudents.indexOf(currentChosenStudent);
+      if (idx !== -1) {
+        remainingStudents.splice(idx, 1);
+      }
+      updateStudentBanner();
+      mangoModal.classList.add("hidden");
     }
 
     loadStudents();
@@ -628,6 +1076,7 @@
       remainingStudents = [...allStudents];
       saveStudents();
       renderChips();
+      renderMangoTree();
       updateStudentBanner();
     };
 
@@ -650,9 +1099,9 @@
 
     function renderQuestion() {
       const qObj = questions[currentIdx];
-      document.getElementById("question-counter").textContent = `Câu ${currentIdx + 1} / ${questions.length}`;
+      document.getElementById("question-counter").textContent = "Câu " + (currentIdx + 1) + " / " + questions.length;
       document.getElementById("score-display").textContent = score;
-      document.getElementById("progress-fill").style.width = `${(currentIdx / questions.length) * 100}%`;
+      document.getElementById("progress-fill").style.width = ((currentIdx / questions.length) * 100) + "%";
       document.getElementById("question-text").textContent = qObj.q;
 
       currentChosenStudent = "";
@@ -660,71 +1109,14 @@
 
       const container = document.getElementById("options-container");
       container.innerHTML = "";
-      qObj.options.forEach((opt, idx) => {
+      qObj.options.forEach(function(opt, idx) {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "option-btn";
-        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${opt}</span>`;
-        btn.onclick = () => checkAnswer(idx);
+        btn.innerHTML = '<span class="option-letter">' + letters[idx] + '</span><span>' + opt + '</span>';
+        btn.onclick = function() { checkAnswer(idx); };
         container.appendChild(btn);
       });
-    }
-
-    function spinRandomStudent() {
-      if (allStudents.length === 0) {
-        renderChips();
-        manageModal.classList.remove("hidden");
-        return;
-      }
-      if (remainingStudents.length === 0) {
-        remainingStudents = [...allStudents];
-      }
-
-      const nameDisplay = document.getElementById("wheel-name-display");
-      const wheelEmoji = document.getElementById("wheel-emoji");
-      const wheelSub = document.getElementById("wheel-sub");
-      const btnConfirm = document.getElementById("btn-confirm-student");
-      const btnReroll = document.getElementById("btn-reroll");
-
-      nameDisplay.classList.remove("winner");
-      btnConfirm.classList.add("hidden");
-      btnReroll.classList.add("hidden");
-      wheelEmoji.textContent = "🎲";
-      wheelSub.textContent = `Đang quay trong ${remainingStudents.length} thành viên...`;
-      pickerModal.classList.remove("hidden");
-
-      const icons = ["🎯", "✨", "🎲", "🌟", "🔥"];
-      let ticks = 0;
-      const totalTicks = 20;
-
-      if (spinTimer) clearInterval(spinTimer);
-      spinTimer = setInterval(() => {
-        const randIdx = Math.floor(Math.random() * remainingStudents.length);
-        nameDisplay.textContent = remainingStudents[randIdx];
-        wheelEmoji.textContent = icons[ticks % icons.length];
-        ticks++;
-
-        if (ticks >= totalTicks) {
-          clearInterval(spinTimer);
-          const finalIdx = Math.floor(Math.random() * remainingStudents.length);
-          currentChosenStudent = remainingStudents[finalIdx];
-          nameDisplay.textContent = currentChosenStudent;
-          nameDisplay.classList.add("winner");
-          wheelEmoji.textContent = "🎉";
-          wheelSub.textContent = `Xin mời ${currentChosenStudent} trả lời câu hỏi này!`;
-          btnConfirm.classList.remove("hidden");
-          btnReroll.classList.remove("hidden");
-        }
-      }, 75);
-    }
-
-    function confirmSelectedStudent() {
-      const idx = remainingStudents.indexOf(currentChosenStudent);
-      if (idx !== -1) {
-        remainingStudents.splice(idx, 1);
-      }
-      updateStudentBanner();
-      pickerModal.classList.add("hidden");
     }
 
     function checkAnswer(selectedIdx) {
@@ -737,17 +1129,17 @@
       const explainText = document.getElementById("explanation-text");
       const nextBtn = document.getElementById("btn-next");
 
-      const studentTag = currentChosenStudent ? ` (${currentChosenStudent})` : "";
+      const studentTag = currentChosenStudent ? " (" + currentChosenStudent + ")" : "";
 
       if (isLastAnswerCorrect) {
         score += !hasAttemptedCurrent ? 10 : 5;
         document.getElementById("score-display").textContent = score;
         header.className = "modal-header correct";
         header.textContent = !hasAttemptedCurrent
-          ? `🎉 Chính Xác${studentTag}! (+10 điểm)`
-          : `🎉 Chính Xác Rồi${studentTag}! (+5 điểm)`;
+          ? "🎉 Chính Xác" + studentTag + "! (+10 điểm)"
+          : "🎉 Chính Xác Rồi" + studentTag + "! (+5 điểm)";
         note.className = "correct-ans-note";
-        note.textContent = `✔ Đáp án đúng là ${letters[qObj.answer]}: ${qObj.options[qObj.answer]}`;
+        note.textContent = "✔ Đáp án đúng là " + letters[qObj.answer] + ": " + qObj.options[qObj.answer];
         explainTitle.textContent = "📖 Giải thích:";
         explainText.textContent = qObj.explain;
         nextBtn.className = "btn-next correct";
@@ -757,9 +1149,9 @@
       } else {
         hasAttemptedCurrent = true;
         header.className = "modal-header wrong";
-        header.textContent = `😼 Sai Rồi${studentTag}! Mèo Vàng Đang Lườm Kìa!`;
+        header.textContent = "😼 Sai Rồi" + studentTag + "! Mèo Vàng Đang Lườm Kìa!";
         note.className = "wrong-ans-note";
-        note.textContent = `✖ Đáp án ${letters[selectedIdx]} chưa chính xác. Hãy thử chọn lại nhé!`;
+        note.textContent = "✖ Đáp án " + letters[selectedIdx] + " chưa chính xác. Hãy thử chọn lại nhé!";
         explainTitle.textContent = "💡 Gợi ý cho bạn:";
         explainText.textContent = qObj.hint;
         nextBtn.className = "btn-next wrong";
@@ -770,7 +1162,7 @@
 
       feedbackModal.classList.remove("hidden");
       videoEl.currentTime = 0;
-      videoEl.play().catch(() => {});
+      videoEl.play().catch(function() {});
     }
 
     function handleModalAction() {
@@ -806,9 +1198,22 @@
     document.getElementById("btn-start").onclick = startGame;
     document.getElementById("btn-restart").onclick = startGame;
     document.getElementById("btn-next").onclick = handleModalAction;
-    document.getElementById("btn-open-picker").onclick = spinRandomStudent;
-    document.getElementById("btn-reroll").onclick = spinRandomStudent;
-    document.getElementById("btn-confirm-student").onclick = confirmSelectedStudent;
+
+    document.getElementById("btn-open-mango").onclick = function() {
+      document.getElementById("fallen-mango-stage").classList.add("hidden");
+      document.getElementById("boy-bubble").textContent = "Muối ớt Tây Ninh chuẩn bài!";
+      document.getElementById("girl-bubble").textContent = "Giờ chỉ thiếu xoài thôi...";
+      renderMangoTree();
+      mangoModal.classList.remove("hidden");
+      shakeTreeAndPick();
+    };
+    document.getElementById("btn-shake-tree").onclick = shakeTreeAndPick;
+    document.getElementById("btn-mango-reroll").onclick = shakeTreeAndPick;
+    document.getElementById("btn-mango-accept").onclick = acceptMangoStudent;
+    document.getElementById("btn-close-mango").onclick = function() {
+      mangoModal.classList.add("hidden");
+    };
+
     document.getElementById("btn-manage-list").onclick = function() {
       renderChips();
       manageModal.classList.remove("hidden");
