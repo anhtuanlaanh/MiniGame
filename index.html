@@ -586,8 +586,7 @@
       const raw = inputEl.value.trim();
       if (!raw) return;
 
-      const parts = raw.split(/[,;
-]+/).map(s => s.trim()).filter(s => s.length > 0);
+      const parts = raw.split(/[,;\n]+/).map(s => s.trim()).filter(s => s.length > 0);
       parts.forEach(name => {
         if (!allStudents.includes(name)) {
           allStudents.push(name);
