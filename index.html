@@ -622,6 +622,27 @@
     .btn-next.wrong { background: #e11d48; }
     .btn-next.picker { background: #059669; }
     .result-score { font-size: 48px; font-weight: 800; color: #facc15; margin: 12px 0; }
+
+    /* Rebuilt UFO city scene: pedestrians stay on sidewalks, traffic only on road. */
+    .ufo-viewport { max-width: 1240px; aspect-ratio: 16 / 9; background: #9bd8ff; }
+    .ufo-ship-wrap { top: 4%; width: 230px; height: 330px; transition: left 0.7s ease-in-out; }
+    .ufo-saucer { animation-duration: 2.8s; }
+    .ufo-beam { height: 245px; margin-top: -12px; }
+    .street-crowd-layer { left: 0; right: 0; bottom: 0; height: 100%; z-index: 14; pointer-events: none; }
+    .student-pawn { cursor: default; transition: left 1.1s ease, top 1.1s ease, transform .35s; pointer-events: auto; }
+    .student-pawn.panicking { animation: pawnRunShake .32s infinite alternate; }
+    .student-pawn.abducting { top: 42% !important; transition: all 1.3s cubic-bezier(.3,1.15,.6,1) !important; }
+    .panic-bubble { font-size: 10px; }
+    .pawn-name-tag { font-size: 10px; }
+    .traffic-layer { position:absolute; inset:0; z-index:8; pointer-events:none; overflow:hidden; }
+    .traffic-vehicle { position:absolute; font-size:34px; line-height:1; filter: drop-shadow(0 2px 2px rgba(0,0,0,.3)); white-space:nowrap; }
+    .traffic-car { top: 72%; animation: trafficRight 16s linear infinite; }
+    .traffic-car.car2 { top: 77%; animation-duration:21s; animation-delay:-9s; }
+    .traffic-bike { top: 74%; animation: trafficLeft 18s linear infinite; }
+    .traffic-bike.bike2 { top: 79%; animation-duration:23s; animation-delay:-13s; }
+    @keyframes trafficRight { from { transform:translateX(-120px); } to { transform:translateX(calc(100vw + 1300px)); } }
+    @keyframes trafficLeft { from { transform:translateX(calc(100vw + 1300px)); } to { transform:translateX(-140px); } }
+    @media (max-width:700px) { .traffic-vehicle { font-size:26px; } }
   </style>
 </head>
 <body>
@@ -683,115 +704,29 @@
       </div>
 
       <!-- CẢNH NỀN PHỐ ĐÊM SVG -->
-      <svg class="city-bg-svg" viewBox="0 0 1000 562" preserveAspectRatio="xMidYMid slice">
-        <rect width="1000" height="400" fill="#172554"/>
-        <circle cx="88" cy="72" r="24" fill="#fef08a"/>
-        <circle cx="98" cy="66" r="21" fill="#172554"/>
-        <ellipse cx="480" cy="70" rx="58" ry="22" fill="#334155" opacity="0.65"/>
-        <ellipse cx="525" cy="78" rx="45" ry="18" fill="#334155" opacity="0.65"/>
-        <ellipse cx="830" cy="82" rx="64" ry="22" fill="#334155" opacity="0.6"/>
-
-        <rect x="20" y="135" width="120" height="235" fill="#1e293b"/>
-        <rect x="38" y="155" width="32" height="22" fill="#fde047"/>
-        <rect x="85" y="155" width="32" height="22" fill="#fde047"/>
-        <rect x="38" y="195" width="32" height="22" fill="#fde047"/>
-        <rect x="85" y="195" width="32" height="22" fill="#fde047"/>
-
-        <rect x="148" y="155" width="110" height="215" fill="#273549"/>
-        <rect x="165" y="175" width="30" height="22" fill="#fde047"/>
-        <rect x="210" y="175" width="30" height="22" fill="#fde047"/>
-        <rect x="165" y="215" width="30" height="22" fill="#fde047"/>
-
-        <rect x="266" y="125" width="140" height="245" fill="#1e293b"/>
-        <rect x="285" y="145" width="38" height="22" fill="#fde047"/>
-        <rect x="342" y="145" width="38" height="22" fill="#fde047"/>
-        <rect x="285" y="185" width="38" height="22" fill="#fde047"/>
-        <rect x="342" y="185" width="38" height="22" fill="#fde047"/>
-
-        <rect x="415" y="110" width="135" height="260" fill="#273549"/>
-        <rect x="435" y="130" width="36" height="24" fill="#fde047"/>
-        <rect x="490" y="130" width="36" height="24" fill="#fde047"/>
-        <rect x="435" y="172" width="36" height="24" fill="#fde047"/>
-        <rect x="490" y="172" width="36" height="24" fill="#fde047"/>
-
-        <rect x="560" y="140" width="130" height="230" fill="#1e293b"/>
-        <rect x="580" y="160" width="35" height="22" fill="#fde047"/>
-        <rect x="635" y="160" width="35" height="22" fill="#fde047"/>
-        <rect x="580" y="200" width="35" height="22" fill="#fde047"/>
-        <rect x="635" y="200" width="35" height="22" fill="#fde047"/>
-
-        <rect x="700" y="125" width="135" height="245" fill="#273549"/>
-        <rect x="720" y="145" width="36" height="22" fill="#fde047"/>
-        <rect x="775" y="145" width="36" height="22" fill="#fde047"/>
-        <rect x="720" y="185" width="36" height="22" fill="#fde047"/>
-        <rect x="775" y="185" width="36" height="22" fill="#fde047"/>
-
-        <rect x="845" y="145" width="135" height="225" fill="#1e293b"/>
-        <rect x="865" y="165" width="35" height="22" fill="#fde047"/>
-        <rect x="920" y="165" width="35" height="22" fill="#fde047"/>
-
-        <rect x="25" y="250" width="110" height="28" rx="3" fill="#16a34a"/>
-        <text x="80" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">NHÀ SÁCH</text>
-        <rect x="30" y="278" width="100" height="72" fill="#fef08a"/>
-
-        <rect x="145" y="250" width="100" height="28" rx="3" fill="#0284c7"/>
-        <text x="195" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">TẠP HÓA</text>
-        <rect x="150" y="278" width="90" height="72" fill="#fed7aa"/>
-
-        <rect x="255" y="250" width="105" height="28" rx="3" fill="#d97706"/>
-        <text x="307" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">BÁNH MÌ</text>
-        <rect x="260" y="278" width="95" height="72" fill="#fde68a"/>
-
-        <rect x="370" y="250" width="105" height="28" rx="3" fill="#dc2626"/>
-        <text x="422" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">Circle K</text>
-        <rect x="375" y="278" width="95" height="72" fill="#fecaca"/>
-
-        <rect x="485" y="250" width="100" height="28" rx="3" fill="#ca8a04"/>
-        <text x="535" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">TRÀ SỮA</text>
-        <rect x="490" y="278" width="90" height="72" fill="#fef08a"/>
-
-        <rect x="595" y="250" width="110" height="28" rx="3" fill="#2563eb"/>
-        <text x="650" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">HỚT TÓC</text>
-        <rect x="600" y="278" width="100" height="72" fill="#bfdbfe"/>
-
-        <rect x="715" y="250" width="100" height="28" rx="3" fill="#15803d"/>
-        <text x="765" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">QUÁN ĂN</text>
-        <rect x="720" y="278" width="90" height="72" fill="#bbf7d0"/>
-
-        <rect x="825" y="250" width="145" height="28" rx="3" fill="#e11d48"/>
-        <text x="897" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">ĐIỆN THOẠI</text>
-        <rect x="830" y="278" width="135" height="72" fill="#fbcfe8"/>
-
-        <g fill="#15803d">
-          <rect x="136" y="305" width="7" height="45" fill="#451a03"/>
-          <circle cx="140" cy="292" r="24"/>
-          <rect x="358" y="305" width="7" height="45" fill="#451a03"/>
-          <circle cx="362" cy="292" r="24"/>
-          <rect x="586" y="305" width="7" height="45" fill="#451a03"/>
-          <circle cx="590" cy="292" r="24"/>
-          <rect x="816" y="305" width="7" height="45" fill="#451a03"/>
-          <circle cx="820" cy="292" r="24"/>
+      <svg class="city-bg-svg" viewBox="0 0 1000 562" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="1000" height="562" fill="#9bd8ff"/>
+        <circle cx="850" cy="75" r="38" fill="#fff3a5"/>
+        <g fill="#fff" opacity=".9"><ellipse cx="140" cy="76" rx="60" ry="22"/><ellipse cx="185" cy="70" rx="42" ry="19"/><ellipse cx="500" cy="94" rx="62" ry="20"/><ellipse cx="550" cy="87" rx="40" ry="17"/></g>
+        <rect y="160" width="1000" height="245" fill="#c5d7e7"/>
+        <g stroke="#d7e6f1" stroke-width="5">
+          <rect x="18" y="125" width="150" height="240" fill="#f3eee3"/><rect x="180" y="105" width="142" height="260" fill="#e6e8ef"/><rect x="335" y="140" width="150" height="225" fill="#f5e5d0"/><rect x="500" y="112" width="150" height="253" fill="#e7f0e6"/><rect x="665" y="135" width="145" height="230" fill="#f0e3ed"/><rect x="825" y="100" width="157" height="265" fill="#e7edf6"/>
         </g>
-
-        <rect y="350" width="1000" height="16" fill="#64748b"/>
-        <rect y="366" width="1000" height="196" fill="#1f2937"/>
-        <line x1="20" y1="435" x2="980" y2="435" stroke="#e2e8f0" stroke-width="5" stroke-dasharray="28,24" opacity="0.85"/>
-
-        <g transform="translate(80, 368)">
-          <rect x="12" y="0" width="52" height="20" rx="6" fill="#ef4444"/>
-          <rect x="0" y="16" width="82" height="22" rx="6" fill="#dc2626"/>
-          <circle cx="18" cy="39" r="8" fill="#0f172a"/>
-          <circle cx="64" cy="39" r="8" fill="#0f172a"/>
+        <g fill="#91b4d1"><rect x="38" y="155" width="32" height="34"/><rect x="88" y="155" width="32" height="34"/><rect x="38" y="210" width="32" height="34"/><rect x="88" y="210" width="32" height="34"/><rect x="205" y="140" width="34" height="34"/><rect x="260" y="140" width="34" height="34"/><rect x="205" y="195" width="34" height="34"/><rect x="260" y="195" width="34" height="34"/><rect x="360" y="170" width="36" height="34"/><rect x="420" y="170" width="36" height="34"/><rect x="360" y="225" width="36" height="34"/><rect x="420" y="225" width="36" height="34"/><rect x="525" y="150" width="34" height="34"/><rect x="585" y="150" width="34" height="34"/><rect x="525" y="205" width="34" height="34"/><rect x="585" y="205" width="34" height="34"/><rect x="695" y="170" width="34" height="34"/><rect x="750" y="170" width="34" height="34"/><rect x="695" y="225" width="34" height="34"/><rect x="750" y="225" width="34" height="34"/><rect x="855" y="145" width="36" height="34"/><rect x="915" y="145" width="36" height="34"/><rect x="855" y="200" width="36" height="34"/><rect x="915" y="200" width="36" height="34"/></g>
+        <g>
+          <rect x="25" y="245" width="120" height="36" rx="4" fill="#e74b3b"/><text x="85" y="270" text-anchor="middle" font-size="20" font-weight="bold" fill="white">NHÀ SÁCH</text><rect x="25" y="281" width="120" height="64" fill="#f9d98c"/>
+          <rect x="160" y="245" width="115" height="36" rx="4" fill="#2494c9"/><text x="217" y="270" text-anchor="middle" font-size="20" font-weight="bold" fill="white">TẠP HÓA</text><rect x="160" y="281" width="115" height="64" fill="#f7cfa5"/>
+          <rect x="290" y="245" width="115" height="36" rx="4" fill="#e39b28"/><text x="347" y="270" text-anchor="middle" font-size="20" font-weight="bold" fill="white">BÁNH MÌ</text><rect x="290" y="281" width="115" height="64" fill="#f8df90"/>
+          <rect x="420" y="245" width="115" height="36" rx="4" fill="#df4141"/><text x="477" y="270" text-anchor="middle" font-size="20" font-weight="bold" fill="white">Circle K</text><rect x="420" y="281" width="115" height="64" fill="#f6b9b9"/>
+          <rect x="550" y="245" width="115" height="36" rx="4" fill="#cf9a13"/><text x="607" y="270" text-anchor="middle" font-size="20" font-weight="bold" fill="white">TRÀ SỮA</text><rect x="550" y="281" width="115" height="64" fill="#f9df8c"/>
+          <rect x="680" y="245" width="115" height="36" rx="4" fill="#3788e5"/><text x="737" y="270" text-anchor="middle" font-size="20" font-weight="bold" fill="white">HỚT TÓC</text><rect x="680" y="281" width="115" height="64" fill="#c2defb"/>
+          <rect x="810" y="245" width="165" height="36" rx="4" fill="#17954d"/><text x="892" y="270" text-anchor="middle" font-size="20" font-weight="bold" fill="white">QUÁN ĂN</text><rect x="810" y="281" width="165" height="64" fill="#bcebd0"/>
         </g>
-        <g transform="translate(625, 362)">
-          <rect x="0" y="0" width="135" height="44" rx="8" fill="#38bdf8"/>
-          <rect x="10" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
-          <rect x="40" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
-          <rect x="70" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
-          <rect x="100" y="8" width="24" height="16" rx="2" fill="#e0f2fe"/>
-          <circle cx="28" cy="45" r="9" fill="#0f172a"/>
-          <circle cx="106" cy="45" r="9" fill="#0f172a"/>
-        </g>
+        <g fill="#23864b"><circle cx="145" cy="260" r="27"/><circle cx="400" cy="260" r="27"/><circle cx="665" cy="260" r="27"/><circle cx="810" cy="260" r="27"/></g>
+        <rect y="345" width="1000" height="45" fill="#d9e4ec"/><rect y="390" width="1000" height="90" fill="#454e58"/>
+        <rect y="390" width="1000" height="6" fill="#f4f6f8"/><rect y="475" width="1000" height="7" fill="#c6d0d9"/>
+        <line x1="0" y1="435" x2="1000" y2="435" stroke="#f5f5f5" stroke-width="5" stroke-dasharray="36 30" opacity=".85"/>
+        <rect y="482" width="1000" height="80" fill="#d9e4ec"/><rect y="554" width="1000" height="8" fill="#7a8792"/>
       </svg>
 
       <div class="sidewalk-band upper"></div><div class="sidewalk-band lower"></div>
@@ -820,6 +755,10 @@
       </div>
 
       <!-- ĐÁM ĐÔNG HỌC SINH CHẠY NHÁO NHÁC TRÊN ĐƯỜNG -->
+      <div class="traffic-layer" aria-hidden="true">
+        <div class="traffic-vehicle traffic-car">🚗</div><div class="traffic-vehicle traffic-car car2">🚙</div>
+        <div class="traffic-vehicle traffic-bike">🏍️</div><div class="traffic-vehicle traffic-bike bike2">🛵</div>
+      </div>
       <div id="street-crowd-layer" class="street-crowd-layer"></div>
 
       <!-- MODAL KẾT QUẢ "LỆNH TRIỆU TẬP LIÊN HÀNH TINH" GIỐNG Y ẢNH MỚI -->
@@ -1159,65 +1098,32 @@
     }
 
     function renderStreetCrowd() {
-      if (remainingStudents.length === 0 && allStudents.length > 0) {
-        remainingStudents = [...allStudents];
-      }
+      if (remainingStudents.length === 0 && allStudents.length > 0) remainingStudents = [...allStudents];
       document.getElementById("ufo-roster-stat").textContent = remainingStudents.length + "/" + allStudents.length;
       document.getElementById("ufo-counter-badge").textContent = "0/1";
-
       const layer = document.getElementById("street-crowd-layer");
       layer.innerHTML = "";
-
+      // 2 sidewalk rows only: upper sidewalk (59%) and lower sidewalk (90%).
+      // The road occupies 67%-84%, so no pedestrian is ever rendered in the traffic lanes.
       const total = remainingStudents.length;
-      // Two rows only: upper sidewalk (before road) and lower sidewalk (after road).
-      // Never place students in the two traffic lanes.
       const cols = Math.ceil(total / 2);
-
       remainingStudents.forEach(function(fullName, idx) {
         const pawn = document.createElement("div");
         pawn.className = "student-pawn";
         pawn.dataset.fullname = fullName;
-
         const row = idx < cols ? 0 : 1;
         const col = row === 0 ? idx : idx - cols;
         const rowCount = row === 0 ? Math.min(cols, total) : total - cols;
-        const leftPct = rowCount <= 1 ? 50 : 3 + (col * (94 / (rowCount - 1)));
-        // Sidewalk coordinates in the full UFO viewport: safely above/below roadway.
-        const topPct = row === 0 ? 58 : 88;
-
-        pawn.style.left = Math.min(96, leftPct) + "%";
-        pawn.style.top = topPct + "%";
-
-        const bubble = document.createElement("div");
-        bubble.className = "panic-bubble";
-        bubble.textContent = panicLines[idx % panicLines.length];
-
-        const tag = document.createElement("div");
-        tag.className = "pawn-name-tag";
-        tag.textContent = getShortName(fullName);
-
-        const color = shirtColors[idx % shirtColors.length];
+        const leftPct = rowCount <= 1 ? 50 : 2 + col * (96 / (rowCount - 1));
+        pawn.style.left = Math.min(97, leftPct) + "%";
+        pawn.style.top = row === 0 ? "62%" : "87%";
+        const bubble = document.createElement("div"); bubble.className = "panic-bubble"; bubble.textContent = panicLines[idx % panicLines.length];
+        const tag = document.createElement("div"); tag.className = "pawn-name-tag"; tag.textContent = getShortName(fullName);
         const avatar = document.createElement("div");
-        avatar.innerHTML =
-          '<svg width="30" height="36" viewBox="0 0 30 36">' +
-            '<circle cx="15" cy="8" r="6" fill="#fed7aa" stroke="#0f172a" stroke-width="1.5"/>' +
-            '<path d="M9 7 C9 2, 21 2, 21 7 Z" fill="#0f172a"/>' +
-            '<path d="M15 15 L6 7 M15 15 L24 7" stroke="#fed7aa" stroke-width="3" stroke-linecap="round"/>' +
-            '<rect x="10" y="14" width="10" height="12" rx="3" fill="' + color + '" stroke="#0f172a" stroke-width="1.2"/>' +
-            '<path d="M12 26 L10 35 M18 26 L20 35" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>' +
-          '</svg>';
-
-        pawn.appendChild(bubble);
-        pawn.appendChild(tag);
-        pawn.appendChild(avatar);
-
-        pawn.onclick = function() {
-          if (!isAbducting) {
-            clearUfoTimers();
-            abductTargetPawn(pawn);
-          }
-        };
-
+        const color = shirtColors[idx % shirtColors.length];
+        avatar.innerHTML = '<svg width="30" height="36" viewBox="0 0 30 36"><circle cx="15" cy="8" r="6" fill="#fed7aa" stroke="#0f172a" stroke-width="1.5"/><path d="M9 7 C9 2, 21 2, 21 7 Z" fill="#0f172a"/><rect x="10" y="14" width="10" height="12" rx="3" fill="'+color+'" stroke="#0f172a" stroke-width="1.2"/><path d="M12 26 L10 35 M18 26 L20 35" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/></svg>';
+        pawn.appendChild(bubble); pawn.appendChild(tag); pawn.appendChild(avatar);
+        pawn.onclick = function() { if (!isAbducting) { clearUfoTimers(); abductTargetPawn(pawn); } };
         layer.appendChild(pawn);
       });
     }
@@ -1250,12 +1156,12 @@
         if (i % 3 === 0) p.classList.add("show-bubble");
       });
 
-      const sweepIntervalMs = isFastMode ? 420 : 850;
+      const sweepIntervalMs = isFastMode ? 520 : 1250;
       let sweepStep = 0;
-      const maxSweeps = isFastMode ? 5 : 8;
+      const maxSweeps = isFastMode ? 5 : 6;
 
       ufoMoveInterval = setInterval(function() {
-        const randX = 18 + Math.floor(Math.random() * 64);
+        const randX = 14 + Math.floor(Math.random() * 72);
         ship.style.left = randX + "%";
         playUfoSound(280 + sweepStep * 35, 520, 0.16);
 
