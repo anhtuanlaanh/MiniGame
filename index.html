@@ -222,9 +222,14 @@
     #name-wheel { width:100%; height:100%; display:block; border-radius:50%; box-shadow:0 6px 24px rgba(0,0,0,.38); transition:transform 5.2s cubic-bezier(.12,.72,.12,1); }
     .wheel-pointer { position:absolute; z-index:3; top:-3px; left:50%; transform:translateX(-50%); width:0;height:0; border-left:17px solid transparent; border-right:17px solid transparent; border-top:32px solid #facc15; filter:drop-shadow(0 2px 2px rgba(0,0,0,.45)); }
     .wheel-center { position:absolute; z-index:2; top:50%; left:50%; transform:translate(-50%,-50%); width:66px;height:66px; border-radius:50%; background:#f8fafc; border:6px solid #334155; display:flex; align-items:center;justify-content:center; font-size:26px; box-shadow:0 2px 8px rgba(0,0,0,.4); pointer-events:none; }
-    .wheel-result { font-size:18px; font-weight:800; color:#facc15; min-height:30px; margin:4px 0 8px; overflow-wrap:anywhere; }
-    .wheel-roster-count { color:#a1a1aa; font-size:13px; }
-    .wheel-roster-count strong { color:#34d399; }
+    .wheel-result { font-size:16px; font-weight:700; color:#cbd5e1; min-height:26px; margin:4px 0 8px; overflow-wrap:anywhere; }
+    .winner-card { display:none; margin:8px auto 10px; padding:10px 16px; width:min(100%, 360px); border-radius:14px; border:1px solid rgba(250,204,21,.75); background:linear-gradient(135deg,rgba(250,204,21,.12),rgba(16,185,129,.12)); box-shadow:0 0 20px rgba(250,204,21,.12); animation:winnerPop .45s ease-out; }
+    .winner-card.show { display:block; }
+    .winner-caption { font-size:12px; color:#facc15; font-weight:800; letter-spacing:.5px; margin-bottom:4px; }
+    .winner-name { color:#fff; font-size:20px; font-weight:900; overflow-wrap:anywhere; text-shadow:0 0 12px rgba(250,204,21,.25); }
+    @keyframes winnerPop { from { transform:scale(.82); opacity:.2; } to { transform:scale(1); opacity:1; } }
+    .firework-burst { animation: winnerGlow .9s ease-in-out 3; }
+    @keyframes winnerGlow { 0%,100% { box-shadow:0 0 20px rgba(250,204,21,.12); } 50% { box-shadow:0 0 32px rgba(250,204,21,.5); } }
     .wheel-actions { display:flex; padding:0 18px 18px; }
     .wheel-actions button { flex:1; }
     .wheel-close { background:#3f3f46; }
@@ -290,7 +295,10 @@
           <div class="wheel-center">🎯</div>
         </div>
         <div id="wheel-result" class="wheel-result">Nhấn “Quay vòng” để chọn tên ngẫu nhiên</div>
-        <div class="wheel-roster-count">Danh sách hiện có: <strong id="wheel-roster-count">33</strong> người</div>
+        <div id="winner-card" class="winner-card" aria-live="polite">
+          <div class="winner-caption">🎉 NGƯỜI ĐƯỢC CHỌN 🎉</div>
+          <div id="winner-name" class="winner-name"></div>
+        </div>
       </div>
       <div class="modal-footer wheel-actions">
         <button id="btn-wheel-spin" type="button" class="btn-next picker">🎡 Quay vòng</button>
@@ -447,6 +455,8 @@
     let wheelRotation = 0, spinning = false, spinTimeout = null, wheelTickTimer = null;
     const wheelTickAudio = new Audio("wheel-tick.wav");
     wheelTickAudio.preload = "auto";
+    const winnerCelebrationAudio = new Audio("winner-fireworks.wav");
+    winnerCelebrationAudio.preload = "auto";
     function playWheelTick() {
       try { wheelTickAudio.currentTime = 0; wheelTickAudio.play().catch(()=>{}); } catch(e) {}
     }
@@ -500,13 +510,14 @@
         const fontSize=names.length>25?13:names.length>16?15:18;
         ctx.font=`bold ${fontSize}px Segoe UI, sans-serif`; ctx.fillText(label,radius-28,0); ctx.restore();
       });
-      document.getElementById("wheel-roster-count").textContent=allStudents.length;
     }
     function wheelCtxReset(){ const ctx=wheelCtx; ctx.clearRect(0,0,720,720); return ctx; }
     function spinWheel() {
       if(spinning || !allStudents.length) return;
       spinning=true; wheelSpinBtn.disabled=true;
       const result=document.getElementById("wheel-result"); result.textContent="Đang quay...";
+      const winnerCard=document.getElementById("winner-card"); winnerCard.classList.remove("show","firework-burst");
+      document.getElementById("winner-name").textContent="";
       const winnerIndex=Math.floor(Math.random()*allStudents.length);
       const slice=360/allStudents.length;
       // Pointer is at 12 o'clock; land the center of the selected slice beneath it.
@@ -520,7 +531,10 @@
       spinTimeout=setTimeout(()=>{
         stopWheelTicks();
         currentChosenStudent=allStudents[winnerIndex];
-        result.textContent="🎉 Được chọn: "+currentChosenStudent;
+        result.textContent="Vòng quay đã dừng!";
+        document.getElementById("winner-name").textContent=currentChosenStudent;
+        winnerCard.classList.add("show","firework-burst");
+        try { winnerCelebrationAudio.currentTime=0; winnerCelebrationAudio.play().catch(()=>{}); } catch(e) {}
         spinning=false; wheelSpinBtn.disabled=false;
       },5300);
     }
@@ -562,7 +576,7 @@
     document.getElementById("btn-start").onclick=startGame;
     document.getElementById("btn-restart").onclick=startGame;
     document.getElementById("btn-next").onclick=handleModalAction;
-    document.getElementById("btn-open-ufo").onclick=()=>{ currentChosenStudent=""; wheelModal.classList.remove("hidden"); drawWheel(); document.getElementById("wheel-result").textContent="Nhấn “Quay vòng” để chọn tên ngẫu nhiên"; };
+    document.getElementById("btn-open-ufo").onclick=()=>{ currentChosenStudent=""; wheelModal.classList.remove("hidden"); drawWheel(); document.getElementById("wheel-result").textContent="Nhấn “Quay vòng” để chọn tên ngẫu nhiên"; document.getElementById("winner-card").classList.remove("show"); };
     wheelSpinBtn.onclick=spinWheel;
     document.getElementById("btn-wheel-close").onclick=()=>{ wheelModal.classList.add("hidden"); if(spinTimeout){clearTimeout(spinTimeout);spinTimeout=null;} stopWheelTicks(); spinning=false;wheelSpinBtn.disabled=false; };
     document.getElementById("btn-manage-list").onclick=()=>{renderChips();manageModal.classList.remove("hidden");};
