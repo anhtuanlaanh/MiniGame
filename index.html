@@ -280,6 +280,20 @@
       height: 36%;
       z-index: 12;
     }
+    /* Pedestrians stay on the sidewalk; traffic moves on the road below. */
+    .traffic-layer { position:absolute; inset:0; z-index:10; pointer-events:none; overflow:hidden; }
+    .traffic-vehicle { position:absolute; font-size:38px; line-height:1; filter:drop-shadow(0 3px 2px rgba(0,0,0,.45)); }
+    .traffic-car { font-size:42px; }
+    .traffic-bike { font-size:34px; }
+    .traffic-lane-top { top:70%; animation: trafficRight 13s linear infinite; }
+    .traffic-lane-bottom { top:82%; animation: trafficLeft 16s linear infinite; }
+    .traffic-lane-top.delay { animation-delay:-6.5s; }
+    .traffic-lane-bottom.delay { animation-delay:-8s; }
+    @keyframes trafficRight { from { left:-12%; } to { left:112%; } }
+    @keyframes trafficLeft { from { left:112%; transform:scaleX(-1); } to { left:-12%; transform:scaleX(-1); } }
+    .sidewalk-band { position:absolute; left:0; right:0; height:7%; z-index:11; background:rgba(148,163,184,.12); border-top:1px solid rgba(226,232,240,.18); border-bottom:1px solid rgba(226,232,240,.12); pointer-events:none; }
+    .sidewalk-band.upper { top:64%; }
+    .sidewalk-band.lower { top:77%; }
     .student-pawn {
       position: absolute;
       display: flex;
@@ -730,7 +744,7 @@
         <rect x="260" y="278" width="95" height="72" fill="#fde68a"/>
 
         <rect x="370" y="250" width="105" height="28" rx="3" fill="#dc2626"/>
-        <text x="422" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">circle k</text>
+        <text x="422" y="269" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">Circle K</text>
         <rect x="375" y="278" width="95" height="72" fill="#fecaca"/>
 
         <rect x="485" y="250" width="100" height="28" rx="3" fill="#ca8a04"/>
@@ -780,6 +794,14 @@
           <circle cx="106" cy="45" r="9" fill="#0f172a"/>
         </g>
       </svg>
+
+      <div class="sidewalk-band upper"></div><div class="sidewalk-band lower"></div>
+      <div class="traffic-layer" aria-hidden="true">
+        <div class="traffic-vehicle traffic-car traffic-lane-top">🚗</div>
+        <div class="traffic-vehicle traffic-bike traffic-lane-top delay">🏍️</div>
+        <div class="traffic-vehicle traffic-car traffic-lane-bottom">🚙</div>
+        <div class="traffic-vehicle traffic-bike traffic-lane-bottom delay">🛵</div>
+      </div>
 
       <!-- ĐĨA BAY UFO & CHÙM TIA SÁNG XANH -->
       <div id="ufo-ship-wrap" class="ufo-ship-wrap">
@@ -1225,9 +1247,9 @@
         if (i % 3 === 0) p.classList.add("show-bubble");
       });
 
-      const speedFactor = isFastMode ? 0.35 : 1;
+      const sweepIntervalMs = isFastMode ? 420 : 850;
       let sweepStep = 0;
-      const maxSweeps = isFastMode ? 5 : 10;
+      const maxSweeps = isFastMode ? 5 : 8;
 
       ufoMoveInterval = setInterval(function() {
         const randX = 18 + Math.floor(Math.random() * 64);
@@ -1247,7 +1269,35 @@
           const chosenPawn = pawns[Math.floor(Math.random() * pawns.length)];
           abductTargetPawn(chosenPawn);
         }
-      }, Math.round(240 * speedFactor));
+      }, sweepIntervalMs);
+    }
+
+    function playCartoonYell() {
+      if (!isSoundOn) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const wobble = ctx.createOscillator();
+        const wobbleGain = ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(620, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(900, ctx.currentTime + 0.22);
+        osc.frequency.exponentialRampToValueAtTime(460, ctx.currentTime + 0.75);
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.055, ctx.currentTime + 0.06);
+        gain.gain.setValueAtTime(0.045, ctx.currentTime + 0.35);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.85);
+        wobble.frequency.value = 5.5;
+        wobbleGain.gain.value = 45;
+        wobble.connect(wobbleGain); wobbleGain.connect(osc.frequency);
+        osc.connect(gain); gain.connect(ctx.destination);
+        wobble.start(); osc.start();
+        osc.stop(ctx.currentTime + 0.9); wobble.stop(ctx.currentTime + 0.9);
+        setTimeout(() => { try { ctx.close(); } catch(e) {} }, 1000);
+      } catch(e) {}
     }
 
     function abductTargetPawn(pawnEl) {
@@ -1271,6 +1321,7 @@
 
       ufoTimers.push(setTimeout(function() {
         playUfoSound(300, 920, 0.85);
+        playCartoonYell();
         pawnEl.classList.add("abducting");
         document.getElementById("ufo-counter-badge").textContent = "1/1";
       }, 280));
