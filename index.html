@@ -274,26 +274,25 @@
 
     .street-crowd-layer {
       position: absolute;
-      left: 2%;
-      right: 2%;
-      bottom: 11%;
-      height: 36%;
+      inset: 0;
       z-index: 12;
+      pointer-events: none;
     }
-    /* Pedestrians stay on the sidewalk; traffic moves on the road below. */
+    .student-pawn { pointer-events: auto; }
+    /* Road is a dedicated zone; walkers are positioned only on the two sidewalks. */
     .traffic-layer { position:absolute; inset:0; z-index:10; pointer-events:none; overflow:hidden; }
-    .traffic-vehicle { position:absolute; font-size:38px; line-height:1; filter:drop-shadow(0 3px 2px rgba(0,0,0,.45)); }
+    .traffic-vehicle { position:absolute; font-size:38px; line-height:1; filter:drop-shadow(0 3px 2px rgba(0,0,0,.45)); will-change:left; }
     .traffic-car { font-size:42px; }
     .traffic-bike { font-size:34px; }
-    .traffic-lane-top { top:70%; animation: trafficRight 13s linear infinite; }
-    .traffic-lane-bottom { top:82%; animation: trafficLeft 16s linear infinite; }
-    .traffic-lane-top.delay { animation-delay:-6.5s; }
-    .traffic-lane-bottom.delay { animation-delay:-8s; }
+    .traffic-lane-top { top:69%; animation: trafficRight 18s linear infinite; }
+    .traffic-lane-bottom { top:82%; animation: trafficLeft 20s linear infinite; }
+    .traffic-lane-top.delay { animation-delay:-9s; }
+    .traffic-lane-bottom.delay { animation-delay:-10s; }
     @keyframes trafficRight { from { left:-12%; } to { left:112%; } }
-    @keyframes trafficLeft { from { left:112%; transform:scaleX(-1); } to { left:-12%; transform:scaleX(-1); } }
-    .sidewalk-band { position:absolute; left:0; right:0; height:7%; z-index:11; background:rgba(148,163,184,.12); border-top:1px solid rgba(226,232,240,.18); border-bottom:1px solid rgba(226,232,240,.12); pointer-events:none; }
-    .sidewalk-band.upper { top:64%; }
-    .sidewalk-band.lower { top:77%; }
+    @keyframes trafficLeft { from { left:112%; } to { left:-12%; } }
+    .sidewalk-band { position:absolute; left:0; right:0; height:6%; z-index:11; background:rgba(148,163,184,.12); border-top:1px solid rgba(226,232,240,.18); border-bottom:1px solid rgba(226,232,240,.12); pointer-events:none; }
+    .sidewalk-band.upper { top:59%; }
+    .sidewalk-band.lower { top:88%; }
     .student-pawn {
       position: absolute;
       display: flex;
@@ -1170,20 +1169,24 @@
       layer.innerHTML = "";
 
       const total = remainingStudents.length;
-      const cols = Math.min(11, Math.max(6, Math.ceil(total / 3)));
+      // Two rows only: upper sidewalk (before road) and lower sidewalk (after road).
+      // Never place students in the two traffic lanes.
+      const cols = Math.ceil(total / 2);
 
       remainingStudents.forEach(function(fullName, idx) {
         const pawn = document.createElement("div");
         pawn.className = "student-pawn";
         pawn.dataset.fullname = fullName;
 
-        const col = idx % cols;
-        const row = Math.floor(idx / cols);
-        const leftPct = 4 + (col * (88 / Math.max(1, cols - 1))) + ((row % 2) * 3);
-        const topPct = 10 + (row * 28);
+        const row = idx < cols ? 0 : 1;
+        const col = row === 0 ? idx : idx - cols;
+        const rowCount = row === 0 ? Math.min(cols, total) : total - cols;
+        const leftPct = rowCount <= 1 ? 50 : 3 + (col * (94 / (rowCount - 1)));
+        // Sidewalk coordinates in the full UFO viewport: safely above/below roadway.
+        const topPct = row === 0 ? 58 : 88;
 
-        pawn.style.left = Math.min(91, leftPct) + "%";
-        pawn.style.top = Math.min(72, topPct) + "%";
+        pawn.style.left = Math.min(96, leftPct) + "%";
+        pawn.style.top = topPct + "%";
 
         const bubble = document.createElement("div");
         bubble.className = "panic-bubble";
