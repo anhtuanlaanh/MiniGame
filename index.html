@@ -223,8 +223,8 @@
     .wheel-pointer { position:absolute; z-index:3; top:-3px; left:50%; transform:translateX(-50%); width:0;height:0; border-left:17px solid transparent; border-right:17px solid transparent; border-top:32px solid #facc15; filter:drop-shadow(0 2px 2px rgba(0,0,0,.45)); }
     .wheel-center { position:absolute; z-index:2; top:50%; left:50%; transform:translate(-50%,-50%); width:66px;height:66px; border-radius:50%; background:#f8fafc; border:6px solid #334155; display:flex; align-items:center;justify-content:center; font-size:26px; box-shadow:0 2px 8px rgba(0,0,0,.4); pointer-events:none; }
     .wheel-result { font-size:16px; font-weight:700; color:#cbd5e1; min-height:26px; margin:4px 0 8px; overflow-wrap:anywhere; }
-    .winner-card { display:none; margin:8px auto 10px; padding:10px 16px; width:min(100%, 360px); border-radius:14px; border:1px solid rgba(250,204,21,.75); background:linear-gradient(135deg,rgba(250,204,21,.12),rgba(16,185,129,.12)); box-shadow:0 0 20px rgba(250,204,21,.12); animation:winnerPop .45s ease-out; }
-    .winner-card.show { display:block; }
+    .winner-card { display:none; margin:12px auto 10px; padding:14px 18px; width:min(100%, 400px); min-height:74px; border-radius:16px; border:2px solid rgba(250,204,21,.9); background:linear-gradient(135deg,rgba(250,204,21,.18),rgba(16,185,129,.2)); box-shadow:0 0 24px rgba(250,204,21,.25); animation:winnerPop .45s ease-out; }
+    .winner-card.show { display:block !important; }
     .winner-caption { font-size:12px; color:#facc15; font-weight:800; letter-spacing:.5px; margin-bottom:4px; }
     .winner-name { color:#fff; font-size:20px; font-weight:900; overflow-wrap:anywhere; text-shadow:0 0 12px rgba(250,204,21,.25); }
     @keyframes winnerPop { from { transform:scale(.82); opacity:.2; } to { transform:scale(1); opacity:1; } }
@@ -243,7 +243,6 @@
   <div id="start-screen" class="card">
     <div class="badge">ÔN TẬP MARKETING CĂN BẢN</div>
     <h1>Bài 7: Chiến Lược Phân Phối</h1>
-    <p class="subtitle">Thử thách kiến thức qua <span>7 câu hỏi trắc nghiệm</span> & vòng quay chọn người trả bài!</p>
     <button id="btn-start" type="button" class="btn-primary">▶ Bắt Đầu Chơi Ngay</button>
   </div>
 
@@ -531,7 +530,7 @@
       spinTimeout=setTimeout(()=>{
         stopWheelTicks();
         currentChosenStudent=allStudents[winnerIndex];
-        result.textContent="Vòng quay đã dừng!";
+        result.textContent=""; result.style.display="none";
         document.getElementById("winner-name").textContent=currentChosenStudent;
         winnerCard.classList.add("show","firework-burst");
         try { winnerCelebrationAudio.currentTime=0; winnerCelebrationAudio.play().catch(()=>{}); } catch(e) {}
@@ -576,7 +575,7 @@
     document.getElementById("btn-start").onclick=startGame;
     document.getElementById("btn-restart").onclick=startGame;
     document.getElementById("btn-next").onclick=handleModalAction;
-    document.getElementById("btn-open-ufo").onclick=()=>{ currentChosenStudent=""; wheelModal.classList.remove("hidden"); drawWheel(); document.getElementById("wheel-result").textContent="Nhấn “Quay vòng” để chọn tên ngẫu nhiên"; document.getElementById("winner-card").classList.remove("show"); };
+    document.getElementById("btn-open-ufo").onclick=()=>{ currentChosenStudent=""; wheelModal.classList.remove("hidden"); drawWheel(); const wr=document.getElementById("wheel-result"); wr.style.display="block"; wr.textContent="Nhấn “Quay vòng” để chọn tên ngẫu nhiên"; const wc=document.getElementById("winner-card"); wc.classList.remove("show","firework-burst"); document.getElementById("winner-name").textContent=""; };
     wheelSpinBtn.onclick=spinWheel;
     document.getElementById("btn-wheel-close").onclick=()=>{ wheelModal.classList.add("hidden"); if(spinTimeout){clearTimeout(spinTimeout);spinTimeout=null;} stopWheelTicks(); spinning=false;wheelSpinBtn.disabled=false; };
     document.getElementById("btn-manage-list").onclick=()=>{renderChips();manageModal.classList.remove("hidden");};
