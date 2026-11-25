@@ -643,6 +643,30 @@
     @keyframes trafficRight { from { transform:translateX(-120px); } to { transform:translateX(calc(100vw + 1300px)); } }
     @keyframes trafficLeft { from { transform:translateX(calc(100vw + 1300px)); } to { transform:translateX(-140px); } }
     @media (max-width:700px) { .traffic-vehicle { font-size:26px; } }
+
+    /* Day/night switch and pedestrian / motorbike rider animations */
+    .ufo-viewport { --sky: #9bd8ff; --road: #454e58; --walkway: #d9e4ec; }
+    .ufo-viewport.night-mode { --sky: #15213e; --road: #202b38; --walkway: #344355; }
+    .ufo-viewport.night-mode { background:var(--sky); }
+    .ufo-viewport.night-mode .city-bg-svg { filter:brightness(.42) saturate(.8); }
+    .ufo-viewport.night-mode .sidewalk-band { background:rgba(30,41,59,.42); border-color:rgba(148,163,184,.18); }
+    .ufo-viewport.night-mode .ufo-status-pill { background:rgba(2,6,23,.95); }
+    .student-pawn:not(.panicking) > div:last-child { animation: pedestrianBob 1.1s ease-in-out infinite; }
+    .student-pawn > div:last-child svg path { transform-box:fill-box; }
+    .student-pawn > div:last-child svg path:last-child { animation: legSwing .42s ease-in-out infinite alternate; transform-origin:top center; }
+    @keyframes pedestrianBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-1.8px)} }
+    @keyframes legSwing { from{transform:rotate(-4deg)} to{transform:rotate(4deg)} }
+    .traffic-bike { display:flex; align-items:flex-end; gap:-5px; }
+    .bike-rider { font-size:17px; display:inline-block; transform:translate(5px,1px); filter:drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
+    .traffic-bike > span:last-child { display:inline-block; }
+    /* Red car on the lower lane travels left; no duplicate traffic sprites. */
+    .traffic-layer .traffic-car.traffic-lane-top { top:69%; animation: trafficLeft 18s linear infinite; }
+    .traffic-layer .traffic-car.traffic-lane-bottom { top:82%; animation: trafficRight 20s linear infinite; }
+    .traffic-layer .traffic-bike.traffic-lane-top { top:72%; animation: trafficRight 22s linear infinite; animation-delay:-9s; }
+    .traffic-layer .traffic-bike.traffic-lane-bottom { top:79%; animation: trafficLeft 24s linear infinite; animation-delay:-12s; }
+    @keyframes trafficRight { from { left:-12%; } to { left:112%; } }
+    @keyframes trafficLeft { from { left:112%; } to { left:-12%; } }
+    @media (prefers-reduced-motion:reduce) { .student-pawn:not(.panicking) > div:last-child, .student-pawn > div:last-child svg path:last-child { animation:none !important; } }
   </style>
 </head>
 <body>
@@ -732,9 +756,9 @@
       <div class="sidewalk-band upper"></div><div class="sidewalk-band lower"></div>
       <div class="traffic-layer" aria-hidden="true">
         <div class="traffic-vehicle traffic-car traffic-lane-top">🚗</div>
-        <div class="traffic-vehicle traffic-bike traffic-lane-top delay">🏍️</div>
+        <div class="traffic-vehicle traffic-bike traffic-lane-top delay"><span class="bike-rider">🪖</span><span>🏍️</span></div>
         <div class="traffic-vehicle traffic-car traffic-lane-bottom">🚙</div>
-        <div class="traffic-vehicle traffic-bike traffic-lane-bottom delay">🛵</div>
+        <div class="traffic-vehicle traffic-bike traffic-lane-bottom delay"><span class="bike-rider">🪖</span><span>🛵</span></div>
       </div>
 
       <!-- ĐĨA BAY UFO & CHÙM TIA SÁNG XANH -->
@@ -754,11 +778,6 @@
         <div id="ufo-beam" class="ufo-beam"></div>
       </div>
 
-      <!-- ĐÁM ĐÔNG HỌC SINH CHẠY NHÁO NHÁC TRÊN ĐƯỜNG -->
-      <div class="traffic-layer" aria-hidden="true">
-        <div class="traffic-vehicle traffic-car">🚗</div><div class="traffic-vehicle traffic-car car2">🚙</div>
-        <div class="traffic-vehicle traffic-bike">🏍️</div><div class="traffic-vehicle traffic-bike bike2">🛵</div>
-      </div>
       <div id="street-crowd-layer" class="street-crowd-layer"></div>
 
       <!-- MODAL KẾT QUẢ "LỆNH TRIỆU TẬP LIÊN HÀNH TINH" GIỐNG Y ẢNH MỚI -->
@@ -801,6 +820,7 @@
         <button id="btn-ufo-start" type="button" class="btn-ufo-ctrl primary-green">Bắt đầu</button>
         <button id="btn-ufo-fast" type="button" class="btn-ufo-ctrl">Tua nhanh x3</button>
         <button id="btn-ufo-sound" type="button" class="btn-ufo-ctrl">Âm thanh: Bật</button>
+        <button id="btn-ufo-theme" type="button" class="btn-ufo-ctrl" aria-pressed="false">🌙 Chế độ tối</button>
         <button id="btn-ufo-close" type="button" class="btn-ufo-ctrl">Thoát</button>
       </div>
     </div>
@@ -1498,6 +1518,13 @@
       renderStreetCrowd();
       ufoModal.classList.remove("hidden");
       startCityAmbient();
+    };
+    const themeBtn = document.getElementById("btn-ufo-theme");
+    themeBtn.onclick = function() {
+      const viewport = document.querySelector(".ufo-viewport");
+      const night = viewport.classList.toggle("night-mode");
+      themeBtn.textContent = night ? "☀️ Chế độ sáng" : "🌙 Chế độ tối";
+      themeBtn.setAttribute("aria-pressed", night ? "true" : "false");
     };
     document.getElementById("btn-ufo-start").onclick = startUfoHunt;
     document.getElementById("btn-ufo-reroll").onclick = function() {
