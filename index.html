@@ -444,7 +444,22 @@
     const wheelCanvas = document.getElementById("name-wheel");
     const wheelCtx = wheelCanvas.getContext("2d");
     const wheelSpinBtn = document.getElementById("btn-wheel-spin");
-    let wheelRotation = 0, spinning = false, spinTimeout = null;
+    let wheelRotation = 0, spinning = false, spinTimeout = null, wheelTickTimer = null;
+    const wheelTickAudio = new Audio("wheel-tick.wav");
+    wheelTickAudio.preload = "auto";
+    function playWheelTick() {
+      try { wheelTickAudio.currentTime = 0; wheelTickAudio.play().catch(()=>{}); } catch(e) {}
+    }
+    function stopWheelTicks() { if (wheelTickTimer) { clearTimeout(wheelTickTimer); wheelTickTimer=null; } }
+    function scheduleWheelTicks(startTime) {
+      stopWheelTicks();
+      const elapsed = Date.now() - startTime;
+      if (elapsed >= 5200 || !spinning) return;
+      playWheelTick();
+      const progress = Math.min(1, elapsed / 5200);
+      const nextDelay = 55 + 245 * progress * progress;
+      wheelTickTimer = setTimeout(()=>scheduleWheelTicks(startTime), nextDelay);
+    }
 
     function loadStudents() {
       try {
@@ -500,7 +515,10 @@
       const delta=((targetMod-currentMod+360)%360);
       wheelRotation += 360*7+delta;
       wheelCanvas.style.transform=`rotate(${wheelRotation}deg)`;
+      const tickStart=Date.now();
+      scheduleWheelTicks(tickStart);
       spinTimeout=setTimeout(()=>{
+        stopWheelTicks();
         currentChosenStudent=allStudents[winnerIndex];
         result.textContent="🎉 Được chọn: "+currentChosenStudent;
         spinning=false; wheelSpinBtn.disabled=false;
@@ -546,7 +564,7 @@
     document.getElementById("btn-next").onclick=handleModalAction;
     document.getElementById("btn-open-ufo").onclick=()=>{ currentChosenStudent=""; wheelModal.classList.remove("hidden"); drawWheel(); document.getElementById("wheel-result").textContent="Nhấn “Quay vòng” để chọn tên ngẫu nhiên"; };
     wheelSpinBtn.onclick=spinWheel;
-    document.getElementById("btn-wheel-close").onclick=()=>{ wheelModal.classList.add("hidden"); if(spinTimeout){clearTimeout(spinTimeout);spinTimeout=null;} spinning=false;wheelSpinBtn.disabled=false; };
+    document.getElementById("btn-wheel-close").onclick=()=>{ wheelModal.classList.add("hidden"); if(spinTimeout){clearTimeout(spinTimeout);spinTimeout=null;} stopWheelTicks(); spinning=false;wheelSpinBtn.disabled=false; };
     document.getElementById("btn-manage-list").onclick=()=>{renderChips();manageModal.classList.remove("hidden");};
     document.getElementById("btn-close-manage").onclick=()=>manageModal.classList.add("hidden");
     document.getElementById("btn-modal-add").onclick=addNewName;
